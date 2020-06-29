@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     color: COLORS.BUTTON_TEXT,
     textTransform: "uppercase",
   },
