@@ -37,9 +37,11 @@ import star from "../assets/icons/star.png";
 import starUncolored from "../assets/icons/starUncolored.png";
 import user from "../assets/icons/user.png";
 import userColored from "../assets/icons/userColored.png";
+import mike from "../assets/icons/mike.png";
 
 export const ICONS = {
     add,
+    mike,
     arCamera,
     back,
     backShort,
