@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 18,
+    minWidth:260,
+    marginVertical:10,
+
   },
   title: {
     fontSize: 18,
