@@ -1,15 +1,15 @@
-import bakhlava from "../assets/images/bakhlava.png";
-import welcomeImg from "../assets/images/welcomeImg.png";
-import burger from "../assets/images/burger.png";
-import chefman from "../assets/images/chefman.png";
-import chefwoman from "../assets/images/chefwoman.png";
-import chefmen from "../assets/images/chefmen.png";
-import cremeBrulee from "../assets/images/creme-brulee.png";
-import pizza from "../assets/images/margherita-pizza.png";
-import men from "../assets/images/men.png";
-import woman from "../assets/images/woman.png";
-import tarteTatin from "../assets/images/tarteTatin.png";
-import backgroundMeal from "../assets/images/background.png";
+import bakhlava from "../assets/appimages/bakhlava.jpg";
+import welcomeImg from "../assets/appimages/welcomeImg.png";
+import burger from "../assets/appimages/burger.jpg";
+import chefman from "../assets/appimages/chefman.jpg";
+import chefwoman from "../assets/appimages/chefwoman.jpg";
+import chefmen from "../assets/appimages/chefmen.jpg";
+import cremeBrulee from "../assets/appimages/creme-brulee.jpeg";
+import pizza from "../assets/appimages/margherita-pizza.jpg";
+import men from "../assets/appimages/men.jpg";
+import woman from "../assets/appimages/woman.jpg";
+import tarteTatin from "../assets/appimages/tarte-tatin.jpg";
+import backgroundMeal from "../assets/appimages/background.png";
 
 
 export const IMAGES = {
