@@ -1,5 +1,5 @@
 export const COLORS = Object.freeze({
-    BACKGROUND_WELCOME: "#E4BD30",
+    PRIMARY: "#E4BD30",
     CREATE_ACCOUNT_COLOR: "#C90808",
     SLOGAN_COLOR: "#191A1B",
     BG_SIGN_UP: "#4689D3",
