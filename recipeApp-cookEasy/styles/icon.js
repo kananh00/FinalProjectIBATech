@@ -38,8 +38,10 @@ import starUncolored from "../assets/icons/starUncolored.png";
 import user from "../assets/icons/user.png";
 import userColored from "../assets/icons/userColored.png";
 import mike from "../assets/icons/mike.png";
+import clock from "../assets/icons/clock.png";
 
 export const ICONS = {
+    clock,
     add,
     mike,
     arCamera,
