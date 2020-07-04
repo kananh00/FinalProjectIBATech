@@ -26,7 +26,7 @@ const initialState = {
                         { id: createID(), title: "Cheese", unit: "kg", count: "0,3"},
                      
                   ],
-        description: "Hello hello"
+        description: "    To make the hamburger patties, you are going to need ground beef, your favorite seasoning blend- I included the recipe for mine!, shredded cheese and sliced cheese."
         },
         {
             id: createID(),
@@ -41,7 +41,7 @@ const initialState = {
                             { id: createID(), title: "sugar", unit: "g", count: "400"},
                             { id: createID(), title: "milk", unit: "pkg", count: "1"},                
                       ],
-            description: "tarte-tatin recipe"
+            description: "Peel, quarter and core the apples. Put the sugar in a flameproof 20cm ceramic tatin dish or a 20cm ovenproof heavy-based frying pan and place over a medium-high heat. Cook the sugar for 5-7 mins to a dark amber caramel syrup that's starting to smoke, then turn off the heat and stir in the 60g diced chilled butter."
             },
                   
     ],
