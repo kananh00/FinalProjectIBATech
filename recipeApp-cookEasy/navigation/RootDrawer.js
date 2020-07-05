@@ -3,7 +3,7 @@ import {createDrawerNavigator,DrawerItem, DrawerContentScrollView} from '@react-
 import {NavigationContainer}from '@react-navigation/native';
 
 // import { CustomDrawer } from '../components';
-import { HomeScreen, Login, SignUp } from '../screens';
+import { HomeScreen, Login, SignUp, CreateRecipe } from '../screens';
 import { ICONS } from '../styles/icon'
 import { BackBtn } from "../components/BackBtn";
 import { HomeStack } from "./HomeStack";
@@ -47,6 +47,7 @@ export const RootDrawer = () => {
              />
              <Screen name="HomeStack" component={HomeStack} />
              <Screen name="List" component={ListScreen} />   
+             <Screen name="Create" component={CreateRecipe} />  
             
                
             </Navigator>
