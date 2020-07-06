@@ -24,6 +24,7 @@ export const RecipeScreen = connect(mapStateToProps)(
               portion = {item.portion}
               onPress={() =>
                 navigation.navigate("List", {
+                  addMode: false,
                   recipeID: item.id,
                   title: item.name,
                   desc: item.description,

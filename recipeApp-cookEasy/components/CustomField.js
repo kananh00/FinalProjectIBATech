@@ -7,9 +7,10 @@ export const CustomField = ({
     title,
     width,
     style,
+    contentContainerStyle,
     ...rest
   }) => (
-    <View>
+    <View style={contentContainerStyle}>
       <CustomText weight="semi" style={styles.title}>
         {title}
       </CustomText>
