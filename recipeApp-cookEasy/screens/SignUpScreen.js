@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {
-    View,Text,Image,StyleSheet,TouchableOpacity, ScrollView
+  Alert,  View,Text,Image,StyleSheet,TextInput,TouchableOpacity, ScrollView
 } from 'react-native'
 import { IMAGES } from '../styles/images'
 import { COLORS } from '../styles/color'
@@ -8,31 +8,103 @@ import { FONT_FAMILIES, loadFonts } from '../styles/fonts'
 import { CustomText } from '../components/CustomText'
 import { CustomBtn } from '../components/CustomBtn'
 import { ICONS } from '../styles/icon'
-import { CustomField } from '../components/CustomField'
+// import { CustomField } from '../components/CustomField'
 import { CustomBtnYellow } from '../components/CustomBtnYellow'
 import { BackBtn } from '../components/BackBtn'
+import { connect } from 'react-redux'
+import { signUp } from '../store/auth'
 
 
-export const  SignUp = ({navigation}) =>{
-  
+ 
+///////////////////////////////////////////////
+export const  SignUp = connect(null,{signUp})(({navigation,signUp}) =>{
     const [isAgree,setIsAgree] = useState(false);
     const toggleIsAgree = () => setIsAgree(v=>!v);
-    const submitHandler = () => {
-        navigation.navigate("HomeStack");
-      };
 
+///////////////////////////////////////
+     const fieldsChangeHandler = (name,value) => {
+    setFields((fields) => ({
+      ...fields,
+      [name]: {
+        ...fields[name],
+        value,
+      },
+    }));
+  };   
+//////////////////////////////////////////  
+ const validateForm = () => { 
+       if (fields.username.value.trim() === "") {
+          Alert.alert("Username required");
+          return false;
+        }
+if (fields.email.value.trim() === "") {
+        Alert.alert("Email required");
+        return false;
+      }
+      if (fields.password.value === "") {
+        Alert.alert("Password required");
+        return false;
+      }
+      if (fields.repassword.value === "") {
+        Alert.alert("Confirm password ");
+        return false;
+      }
+        if (fields.password.value !== fields.repassword.value) {
+          Alert.alert("Passwords must match");
+          return false;
+        }
+        if(!isAgree){
+          Alert.alert(" agree with Terms and conditions");
+          return false;
+        }
+      return true;
+    };
+//////////////////////////////////////
+
+const submit = () => {
+    if (validateForm()) {
+        signUp(
+          fields.email.value,
+          fields.password.value,
+          fields.username.value, 
+        );
+         navigation.navigate("LOGINPAGE");
+    }
+   
+  };
+
+/////////////////////////////// 
+const  [fields, setFields] = useState({
+       username: { value: "", label: "Username" },
+        email: { value: "", label: "Email" },
+        password: { value: "", label: "Password" },
+        repassword: { value: "", label: "Confirm Password" },
+      });
     return(
         <View style={styles.container}> 
         <View style={{flexDirection:"row",justifyContent:'space-between', alignItems:'center'}}> 
-            <BackBtn   onPress={() => navigation.goBack()}/>
+            <BackBtn   onPress={() => navigation.navigate("HOMEPAGE")}/>
             <CustomText weight = "semi" style={styles.signUptxt}>Sign Up</CustomText>
         </View>
          
         <View style={styles.wrapper}>
-            <CustomField title="username"  />
-            <CustomField title = 'e-mail'/>
-            <CustomField title = 'password'/>
-            <CustomField title = 'confirm password'/> 
+        {Object.keys(fields).map((key) => {
+            if (fields[key]) {
+                return(
+                    <View key={key}>
+                    <CustomText weight="semi" style={styles.title}>
+                    {fields[key].label}
+                    </CustomText>
+                    <TextInput
+                     style={[styles.field,]} 
+                     onChangeText={(value) => fieldsChangeHandler(key, value)}
+                     />
+                  </View>
+                )
+            }
+            return null;
+          })}
+
         <View style={styles.checkboxview}>
          <TouchableOpacity onPress={toggleIsAgree}>
              <View style={[styles.checkbox,{
@@ -46,13 +118,13 @@ export const  SignUp = ({navigation}) =>{
              <CustomText  weight = "semi">Terms and Conditions</CustomText>
              </TouchableOpacity>
          </View>
-         <CustomBtnYellow onPress = {submitHandler} title='Create'/>
+         <CustomBtnYellow onPress = {submit} title='Create'/>
          </View>
          
          </View>
      )
 
- } 
+ }) 
 
  const styles = StyleSheet.create({
 container:{
@@ -97,5 +169,23 @@ checkbox:{
         width:"90%",
         justifyContent:'center'
         
-    }
+    },
+    /////////////////////
+    title: {
+        opacity: 0.75,
+        textAlign: "center",
+        fontSize: 12,
+        
+      },
+      field: {
+        height: 42,
+        paddingHorizontal: 15,
+        fontSize: 14,
+        backgroundColor: COLORS.FIELD_BG,
+        borderRadius: 10,
+        marginTop: 7,
+        marginBottom: 10,
+        fontFamily: FONT_FAMILIES.bold,
+        minWidth: "90%"
+      },
  })
