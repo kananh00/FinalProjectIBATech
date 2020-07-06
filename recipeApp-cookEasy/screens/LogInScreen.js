@@ -88,7 +88,7 @@ if (fields.email.value.trim() === "") {
                     {fields[key].label}
                     </CustomText>
                     <TextInput
-                    //  {...rest}
+                   
                      style={styles.field} 
                      onChangeText={(value) => fieldsChangeHandler(key, value)}
                      />

@@ -14,7 +14,7 @@ export const CustomField = ({
       <CustomText weight="semi" style={styles.title}>
         {title}
       </CustomText>
-      <TextInput {...rest} placeholder = {title} style={[styles.field, style]} />
+      <TextInput {...rest} placeholder={title} style={[styles.field, style]} />
     </View>
   );
   
