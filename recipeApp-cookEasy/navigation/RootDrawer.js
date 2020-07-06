@@ -3,7 +3,8 @@ import {createDrawerNavigator,DrawerItem, DrawerContentScrollView} from '@react-
 import {NavigationContainer}from '@react-navigation/native';
 
 import { CustomDrawer } from '../components/CustomDrawer';
-import { HomeScreen, Login, SignUp, UserSettings, CreateRecipe } from '../screens';
+import { HomeScreen, Login, SignUp, CreateRecipe } from '../screens';
+import {UserSettings} from '../screens/SettingsScreen/UserSettings';
 import { ICONS } from '../styles/icon'
 import { BackBtn } from "../components/BackBtn";
 import { HomeStack } from "./HomeStack";
