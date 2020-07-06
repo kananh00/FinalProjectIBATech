@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,Text,TouchableOpacity,Image,View} from 'react-native';
+import {StyleSheet,Text,ScrollView, TouchableOpacity,Image,View} from 'react-native';
 import { ICONS } from '../styles/icon';
 import { logOut } from '../store/auth';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ const photo= user;
         navigation.navigate("LOGINPAGE") 
     }
     return (
+      <ScrollView>
         <View style={styles.container}> 
          
          <View style={styles.upperpart}>
@@ -59,6 +60,14 @@ const photo= user;
          </TouchableOpacity>
 
          <TouchableOpacity 
+        //    onPress={() => navigation.navigate('')}
+         style={styles.drawerlist}
+         onPress={ () =>{navigation.navigate('Create')}
+    }>
+                      <Image  style={styles.imgs} source={ICONS.plusUnColored}/>
+         <CustomText style={styles.listtext}>create</CustomText>
+         </TouchableOpacity>
+         <TouchableOpacity 
            onPress={logOutHandler}
          style={styles.logoutbtn}>
                      
@@ -67,6 +76,7 @@ const photo= user;
          </TouchableOpacity>
          </View>
         </View>
+        </ScrollView>
     )
 })
 const styles = StyleSheet.create({

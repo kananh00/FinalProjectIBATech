@@ -10,7 +10,7 @@ import { AvatarUploader } from './AvatarUploader';
 import { BackBtn } from '../../components/BackBtn';
 import { NavigationContainer } from '@react-navigation/native';
 import { CustomBtn } from '../../components/CustomBtn';
-import { HomeTabs } from '../../navigation/HomeTabs';
+// import { HomeTabs } from '../../navigation/HomeTabs';
 
 
 
