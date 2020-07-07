@@ -1,45 +1,63 @@
 import React, { useState } from 'react'
 import {View,Text,StyleSheet,TextInput} from 'react-native'
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from '@react-navigation/native';
+
 import fbApp from '../../firebaseInit'
 import { headerDefaultStyle } from '../../styles/headerDefaultStyle'
-import { createStackNavigator } from "@react-navigation/stack";
 import { COLORS } from '../../styles/color';
 import { CustomText } from '../../components/CustomText';
+import { CustomField } from '../../components/CustomField';
 import { FONT_FAMILIES, loadFonts } from '../../styles/fonts';
 import { AvatarUploader } from './AvatarUploader';
 import { BackBtn } from '../../components/BackBtn';
-import { NavigationContainer } from '@react-navigation/native';
 import { CustomBtn } from '../../components/CustomBtn';
 // import { HomeTabs } from '../../navigation/HomeTabs';
 
+// const fieldInitialState = {
+//     name = "",
+//   };
 
 
 const { Navigator, Screen } = createStackNavigator();
 export const UserSettings = ({username,navigation}) =>{
+
+  
+  // const [fields, setFields] = useState(fieldInitialState);
+  // const fieldChangeHandler = (name, value) => {
+  //   setFields((fields) => ({
+  //     ...fields,
+  //     [name]: value,
+  //   }));
+  // };
     return(
         <View style={styles.container}>
           <View style={styles.header}>
               <BackBtn 
-              onPress={()=>navigation.navigate("HomeStack")}
+                onPress={()=>navigation.navigate("HomeStack")}
               />
-           <CustomText weight = "bold" style={styles.headertxt}>User Settings</CustomText>  
+              <CustomText weight = "bold" style={styles.headertxt}>User Settings</CustomText>  
           </View>
          
-         <View style={{alignItems:'center'}}> 
-             <AvatarUploader/>
-
-             <CustomText weight="semi" style={styles.title}>
-                   name
-                    </CustomText>
-                    <TextInput    style={styles.field}
-                      
-                    value={username} />
-                    
-                     <CustomText weight="semi" style={styles.title}>
-                   e-mail
-                    </CustomText>
-                    <TextInput   style={styles.field}  />
-             <CustomBtn title={'Save Changes'}/>
+          <View style={{alignItems:'center'}}> 
+                  <AvatarUploader/>
+                  {/* <CustomText weight="semi" style={styles.title}>
+                    name
+                  </CustomText> */}
+                  {/* <TextInput    style={styles.field}
+                    value={username} 
+                  /> */}
+                  {/* <CustomField
+                    title="username"
+                  />
+                  <CustomField
+                    title="e-mail"
+                  /> */}
+                  {/* <CustomText weight="semi" style={styles.title}>
+                    e-mail
+                  </CustomText>
+                    <TextInput   style={styles.field}  /> */}
+                  <CustomBtn title={'Save Changes'}/>
            </View>
         </View>
     )
@@ -57,7 +75,7 @@ header:{
     borderBottomRightRadius: 40,
     justifyContent:'center',
     // paddingHorizontal:"100%",
-    paddingVertical:40,
+    paddingVertical:30,
     alignItems:'center',
     flexDirection:'row',
   },
