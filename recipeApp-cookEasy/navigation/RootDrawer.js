@@ -9,23 +9,24 @@ import { ICONS } from '../styles/icon'
 import { BackBtn } from "../components/BackBtn";
 import { HomeStack } from "./HomeStack";
 import { ListScreen } from "../screens/ListScreen";
-import { selectAuthStatus, selectAuthUsername } from '../store/auth';
+import { selectAuthStatus, selectAuthUsername, selectAuthPhoto } from '../store/auth';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
+  photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
   auth: selectAuthStatus(state)
 });
 
 const {Navigator,Screen} =  createDrawerNavigator();
 
-export const RootDrawer = connect(mapStateToProps)(({auth, username}) => {
+export const RootDrawer = connect(mapStateToProps)(({auth, photo, username}) => {
     return(
         <NavigationContainer>
 
             <Navigator
              drawerContent={(props) =>
-                <CustomDrawer {...props} username={username} />
+                <CustomDrawer {...props} username={username} photo = {photo}/>
              }
              > 
         <Screen  name={'HOMEPAGE'} component={HomeScreen}/>

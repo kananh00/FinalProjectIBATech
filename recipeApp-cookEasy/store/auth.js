@@ -48,6 +48,7 @@ export function reducer(state = initialState, { type, payload }) {
         status: false,
         userID: null,
         username: null,
+        photo: null,
       };
     default:
       return state;

@@ -10,9 +10,10 @@ import men from "../assets/appimages/men.jpg";
 import woman from "../assets/appimages/woman.jpg";
 import tarteTatin from "../assets/appimages/tarte-tatin.jpg";
 import backgroundMeal from "../assets/appimages/background.png";
-
+import avatar from "../assets/appimages/avatar.png";
 
 export const IMAGES = {
+  avatar,
   backgroundMeal,
   bakhlava,
   woman,
