@@ -1,8 +1,10 @@
 import { createID } from "../utils/createID";
 import { SET_APP_DATA } from "../utils/storeDataAS";
+import { selectAuthUsername } from "./auth";
 
 const ADD_RECIPE = "ADD_RECIPE";
 const ADD_INGREDIENT = "ADD_INGREDIENT";
+// const username = selectAuthUsername(state);
 
 const MODULE_NAME = "data";
 export const getRecipes = (state) => state[MODULE_NAME].recipes;
@@ -61,11 +63,14 @@ export function dataReducer(state = initialState, { type, payload }) {
           ...state.recipes,
           {
             id: payload.recipeID,
+            username: payload.userName,
+            photo: payload.userPhoto,
             name: payload.recipeTitle,
             imageUri: payload.recipeImage,
             duration: payload.recipeDuration,
             portion: payload.recipePortion,
             description: payload.recipeDesc,
+            
             // status: payload.status,
             ingredients: [],
           },
