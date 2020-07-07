@@ -10,6 +10,7 @@ import { CustomBtn } from "../components/CustomBtn";
 import { GLOBAL_STYLES } from "../styles/globalStyles";
 import { addRecipe } from "../store/data";
 import { createID } from "../utils/createID";
+import { selectAuthUsername, selectAuthPhoto } from "./../store/auth";
 // import {Header} from '../commons/Header';
 const createFormInitialFieldState = {
   recipeTitle: "",
@@ -18,10 +19,17 @@ const createFormInitialFieldState = {
   recipePortion: "",
   recipeDesc: "",
   ingredients: "",
+
 };
 
-export const CreateRecipe = connect(null, { addRecipe })(
-  ({ navigation, addRecipe }) => {
+const mapStateToProps = (state) => ({
+  username: selectAuthUsername(state),
+  photo: selectAuthPhoto(state)
+});
+
+
+export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
+  ({ navigation, addRecipe, username, photo }) => {
     const [fields, setFields] = useState(createFormInitialFieldState);
 
     const fieldChangeHandler = (name, value) =>
@@ -52,11 +60,15 @@ export const CreateRecipe = connect(null, { addRecipe })(
         return;
       }
       const recipeID = createID();
-      addRecipe({ ...fields, recipeID });
+      const userName = username;
+      const userPhoto = photo;
+      addRecipe({ ...fields, recipeID, userName, userPhoto });
 
       navigation.navigate("List", {
         // title: fields.recipeTitle,
         recipeID,
+        username, 
+        photo,
         addMode: true,
         title: fields.recipeTitle,
         image: fields.recipeImage,
