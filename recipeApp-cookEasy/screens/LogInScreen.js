@@ -54,7 +54,7 @@ if (fields.email.value.trim() === "") {
           fields.email.value,
           fields.password.value
         );
-        navigation.navigate("HomeStack");
+        navigation.navigate("HomeTabs");
     }
    
   }; 

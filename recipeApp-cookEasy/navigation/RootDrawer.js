@@ -11,6 +11,7 @@ import { HomeStack } from "./HomeStack";
 import { ListScreen } from "../screens/ListScreen";
 import { selectAuthStatus, selectAuthUsername, selectAuthPhoto } from '../store/auth';
 import { connect } from 'react-redux';
+import { HomeTabs } from "./HomeTabs";
 
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
@@ -57,8 +58,10 @@ export const RootDrawer = connect(mapStateToProps)(({auth, photo, username}) => 
                     ),
                   })}
              />
-             {/* {auth ?<HomeStack/> :<HomeScreen/> } */}
-             <Screen name="HomeStack" component={HomeStack} />
+             {/* {auth ?<HomeStack/> :<HomeScreen/> } */} 
+             <Screen name="HomeTabs" component={HomeTabs} />
+             {/* <Screen name="HomeStack" component={HomeStack} /> */}
+            
              <Screen name="List" component={ListScreen} />   
             <Screen name ="UserSettings" component={UserSettings}/>
                  <Screen name="Create" component={CreateRecipe} /> 
