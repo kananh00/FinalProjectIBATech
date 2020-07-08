@@ -58,15 +58,6 @@ import { logOut } from '../store/auth';
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                //    onPress={() => navigation.navigate('')}
-                    style={styles.drawerlist}
-                    onPress={() =>{navigation.navigate('Create')}}
-                >
-                    <Image  style={styles.imgs} source={ICONS.plusUnColored}/>
-                    <CustomText style={styles.listtext}>create</CustomText>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
                     onPress={logOut}
                     style={styles.logoutbtn}
                 >         

@@ -7,7 +7,12 @@ import { CustomText } from "../../components/CustomText";
 import {GLOBAL_STYLES} from '../../styles/globalStyles';
 export const RecipesList = ({
     name,
-    image, portion, onPress, userPhoto, myRecipeMode
+    image, 
+    portion,
+    onDeletePress, 
+    onPress, 
+    userPhoto, 
+    myRecipeMode
 }) => {
     return (
       
@@ -32,7 +37,7 @@ export const RecipesList = ({
 
               {myRecipeMode &&
                 <View style={styles.column}>
-                  <TouchableOpacity style = {styles.iconWrapper}>
+                  <TouchableOpacity onPress = {onDeletePress} style = {styles.iconWrapper}>
                     <Image style={styles.icon} source={ICONS.deleteIcon} />
                   </TouchableOpacity>
                   <TouchableOpacity style = {styles.iconWrapper}>

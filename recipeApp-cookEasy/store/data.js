@@ -4,6 +4,8 @@ import { selectAuthUsername } from "./auth";
 
 const ADD_RECIPE = "ADD_RECIPE";
 const ADD_INGREDIENT = "ADD_INGREDIENT";
+const DELETE_RECIPE = "DELETE_RECIPE";
+const UPDATE_RECIPE = "UPDATE_RECIPE";
 // const username = selectAuthUsername(state);
 
 const MODULE_NAME = "data";
@@ -99,7 +101,31 @@ export function dataReducer(state = initialState, { type, payload }) {
           }),
         };
       }
-  
+      case DELETE_RECIPE:
+      return {
+        ...state,
+        recipes: state.recipes.filter(
+          (recipe) => recipe.id !== payload.recipeID
+        ),
+      };
+
+      case UPDATE_RECIPE:
+        return {
+          ...state,
+          recipes: state.recipes.map((recipe) => {
+                  if (recipe.id === payload.recipeID) {
+                    return {
+                      ...recipe,
+                      name: payload.recipe?.name,
+                      imageUri: payload.recipe?.imageUri,
+                      duration: payload.recipe?.duration,
+                      portion: payload.recipe?.portion,
+                      description: payload.recipe?.description,
+                    };
+                  }
+                  return recipe;
+                })
+        };
         case SET_APP_DATA:
             return {
               ...state,
@@ -117,6 +143,14 @@ export function dataReducer(state = initialState, { type, payload }) {
   });
   export const addIngredient = (payload) => ({
     type: ADD_INGREDIENT,
+    payload,
+  });
+  export const deleteRecipe = (payload) => ({
+    type: DELETE_RECIPE,
+    payload,
+  });
+  export const updateRecipe = (payload) => ({
+    type: UPDATE_RECIPE,
     payload,
   });
   
