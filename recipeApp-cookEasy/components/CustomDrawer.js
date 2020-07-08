@@ -28,7 +28,7 @@ import { logOut } from '../store/auth';
             <View style={styles.lists}>
 
                 <TouchableOpacity  
-                //  onPress={() => navigation.navigate('')}
+                    onPress={() => navigation.navigate('MyRecipes')}
                     style={[styles.drawerlist,styles.addlistbtn] }
                 >
                     <Image  style={styles.imgs} source={ICONS.cookbook}/>

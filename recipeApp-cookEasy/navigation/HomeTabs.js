@@ -13,12 +13,12 @@ const { Navigator, Screen } = createBottomTabNavigator();
 export const HomeTabs = () => (
   <Navigator
   tabBarOptions={
-    { style: {
+    { showLabel: false,
+      style: {
     backgroundColor: COLORS.PRIMARY,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    marginTop: -15,
-    paddingTop: 15,
+    // paddingTop: 15,
     height: 60,
 }}
 
@@ -33,13 +33,14 @@ export const HomeTabs = () => (
       } 
       else if (route.name === "Create") {
         iconName = "plus-circle";
+        size = 40;
         
       }
       else if (route.name === "UserSettings") {
         iconName = "user-alt";
         
       }
-      return <FontAwesome5 name={iconName} color={focused ? "black" : "white"} size={size} />
+      return <FontAwesome5 name={iconName} color={focused ? COLORS.CREATE_ACCOUNT_COLOR : "white"} size={size} />
       ;
     },
   })}

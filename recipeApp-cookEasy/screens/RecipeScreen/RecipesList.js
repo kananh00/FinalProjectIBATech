@@ -1,13 +1,16 @@
 import React from "react";
 import { StyleSheet, ScrollView, Image, Text, View, TouchableOpacity } from "react-native";
+
+import { ICONS } from "../../styles/icon";
 import { COLORS } from "../../styles/color";
 import { CustomText } from "../../components/CustomText";
 import {GLOBAL_STYLES} from '../../styles/globalStyles';
 export const RecipesList = ({
     name,
-    image, portion, onPress, userPhoto
+    image, portion, onPress, userPhoto, myRecipeMode
 }) => {
     return (
+      
         <ScrollView>
         <TouchableOpacity
         onPress={onPress}
@@ -21,9 +24,23 @@ export const RecipesList = ({
               <CustomText weight = "medium" style={styles.title}>
                 {name}
               </CustomText>
-              <View style={styles.imgWrapper}>
-                <Image style={styles.userImg} source={{ uri: userPhoto }} />
-              </View>
+              {!myRecipeMode &&
+                <View style={styles.imgWrapper}>
+                  <Image style={styles.userImg} source={{ uri: userPhoto }} />
+                </View>
+              }
+
+              {myRecipeMode &&
+                <View style={styles.column}>
+                  <TouchableOpacity style = {styles.iconWrapper}>
+                    <Image style={styles.icon} source={ICONS.deleteIcon} />
+                  </TouchableOpacity>
+                  <TouchableOpacity style = {styles.iconWrapper}>
+                    <Image style={styles.icon} source={ICONS.edit} />
+                  </TouchableOpacity>
+                </View>
+              }
+              
             </View>
           </View>
         </TouchableOpacity>
@@ -62,6 +79,11 @@ const styles = StyleSheet.create({
       justifyContent: "space-between",
       alignItems: "center",
     },
+    column: {
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
     title: {
       fontSize: 16,
       color: "black",
@@ -93,6 +115,19 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: COLORS.PRIMARY,
         borderRadius: 100,
+      },
+      icon: {
+        width: 20,
+        height: 20,
+       
+      },
+      iconWrapper: {
+        borderWidth: 1,
+        borderColor: "transparent",
+        borderRadius: 100,
+        padding: 10,
+        margin: 5,
+        backgroundColor: COLORS.PRIMARY,
       }
     
   });
