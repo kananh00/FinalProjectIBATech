@@ -7,13 +7,17 @@ import { CustomText } from "../../components/CustomText";
 import {GLOBAL_STYLES} from '../../styles/globalStyles';
 export const RecipesList = ({
     name,
-    image, portion, onPress, userPhoto, myRecipeMode
+    image,
+    onPress, 
+    onDeletePress,
+    userPhoto, 
+    myRecipeMode
 }) => {
     return (
       
         <ScrollView>
         <TouchableOpacity
-        onPress={onPress}
+          onPress={onPress}
           style={styles.container}
         >
           <View style={styles.cover}>
@@ -32,7 +36,7 @@ export const RecipesList = ({
 
               {myRecipeMode &&
                 <View style={styles.column}>
-                  <TouchableOpacity style = {styles.iconWrapper}>
+                  <TouchableOpacity style = {styles.iconWrapper} onPress = {onDeletePress}>
                     <Image style={styles.icon} source={ICONS.deleteIcon} />
                   </TouchableOpacity>
                   <TouchableOpacity style = {styles.iconWrapper}>
