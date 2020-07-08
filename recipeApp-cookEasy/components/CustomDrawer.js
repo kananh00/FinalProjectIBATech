@@ -12,10 +12,7 @@ import { logOut } from '../store/auth';
 
  export const CustomDrawer = connect(null,{logOut})(({navigation, username,photo,logOut})=>{
 // const userPhoto = photo;
-    const logOutHandler = () => {
-        logOut();
-        navigation.navigate("LOGINPAGE") 
-    }
+ 
     return (
       <ScrollView>
         <View style={styles.container}> 
@@ -70,7 +67,7 @@ import { logOut } from '../store/auth';
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    onPress={logOutHandler}
+                    onPress={logOut}
                     style={styles.logoutbtn}
                 >         
                     <CustomText weight = "semi" style={styles.listtext}>LOG OUT</CustomText> 

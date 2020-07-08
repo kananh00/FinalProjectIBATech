@@ -60,7 +60,6 @@ export const Login = connect(null, { logIn, signUp })(
     const submit = () => {
       if (validateForm()) {
         logIn(fields.email.value, fields.password.value);
-        navigation.navigate("HomeTabs");
       }
     };
     /////////////

@@ -74,7 +74,7 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
   const submit = () => {
     if (validateForm()) {
       signUp(fields.email.value, fields.password.value, fields.username.value);
-      navigation.navigate("HomeTabs");
+    
     }
   };
 
