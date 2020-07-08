@@ -28,6 +28,7 @@ export function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         status: payload,
+        // username,
       };
     case SET_AUTH_SUCCESS:
       return {
@@ -86,7 +87,7 @@ export const logIn = (email, password) => async (dispatch) => {
     dispatch(setAuthSuccess({ userID: uid, username, photo }));
   }
   catch (error){
-    console.log('login error',error);
+    Alert.alert(error.message);
   }
 };
     
@@ -104,7 +105,7 @@ export const signUp = (email, password, username) => async (dispatch) => {
 
     dispatch(setAuthSuccess({ userID: uid, username }));
   } catch (error) {
-    console.log("signUp error", error);
+    // Alert.alert(error.message);
   }
 };
 
