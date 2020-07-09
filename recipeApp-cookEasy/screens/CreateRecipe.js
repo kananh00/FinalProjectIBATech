@@ -11,6 +11,7 @@ import { GLOBAL_STYLES } from "../styles/globalStyles";
 import { addRecipe } from "../store/data";
 import { createID } from "../utils/createID";
 import { selectAuthUsername, selectAuthPhoto } from "./../store/auth";
+import { COLORS } from "../styles/color";
 // import {Header} from '../commons/Header';
 const createFormInitialFieldState = {
   recipeTitle: "",
@@ -135,11 +136,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 40,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    // backgroundColor:COLORS.BUTTON_TEXT
   },
-  // topSpacing: {
-  //   marginTop: 14,
-  // },
+ 
   btnWrapper: {
     width: "50%",
     alignItems: "center",
