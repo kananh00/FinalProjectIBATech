@@ -42,6 +42,7 @@ export const FavList = connect(mapStateToProps, {getAndListenFavsList})
             data={favorites}
             renderItem={({ item }) => (
               <RecipesList
+              favAndWishMode = {true}
               name={item.title}
               image = {item.image} 
               userPhoto = {item.photo}/>

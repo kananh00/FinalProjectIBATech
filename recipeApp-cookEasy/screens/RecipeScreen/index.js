@@ -28,6 +28,7 @@ export const RecipeScreen = connect(mapStateToProps)(
               portion = {item.portion}
               userPhoto = {item.photo}
               myRecipeMode = {false}
+              favAndWishMode = {false}
               onPress={() =>
                 navigation.navigate("List", {
                   addMode: false,
