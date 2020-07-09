@@ -36,7 +36,7 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
    
    
   }) => {
-    const { recipeID, addMode, portion, duration, image, desc, title } = route.params;
+    const { recipeID, addMode, portion, duration, image, photo, desc, title } = route.params;
     // const navigations = useNavigation();
    
     const createDispatchHandler = (methodToDispatch) => (payload = {}) =>
@@ -48,16 +48,18 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
 const movetoWisthlist =() =>{
   fbApp.db.ref(`wishlist/${title}`).set({
     recipe,
-    image: "",
+    title,
+    image,
+    photo
   });
-  navigation.navigate("WishList",{title,recipeID,image})
 }
 const movetoFavlist =() =>{
     fbApp.db.ref(`favlist/${title}`).set({
       recipe,
-      image: "",
+      title,
+      image,
+      photo
     });
-    navigation.navigate("FavList",{title,recipeID,image})
   }
       const addHandler = createDispatchHandler(addIngredient);
     return (
