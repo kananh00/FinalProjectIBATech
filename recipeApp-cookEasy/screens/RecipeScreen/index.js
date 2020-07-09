@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { RecipesList } from "./RecipesList";
 import { getRecipes } from "../../store/data";
-// import { selectAuthUsername, selectAuthPhoto } from "./auth";
+// import { selectAuthUsername, selectAuthPhoto } from "../../store/auth";
 const mapStateToProps = (state, { route }) => ({
   // photo: selectAuthPhoto(state),
   // username: selectAuthUsername(state),
@@ -15,7 +15,7 @@ const mapStateToProps = (state, { route }) => ({
 });
 
 export const RecipeScreen = connect(mapStateToProps)(
-  ({ navigation, allRecipes, photo, username, route}) => {
+  ({ navigation, allRecipes, username, route}) => {
 
     return (
       <View>
@@ -37,6 +37,7 @@ export const RecipeScreen = connect(mapStateToProps)(
                   image: item.imageUri,
                   duration: item.duration,
                   portion: item.portion,
+                  photo: item.photo
                 })
 
               }

@@ -15,6 +15,11 @@ import {
     reducer as authReducer,
   } from "./auth";
   
+  import {
+    MODULE_NAME as favWishModuleName,
+    reducer as favWishReducer,
+  } from "./wishAndFav";
+  
 const config = {
   key: "root",
   storage: AsyncStorage,
@@ -23,6 +28,7 @@ const config = {
 const rootReducer = combineReducers({
   data: dataReducer,
   [authModuleName]: authReducer,
+  [favWishModuleName]: favWishReducer,
 });
 // const rootReducer = combineReducers({
 //     [recipesModuleName]: recipesReducer,
