@@ -22,6 +22,8 @@ import {
 import { connect } from "react-redux";
 import { HomeTabs } from "./HomeTabs";
 import { AuthStack } from "./AuthStack";
+import { WishList } from "../screens/WishList";
+import { FavList } from "../screens/FavList";
 
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
@@ -47,9 +49,14 @@ export const RootDrawer = connect(mapStateToProps)(
               <Screen name="UserSettings" component={UserSettings} />
               <Screen name="Create" component={CreateRecipe} />
               <Screen name="MyRecipes" component={MyRecipesScreen} />
+              <Screen name="WishList" component={WishList} />
+              <Screen name="FavList" component={FavList} />
+
             </>
           ) : (
-              <Screen name="AuthStack" component={AuthStack} />
+              <Screen
+              options={{ swipeEnabled: false }}
+              name="AuthStack" component={AuthStack} />
             )}
         </Navigator>
       </NavigationContainer>
