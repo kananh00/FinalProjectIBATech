@@ -12,7 +12,8 @@ export const RecipesList = ({
     onDeletePress, 
     onPress, 
     userPhoto, 
-    myRecipeMode
+    myRecipeMode, 
+    favAndWishMode
 }) => {
     return (
       
@@ -29,20 +30,32 @@ export const RecipesList = ({
               <CustomText weight = "medium" style={styles.title}>
                 {name}
               </CustomText>
-              {!myRecipeMode &&
+              {!myRecipeMode && !favAndWishMode &&
                 <View style={styles.imgWrapper}>
                   <Image style={styles.userImg} source={{ uri: userPhoto }} />
                 </View>
               }
 
+              {favAndWishMode &&
+                <View style={styles.column}>
+                <TouchableOpacity onPress = {onDeletePress} style = {styles.iconWrapper}>
+                  <Image  style={styles.icon} source={ICONS.close}/>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.favimgWrapper}>
+                <Image style={styles.userImg} source={{ uri: userPhoto }}/>
+                </TouchableOpacity>
+              </View>
+              }
+
               {myRecipeMode &&
                 <View style={styles.column}>
-                  <TouchableOpacity onPress = {onDeletePress} style = {styles.iconWrapper}>
-                    <Image style={styles.icon} source={ICONS.deleteIcon} />
-                  </TouchableOpacity>
                   <TouchableOpacity style = {styles.iconWrapper}>
                     <Image style={styles.icon} source={ICONS.edit} />
                   </TouchableOpacity>
+                  <TouchableOpacity onPress = {onDeletePress} style = {styles.iconWrapper}>
+                    <Image style={styles.icon} source={ICONS.deleteIcon} />
+                  </TouchableOpacity>
+                 
                 </View>
               }
               
@@ -107,7 +120,14 @@ const styles = StyleSheet.create({
       width: 50,
       height: 50,
       // paddingBottom: 15,
-  },
+    },
+    favimgWrapper: {
+      width: 43,
+      height: 43,
+    },
+    btnWrapper: {
+      flexDirection: "row",
+    },
     projectCardImg: {
         ...StyleSheet.absoluteFill,
         borderWidth: 2,
@@ -130,8 +150,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "transparent",
         borderRadius: 100,
-        padding: 10,
-        margin: 5,
+        width: 43,
+        height: 43,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 5,
         backgroundColor: COLORS.PRIMARY,
       }
     

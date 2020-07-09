@@ -39,8 +39,10 @@ import user from "../assets/icons/user.png";
 import userColored from "../assets/icons/userColored.png";
 import mike from "../assets/icons/mike.png";
 import clock from "../assets/icons/clock.png";
+import close from "../assets/icons/close.png";
 
 export const ICONS = {
+    close,
     clock,
     add,
     mike,
