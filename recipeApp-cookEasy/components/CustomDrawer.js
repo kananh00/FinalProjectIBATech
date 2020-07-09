@@ -33,7 +33,7 @@ import { logOut } from '../store/auth';
                 </TouchableOpacity >
 
                 <TouchableOpacity 
-                //  onPress={() => navigation.navigate('')}
+                 onPress={() => navigation.navigate('WishList')}
                     style={styles.drawerlist}
                 >
                     <Image style={styles.imgs} source={ICONS.list}/>
@@ -41,7 +41,7 @@ import { logOut } from '../store/auth';
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                //  onPress={() => navigation.navigate('')} 
+                 onPress={() => navigation.navigate('FavList')} 
                     style={styles.drawerlist}
                 >
                     <Image style={styles.imgs} source={ICONS.heart}/>

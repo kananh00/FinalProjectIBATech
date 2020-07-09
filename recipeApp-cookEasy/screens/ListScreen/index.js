@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Image, StyleSheet, ScrollView, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
+import { NavigationContainer } from '@react-navigation/native';
 
 import { RecipeContent } from "./RecipeContent";
 import { MaterialIcons } from '@expo/vector-icons';
@@ -15,6 +16,7 @@ import {
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { IngredientForm } from "./IngredientForm";
+import fbApp from "../../firebaseInit";
 
 const mapStateToProps = (state, { route }) => ({
   recipe: selectSingleRecipeByID(
@@ -29,12 +31,13 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
   ({
     route,
     recipe,
-    addIngredient
+    addIngredient,
+    navigation
    
    
   }) => {
     const { recipeID, addMode, portion, duration, image, desc, title } = route.params;
-    const navigations = useNavigation();
+    // const navigations = useNavigation();
    
     const createDispatchHandler = (methodToDispatch) => (payload = {}) =>
       methodToDispatch({
@@ -42,19 +45,35 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
         ...payload,
       });
 
+const movetoWisthlist =() =>{
+  fbApp.db.ref(`wishlist/${title}`).set({
+    recipe,
+    image: "",
+  });
+  navigation.navigate("WishList",{title,recipeID,image})
+}
+const movetoFavlist =() =>{
+    fbApp.db.ref(`favlist/${title}`).set({
+      recipe,
+      image: "",
+    });
+    navigation.navigate("FavList",{title,recipeID,image})
+  }
       const addHandler = createDispatchHandler(addIngredient);
     return (
       <ScrollView>
         <View style = {styles.recipeText}>
       <View style = {styles.imgWrapper}>
         <Image style={styles.recipeImg} source={{ uri: image }} />
-        <MaterialIcons style = {styles.backArrow} onPress = {navigations.goBack} name="arrow-back" size={35} color="white" />
+        <MaterialIcons style = {styles.backArrow} onPress = {() => navigation.goBack()} name="arrow-back" size={35} color="white" />
         
       </View>
       <View style = {styles.content}>
+        <TouchableOpacity onPress={movetoFavlist}>
         <View style = {styles.favorite}>
           <Image  style={styles.icons}  source={ICONS.heartEmpty}/>
         </View>
+        </TouchableOpacity>
         <View style = {styles.contentWrapper}>
           <CustomText weight = "semi" style = {styles.title}>{title}</CustomText> 
           <View style = {styles.cover}>
@@ -70,7 +89,7 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
                 <CustomText>{portion} person</CustomText> 
               </View>
 
-              <TouchableOpacity>
+              <TouchableOpacity onPress={movetoWisthlist}>
                 <View style = {styles.iconWrapper}>
                   <Image  style={styles.icons}  source={ICONS.eventColored}/>
                   <CustomText>add to wishlist</CustomText> 

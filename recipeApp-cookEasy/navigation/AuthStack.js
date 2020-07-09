@@ -11,19 +11,17 @@ const { Navigator, Screen } = createStackNavigator();
 export const AuthStack = () => (
     <Navigator headerMode="none">
         <Screen
-            options={{ swipeEnabled: false }}
             name={"HOMEPAGE"}
             component={HomeScreen}
         />
         <Screen
             name={"LOGINPAGE"}
             component={Login}
-            options={{ swipeEnabled: false }}
         />
         <Screen
             name={"SIGNUPPAGE"}
             component={SignUp}
-            options={{ swipeEnabled: false }}
+
         />
     </Navigator>
 );
