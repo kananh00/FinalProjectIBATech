@@ -47,6 +47,12 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
         ...payload,
       });
 
+      const [isFav, setIsFav] = useState(false);
+      const toggleIsFav = () => setIsFav((v) => !v);
+      // const [isWish, setIsWish] = useState(false);
+      // const toggleIsWish = () => setIsWish((v) => !v);
+    
+
 const movetoWisthlist =() =>{
   fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
     recipe,
@@ -54,6 +60,7 @@ const movetoWisthlist =() =>{
     image,
     photo
   });
+  // toggleIsWish()
 }
 const movetoFavlist =() =>{
     fbApp.db.ref(`users/${userID}/favlist/${title}`).set({
@@ -61,7 +68,9 @@ const movetoFavlist =() =>{
       title,
       image,
       photo
-    });
+    }),
+    toggleIsFav();
+
   }
       const addHandler = createDispatchHandler(addIngredient);
     return (
@@ -75,7 +84,11 @@ const movetoFavlist =() =>{
       <View style = {styles.content}>
         <TouchableOpacity onPress={movetoFavlist}>
         <View style = {styles.favorite}>
-          <Image  style={styles.icons}  source={ICONS.heartEmpty}/>
+          <Image  style={styles.icons}  source={isFav?  
+            ICONS.heartEmpty
+          :ICONS.heart}
+            
+            />
         </View>
         </TouchableOpacity>
         <View style = {styles.contentWrapper}>

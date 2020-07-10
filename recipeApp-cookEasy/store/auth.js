@@ -13,13 +13,14 @@ export const selectAuthStatus = state => state[MODULE_NAME].status;
 export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthUsername = (state) => state[MODULE_NAME].username;
 export const selectAuthPhoto = (state) => state[MODULE_NAME].photo;
-
+export const selectAuthUpdatedUsername = (state) => state[MODULE_NAME].newusername;
 // // REDUCER
 const initialState = {
   status: false,
   userID: null,
   username: null,
   photo: null,
+  updated_username:null,
 };
 
 export function reducer(state = initialState, { type, payload }) {
@@ -108,6 +109,23 @@ export const signUp = (email, password, username) => async (dispatch) => {
     // Alert.alert(error.message);
   }
 };
+export const updateUsername = ( newusername) => async (dispatch) => {
+  try {
+    const {
+      user: { uid },
+    } = await fbApp.auth.updateCurrentUser();
+
+    fbApp.db.ref(`users/${uid}`).set({
+      newusername,
+      photo: "",
+    });
+
+    dispatch(setAuthSuccess({ userID: uid, username }));
+  } catch (error) {
+    // Alert.alert(error.message);
+  }
+};
+
 
 export const logOut = () => async (dispatch) => {
   try {

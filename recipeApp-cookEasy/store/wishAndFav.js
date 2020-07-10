@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 
 const SET_FAVORITES = "SET_FAVORITES";
 const SET_WISHLIST = "SET_WISHLIST";
-
+const SET_DELETE = "SET_DELETE";
 
 export const MODULE_NAME = "favWish";
 
@@ -46,7 +46,7 @@ export const setFavList = (payload) => ({
   
   export const getAndListenFavsList = () => (dispatch) => {
     try {
-      const ref = fbApp.db.ref("favlist");
+      const ref = fbApp.db.ref(`users/${userID}/wishlist/${title}`);
       ref.on(
         "value",
         (snapshot) => {

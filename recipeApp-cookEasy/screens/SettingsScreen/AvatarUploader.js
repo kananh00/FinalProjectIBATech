@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   View,
   Image,
@@ -20,6 +20,8 @@ import {
   selectAuthUsername,
   uploadAuthPhoto,
   logIn,
+  updateUsername,
+  
 } from "../../store/auth";
 import { IMAGES } from "../../styles/images";
 import { ICONS } from "../../styles/icon";
@@ -27,6 +29,7 @@ import { ICONS } from "../../styles/icon";
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
+  newusername: updateUsername(state),
 });
 
 const imagePickerOptions = {
@@ -37,8 +40,8 @@ const imagePickerOptions = {
 
 
 
-export const AvatarUploader = connect(mapStateToProps, { uploadAuthPhoto })(
-  ({ photo, username, uploadAuthPhoto }) => {
+export const AvatarUploader = connect(mapStateToProps, { uploadAuthPhoto,updateUsername })(
+  ({ photo, username, uploadAuthPhoto,updated_username }) => {
     const selectImage = async (isCamera) => {
       try {
         const permission = await requestCameraPermissions();
@@ -60,14 +63,18 @@ export const AvatarUploader = connect(mapStateToProps, { uploadAuthPhoto })(
       } catch (error) {}
     };
 
-//    const fieldsInitialState = {
+//    const fieldInitialState = {
 //   username: ""
 // }; 
-// const [fields, setFields] = useState(fieldsInitialState);
-// const fieldsChangeHandler = (name, value) => {
-//   setFields((fields) => ({
-//     ...fields,
-//     [name]: value,
+// const [field, setField] = useState({
+//   username:{value:''}
+// });
+// const fieldChangeHandler = (name, value) => {
+//   setField((field) => ({
+    
+//       ...field[value],
+      
+    
 //   }));
 // };
 
@@ -75,8 +82,13 @@ export const AvatarUploader = connect(mapStateToProps, { uploadAuthPhoto })(
 return (
      
      <View style={styles.container}>
+       
         <KeyboardAvoidingView behavior="padding">
-           <View style={styles.imgWrapper}>
+          <TextInput style={styles.field}
+         value={username} 
+         onChangeText={(value) => updateUsername(updated_username)}
+        /> 
+         <View style={styles.imgWrapper}>
           <Image
             style={styles.photo}
             source={photo ? { uri: photo } : IMAGES.avatar}
@@ -97,10 +109,7 @@ return (
           title={"Select Photo"}
         />
 
-        <TextInput style={styles.field}
-         value={username} 
-        //  onChangeText={(val) => fieldsChangeHandler("username", val)}
-        />
+       
         </KeyboardAvoidingView>
       </View>
     );
