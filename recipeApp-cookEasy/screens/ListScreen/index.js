@@ -101,7 +101,7 @@ const movetoFavlist =() =>{
         <View style = {styles.recipeText}>
       <View style = {styles.imgWrapper}>
         <Image style={styles.recipeImg} source={{ uri: image }} />
-        <MaterialIcons style = {styles.backArrow} onPress = {() => navigation.goBack()} name="arrow-back" size={35} color="white" />
+        <MaterialIcons style = {styles.backArrow} onPress = {() => navigation.navigate("HomeStack")} name="arrow-back" size={35} color="white" />
         
       </View>
       <View style = {styles.content}>

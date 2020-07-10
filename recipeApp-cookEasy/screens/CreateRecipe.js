@@ -88,58 +88,53 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
        
       
       <View style={styles.wrapper}>  
-       <KeyboardAvoidingView behavior="padding">
-<View style={styles.header}>
-  <CustomText style={styles.headertxt}  weight='bold' >ADD YOUR RECIPE</CustomText>
-</View>
-<View style={styles.fieldswrapper}>
-       <ScrollView>
-         <CustomField
-          title="paste Image Url"
-          value={fields.recipeImage}
-          onChangeText={(value) => fieldChangeHandler("recipeImage", value)}
-        />
-        <CustomField
-          title="Meal name"
-          value={fields.recipeTitle}
-          onChangeText={(value) => fieldChangeHandler("recipeTitle", value)}
-        />
-        
-        <CustomField
-          title="Prepare duration"
-          value={fields.recipeDuration}
-          keyboardType={"number-pad"}
-          onChangeText={(value) => fieldChangeHandler("recipeDuration", value)}
-        />
-        <CustomField
-          title="Portion"
-          value={fields.recipePortion}
-          keyboardType={"number-pad"}
-          onChangeText={(value) => fieldChangeHandler("recipePortion", value)}
-        />
-        <CustomField
-          style = {{height: 100}}
-          title="How to cook"
-          value={fields.recipeDesc}
-          onChangeText={(value) => fieldChangeHandler("recipeDesc", value)}
-        />
-        </ScrollView> 
-      
-        {/* <RadioGroup
-          options={Object.keys(LISTS_TYPES)}
-          value={fields.listType}
-          onValueChange={(value) => fieldChangeHandler("listType", value)}
-          contentContainerStyle={styles.topSpacing}
-        /> */}
-        <View style = {styles.btnWrapper}> 
-          <CustomBtn
-          title="Next"
-          style={styles.topSpacing}
-          onPress={submitHandler}
-        />
-        </View>
-        </View>
-        </KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior="padding">
+
+          <View style={styles.header}>
+            <CustomText style={styles.headertxt}  weight='bold' >ADD YOUR RECIPE</CustomText>
+          </View>
+
+          <View style={styles.fieldswrapper}>
+          <ScrollView>
+            <CustomField
+              title="paste Image Url"
+              value={fields.recipeImage}
+              onChangeText={(value) => fieldChangeHandler("recipeImage", value)}
+            />
+            <CustomField
+              title="Meal name"
+              value={fields.recipeTitle}
+              onChangeText={(value) => fieldChangeHandler("recipeTitle", value)}
+            />
+            
+            <CustomField
+              title="Prepare duration"
+              value={fields.recipeDuration}
+              keyboardType={"number-pad"}
+              onChangeText={(value) => fieldChangeHandler("recipeDuration", value)}
+            />
+            <CustomField
+              title="Portion"
+              value={fields.recipePortion}
+              keyboardType={"number-pad"}
+              onChangeText={(value) => fieldChangeHandler("recipePortion", value)}
+            />
+            <CustomField
+              style = {{height: 100}}
+              title="How to cook"
+              value={fields.recipeDesc}
+              onChangeText={(value) => fieldChangeHandler("recipeDesc", value)}
+            />
+            </ScrollView> 
+            <View style = {styles.btnWrapper}> 
+              <CustomBtn
+              title="Next"
+              style={styles.topSpacing}
+              onPress={submitHandler}
+            />
+            </View>
+            </View>
+            </KeyboardAvoidingView>
       </View>
       
     );
@@ -150,12 +145,9 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor:COLORS.BUTTON_TEXT,
     flex:1,
-
-
   },
  
   btnWrapper: {
-    width: "50%",
     alignItems: "center",
   },
   header:{
@@ -177,7 +169,6 @@ const styles = StyleSheet.create({
   },
   fieldswrapper:{
     alignItems:'center',
-  paddingVertical:20,
-  
+    paddingVertical:20,
   }
 });

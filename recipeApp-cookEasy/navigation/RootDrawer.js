@@ -8,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { CustomDrawer } from "../components/CustomDrawer";
 import { HomeScreen, Login, SignUp, CreateRecipe, MyRecipesScreen  } from "../screens";
+import { RecipeScreen } from "../screens/RecipeScreen";
 import { UserSettings } from "../screens/SettingsScreen/UserSettings";
 import { ICONS } from "../styles/icon";
 import { BackBtn } from "../components/BackBtn";
@@ -51,6 +52,7 @@ export const RootDrawer = connect(mapStateToProps)(
               <Screen name="MyRecipes" component={MyRecipesScreen} />
               <Screen name="WishList" component={WishList} />
               <Screen name="FavList" component={FavList} />
+              <Screen name="HomeStack" component={RecipeScreen} />
 
             </>
           ) : (

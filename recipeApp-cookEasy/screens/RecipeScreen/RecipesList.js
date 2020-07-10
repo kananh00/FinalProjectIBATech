@@ -9,7 +9,6 @@ import {GLOBAL_STYLES} from '../../styles/globalStyles';
 export const RecipesList = ({
     name,
     image, 
-    portion,
     onDeletePress, 
     onEditPress,
     onPress, 
@@ -44,7 +43,7 @@ export const RecipesList = ({
                   <Image  style={styles.icon} source={ICONS.close}/>
                 </TouchableOpacity>
                 <TouchableOpacity style = {styles.favimgWrapper}>
-                <Image style={styles.userImg} source={{ uri: userPhoto }}/>
+                <Image style={styles.userFavImg} source={userPhoto ? { uri: userPhoto } : IMAGES.avatar} />
                 </TouchableOpacity>
               </View>
               }
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
       borderColor: COLORS.PRIMARY,
       borderRadius: 20,
       padding: 8,
-      // paddingHorizontal: 20,
       marginTop: GLOBAL_STYLES.MARGIN,
       
       
@@ -112,20 +110,23 @@ const styles = StyleSheet.create({
       alignItems: "center"
     },
     img: {
-        // paddingTop: 11,
         width: 100,
         height: 80,
-        // paddingBottom: 15,
     },
     imgWrapper: {
-      // paddingTop: 11,
       width: 50,
       height: 50,
-      // paddingBottom: 15,
     },
     favimgWrapper: {
       width: 43,
       height: 43,
+    },
+    userFavImg: {
+      width: 43,
+      height: 43,
+      borderColor: COLORS.PRIMARY,
+      borderRadius: 100,
+      borderWidth: 2,
     },
     btnWrapper: {
       flexDirection: "row",
