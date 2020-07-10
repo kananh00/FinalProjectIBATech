@@ -114,6 +114,7 @@ export const Login = connect(null, { logIn, signUp })(
                     <TextInput
                       style={[styles.field]}
                       secureTextEntry
+                      keyboardType={"number-pad"}
                       onChangeText={(value) => fieldsChangeHandler(key, value)}
                     />
                   </View>

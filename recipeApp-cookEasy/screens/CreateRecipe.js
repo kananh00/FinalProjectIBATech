@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, KeyboardAvoidingView,ScrollView } from "react-native";
 import { connect } from "react-redux";
 // import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 import { CustomField } from "../components/CustomField";
@@ -87,12 +87,15 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
     };
 
     return (
+       
       
-      <View style={styles.wrapper}>
+      <View style={styles.wrapper}>  
+       <KeyboardAvoidingView behavior="padding">
 <View style={styles.header}>
   <CustomText style={styles.headertxt}  weight='bold' >ADD YOUR RECIPE</CustomText>
 </View>
 <View style={styles.fieldswrapper}>
+       <ScrollView>
          <CustomField
           title="paste Image Url"
           value={fields.recipeImage}
@@ -107,11 +110,13 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
         <CustomField
           title="Prepare duration"
           value={fields.recipeDuration}
+          keyboardType={"number-pad"}
           onChangeText={(value) => fieldChangeHandler("recipeDuration", value)}
         />
         <CustomField
           title="Portion"
           value={fields.recipePortion}
+          keyboardType={"number-pad"}
           onChangeText={(value) => fieldChangeHandler("recipePortion", value)}
         />
         <CustomField
@@ -120,6 +125,8 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
           value={fields.recipeDesc}
           onChangeText={(value) => fieldChangeHandler("recipeDesc", value)}
         />
+        </ScrollView> 
+      
         {/* <RadioGroup
           options={Object.keys(LISTS_TYPES)}
           value={fields.listType}
@@ -134,8 +141,9 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
         />
         </View>
         </View>
-        
+        </KeyboardAvoidingView>
       </View>
+      
     );
   }
 );
@@ -171,7 +179,7 @@ const styles = StyleSheet.create({
   },
   fieldswrapper:{
     alignItems:'center',
-  paddingVertical:30,
+  paddingVertical:20,
   
   }
 });
