@@ -6,6 +6,7 @@ const ADD_RECIPE = "ADD_RECIPE";
 const ADD_INGREDIENT = "ADD_INGREDIENT";
 const DELETE_RECIPE = "DELETE_RECIPE";
 const UPDATE_RECIPE = "UPDATE_RECIPE";
+const UPDATE_INGREDIENT = "UPDATE_INGREDIENTS";
 // const username = selectAuthUsername(state);
 
 const MODULE_NAME = "data";
@@ -19,6 +20,8 @@ const initialState = {
         id: createID(),
         name: "Cheese Burger",
         duration: "20min",
+        username: "Helen",
+        photo: "https://img.favpng.com/8/17/11/chef-s-uniform-french-cuisine-woman-restaurant-png-favpng-Gb9et2NQUv9GKdAX5AyR9W8GE.jpg",
         portion: "1",
         description: "    To make the hamburger patties, you are going to need ground beef, your favorite seasoning blend- I included the recipe for mine!, shredded cheese and sliced cheese.",
         imageUri: 
@@ -40,6 +43,8 @@ const initialState = {
             name: "Tarte-Tatin",
             duration: "40min",
             portion: "5",
+            username: "Mike",
+            photo: "https://previews.123rf.com/images/kurhan/kurhan1702/kurhan170200709/72799627-chef-man-.jpg",
             imageUri: "https://assets.afcdn.com/recipe/20180503/79001_w1024h768c1cx2880cy1920.jpg",
             description: "tarte-tatin recipe",
             ingredients: [
@@ -126,6 +131,30 @@ export function dataReducer(state = initialState, { type, payload }) {
                   return recipe;
                 })
         };
+      case UPDATE_INGREDIENT:
+        return {
+          ...state,
+          recipes: state.recipes.map((recipe) => {
+            if (recipe.id === payload.recipeID) {
+              return {
+                ...recipe,
+                ingredients: recipe.ingredients.map((ingredient) => {
+                  if (ingredient.id === payload.ingredient?.id) {
+                    return {
+                      ...ingredient,
+                      title: payload.ingredient?.title,
+                      unit: payload.ingredient?.unit,
+                      count: payload.ingredient?.count,
+                    };
+                  }
+                  return ingredient;
+                }),
+              };
+            }
+            return recipe;
+          }),
+        };
+
         case SET_APP_DATA:
             return {
               ...state,
@@ -153,4 +182,9 @@ export function dataReducer(state = initialState, { type, payload }) {
     type: UPDATE_RECIPE,
     payload,
   });
+  export const updateIngredient = (payload) => ({
+    type: UPDATE_INGREDIENT,
+    payload,
+  });
+  
   

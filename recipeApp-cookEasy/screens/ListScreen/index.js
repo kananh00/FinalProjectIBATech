@@ -10,13 +10,20 @@ import { ICONS } from '../../styles/icon'
 import {GLOBAL_STYLES} from '../../styles/globalStyles';
 import {
   selectSingleRecipeByID,
-  addIngredient
+  addIngredient,
+  updateIngredient
 } from "../../store/data";
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { IngredientForm } from "./IngredientForm";
 import fbApp from "../../firebaseInit";
 import { selectAuthUserID } from "../../store/auth";
+
+const singeIngredientEditInitialState = {
+  status: false,
+  ingredient: {},
+};
+
 
 const mapStateToProps = (state, { route }) => ({
   recipe: selectSingleRecipeByID(
@@ -28,11 +35,12 @@ const mapStateToProps = (state, { route }) => ({
   
 });
 
-export const ListScreen = connect(mapStateToProps, {addIngredient})(
+export const ListScreen = connect(mapStateToProps, {addIngredient, updateIngredient})(
   ({
     route,
     recipe,
     addIngredient,
+    updateIngredient,
     navigation,
     userID
    
@@ -41,6 +49,20 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
     const { recipeID, addMode, portion, duration, image, photo, desc, title } = route.params;
     // const navigations = useNavigation();
    
+    const [singeIngredientEditState, setSingleIngredientEditState] = useState(
+      singeIngredientEditInitialState
+    );
+
+    const finishSingleIngredientEdit = () =>
+      setSingleIngredientEditState(singeIngredientEditInitialState);
+    const initSingleIngredientEdit = (ingredient) =>
+      setSingleIngredientEditState({
+        status: true,
+        ingredient,
+      });
+
+
+
     const createDispatchHandler = (methodToDispatch) => (payload = {}) =>
       methodToDispatch({
         recipeID,
@@ -73,6 +95,7 @@ const movetoFavlist =() =>{
 
   }
       const addHandler = createDispatchHandler(addIngredient);
+      const updateIngredientHandler = createDispatchHandler(updateIngredient);
     return (
       <ScrollView style={styles.wrapper}>
         <View style = {styles.recipeText}>
@@ -127,21 +150,22 @@ const movetoFavlist =() =>{
           <CustomText  style = {styles.description}>{desc}</CustomText>  
           <CustomText weight = "semi" style = {styles.text}>Ingredients</CustomText> 
         </View>
-        {/* {!addMode &&( */}
 
-          {addMode && (
+          {addMode &&
           <IngredientForm
-            // singeProductEditState={singeProductEditState}
+            singeIngredientEditState={singeIngredientEditState}
             addHandler={addHandler}
-            // updateProductHandler={updateProductHandler}
-            // finishSingleProductEdit={finishSingleProductEdit}
+            updateIngredientHandler = {updateIngredientHandler}
+            finishSingleIngredientEdit={finishSingleIngredientEdit}
           />
-        )}
+          }
 
         <RecipeContent
             ingredients={recipe.ingredients}
+            currentEditIngredientID={singeIngredientEditState.ingredient?.id}
+            onEditPress={initSingleIngredientEdit}
           />
-          {/* )} */}
+
         </View>
       </View>
       </ScrollView>

@@ -4,9 +4,9 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { CustomText } from "./CustomText";
 import { COLORS } from "../styles/color";
 
-export const CustomBtn = ({ title, onPress, width, style, titleStyle = {} }) => (
-  <TouchableOpacity onPress={onPress} style={{ width }}>
-    <View style={[styles.btn, style]}>
+export const CustomBtn = ({ title, onPress, width, titleStyle = {} }) => (
+  <TouchableOpacity onPress={onPress} style={ width }>
+    <View style={styles.btn}>
       <CustomText weight="bold" style={{ ...styles.title, ...titleStyle }}>
         {title}
       </CustomText>
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 18,
-    minWidth:260,
+    minWidth:170,
     marginVertical:10,
 
   },
@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: COLORS.BUTTON_TEXT,
     textTransform: "uppercase",
+    padding: 15
   },
 });

@@ -8,10 +8,16 @@ export const RecipesItem = ({
   title,
   count,
   unit,
+  isCurrentOnEdit = false,
+  onEditPress,
+
 }) => {
   return (
     <TouchableOpacity
       style={styles.container}
+      disabled={isCurrentOnEdit}
+      onPress={onEditPress}
+
     >
       <View style = {styles.row}>
         <CustomText weight = "semi" style={styles.name}>{title}</CustomText>

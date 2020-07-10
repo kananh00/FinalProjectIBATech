@@ -61,9 +61,18 @@ export const MyRecipesScreen = connect(mapStateToProps, {deleteRecipe})(
               myRecipeMode = {true}
             //   userPhoto = {item.photo}
               onDeletePress={() => deleteHandler(item.id, item.name)}
+              onEditPress = {() => 
+                navigation.navigate("List", {
+                addMode: true,
+                recipeID: item.id,
+                title: item.name,
+                desc: item.description,
+                image: item.imageUri,
+                duration: item.duration,
+                portion: item.portion,
+              })}
               onPress={() =>
                 navigation.navigate("List", {
-                  
                   addMode: false,
                   recipeID: item.id,
                   title: item.name,

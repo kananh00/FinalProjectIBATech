@@ -4,7 +4,11 @@ import { RecipesItem } from "./RecipesItem";
 
 
 export const RecipeContent = ({
-  ingredients,image
+  ingredients,
+  image,
+  onEditPress,
+  currentEditIngredientID,
+
 }) => {
   return (
       <View>
@@ -14,6 +18,8 @@ export const RecipeContent = ({
       renderItem={({ item }) => (
         <RecipesItem
           {...item}
+          isCurrentOnEdit={currentEditIngredientID === item.id}
+          onEditPress={() => onEditPress(item)}
         />
       )}
     /></View>

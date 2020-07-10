@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, Image, Text, View, TouchableOpacity } from "rea
 
 import { ICONS } from "../../styles/icon";
 import { COLORS } from "../../styles/color";
+import { IMAGES } from "../../styles/images";
 import { CustomText } from "../../components/CustomText";
 import {GLOBAL_STYLES} from '../../styles/globalStyles';
 export const RecipesList = ({
@@ -10,6 +11,7 @@ export const RecipesList = ({
     image, 
     portion,
     onDeletePress, 
+    onEditPress,
     onPress, 
     userPhoto, 
     myRecipeMode, 
@@ -32,7 +34,7 @@ export const RecipesList = ({
               </CustomText>
               {!myRecipeMode && !favAndWishMode &&
                 <View style={styles.imgWrapper}>
-                  <Image style={styles.userImg} source={{ uri: userPhoto }} />
+                  <Image style={styles.userImg} source={userPhoto ? { uri: userPhoto } : IMAGES.avatar} />
                 </View>
               }
 
@@ -49,7 +51,7 @@ export const RecipesList = ({
 
               {myRecipeMode &&
                 <View style={styles.column}>
-                  <TouchableOpacity style = {styles.iconWrapper}>
+                  <TouchableOpacity onPress = {onEditPress} style = {styles.iconWrapper}>
                     <Image style={styles.icon} source={ICONS.edit} />
                   </TouchableOpacity>
                   <TouchableOpacity onPress = {onDeletePress} style = {styles.iconWrapper}>
@@ -140,6 +142,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: COLORS.PRIMARY,
         borderRadius: 100,
+        width: 50,
+        height: 50,
       },
       icon: {
         width: 20,
