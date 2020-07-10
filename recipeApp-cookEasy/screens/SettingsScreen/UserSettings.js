@@ -12,6 +12,7 @@ import { FONT_FAMILIES, loadFonts } from '../../styles/fonts';
 import { AvatarUploader } from './AvatarUploader';
 import { BackBtn } from '../../components/BackBtn';
 import { CustomBtn } from '../../components/CustomBtn';
+import { HeaderBtn } from '../../components/HeaderBtn';
 // import { HomeTabs } from '../../navigation/HomeTabs';
 
 // const fieldInitialState = {
@@ -33,7 +34,7 @@ export const UserSettings = ({username,navigation}) =>{
     return(
         <View style={styles.container}>
           <View style={styles.header}>
-              <BackBtn 
+              <HeaderBtn 
                 onPress={()=>navigation.navigate("HomeStack")}
               />
               <CustomText weight = "bold" style={styles.headertxt}>User Settings</CustomText>  
@@ -41,22 +42,6 @@ export const UserSettings = ({username,navigation}) =>{
          
           <View style={{alignItems:'center'}}> 
                   <AvatarUploader/>
-                  {/* <CustomText weight="semi" style={styles.title}>
-                    name
-                  </CustomText> */}
-                  {/* <TextInput    style={styles.field}
-                    value={username} 
-                  /> */}
-                  {/* <CustomField
-                    title="username"
-                  />
-                  <CustomField
-                    title="e-mail"
-                  /> */}
-                  {/* <CustomText weight="semi" style={styles.title}>
-                    e-mail
-                  </CustomText>
-                    <TextInput   style={styles.field}  /> */}
                   <CustomBtn title={'Save Changes'}/>
            </View>
         </View>
@@ -65,6 +50,7 @@ export const UserSettings = ({username,navigation}) =>{
 const styles = StyleSheet.create({
 container:{
    flex:1,
+   backgroundColor:COLORS.BUTTON_TEXT
 
 },
 header:{

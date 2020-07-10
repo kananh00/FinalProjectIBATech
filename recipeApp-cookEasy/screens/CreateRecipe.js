@@ -12,7 +12,11 @@ import { addRecipe } from "../store/data";
 import { createID } from "../utils/createID";
 import { selectAuthUsername, selectAuthPhoto } from "./../store/auth";
 import { COLORS } from "../styles/color";
+import { BackBtn } from "../components/BackBtn";
+import { CustomText } from "../components/CustomText";
+import { HeaderBtn } from "../components/HeaderBtn";
 // import {Header} from '../commons/Header';
+
 const createFormInitialFieldState = {
   recipeTitle: "",
   recipeImage: "",
@@ -85,6 +89,10 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
     return (
       
       <View style={styles.wrapper}>
+<View style={styles.header}>
+  <CustomText style={styles.headertxt}  weight='bold' >ADD YOUR RECIPE</CustomText>
+</View>
+<View style={styles.fieldswrapper}>
          <CustomField
           title="paste Image Url"
           value={fields.recipeImage}
@@ -125,6 +133,7 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
           onPress={submitHandler}
         />
         </View>
+        </View>
         
       </View>
     );
@@ -133,15 +142,36 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingHorizontal: 20,
-    marginTop: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor:COLORS.BUTTON_TEXT
+    backgroundColor:COLORS.BUTTON_TEXT,
+    flex:1,
+
+
   },
  
   btnWrapper: {
     width: "50%",
     alignItems: "center",
+  },
+  header:{
+    backgroundColor: COLORS.PRIMARY,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    justifyContent:'center',
+    // paddingHorizontal:"100%",
+    paddingVertical:30,
+    alignItems:'center',
+    flexDirection:'row',
+  },
+  headertxt:{
+      color:COLORS.BUTTON_TEXT,
+      fontSize:25,
+      
+  },
+  fieldswrapper:{
+    alignItems:'center',
+  paddingVertical:30,
+  
   }
 });

@@ -77,7 +77,7 @@ export const AvatarUploader = connect(mapStateToProps, { uploadAuthPhoto,updateU
     
 //   }));
 // };
-
+const [value,setValue] = React.useState('');
 
 return (
      
@@ -86,7 +86,7 @@ return (
         <KeyboardAvoidingView behavior="padding">
           <TextInput style={styles.field}
          value={username} 
-         onChangeText={(value) => updateUsername(updated_username)}
+         onChangeText={(nextValue) => setValue(nextValue)}
         /> 
          <View style={styles.imgWrapper}>
           <Image

@@ -8,6 +8,10 @@ import { RecipeScreen } from "../screens/RecipeScreen";
 import {UserSettings} from '../screens/SettingsScreen/UserSettings';
 import { HomeStack } from "./HomeStack";
 import {COLORS} from '../styles/color';
+
+
+
+
 const { Navigator, Screen } = createBottomTabNavigator();
 
 export const HomeTabs = () => (
