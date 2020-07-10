@@ -1,12 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import { headerDefaultStyle } from "../styles/headerDefaultStyle";
 import {CreateRecipe } from '../screens';
 import { RecipeScreen } from "../screens/RecipeScreen"; 
 import {UserSettings} from '../screens/SettingsScreen/UserSettings';
-import { HomeStack } from "./HomeStack";
 import {COLORS} from '../styles/color';
 
 
@@ -56,7 +55,7 @@ export const HomeTabs = () => (
     <Screen name="PrivateChats">
       {({ ...props }) => <ChatsListScreen type="private" {...props} />}
     </Screen> */}
-    <Screen name="HomeStack" component={HomeStack} options={({ navigation }) => ({
+    <Screen name="HomeStack" component={RecipeScreen} options={({ navigation }) => ({
         title: '',
       })}/>
     <Screen name="Create" component={CreateRecipe} 

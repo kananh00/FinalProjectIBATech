@@ -8,11 +8,10 @@ const { Navigator, Screen } = createStackNavigator();
 import { HomeTabs } from "./HomeTabs";
 
 export const HomeStack = () => (
-    <Navigator  screenOptions={headerDefaultStyle}>
+    <Navigator>
     <Screen
         name="Recipes"
         component={RecipeScreen}
     />
-    
     </Navigator>
 );
