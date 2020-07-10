@@ -100,6 +100,7 @@ export const Login = connect(null, { logIn, signUp })(
                     </CustomText>
                     <TextInput
                       style={[styles.field]}
+                      keyboardType={'email-address'}
                       onChangeText={(value) => fieldsChangeHandler(key, value)}
                     />
                   </View>

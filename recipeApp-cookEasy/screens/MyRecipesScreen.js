@@ -2,10 +2,14 @@ import React from "react";
 import { StyleSheet, Text, View, Button, FlatList, Alert } from "react-native";
 import { connect } from "react-redux";
 
-
 import { RecipesList } from "./RecipeScreen/RecipesList";
 import { getRecipes, deleteRecipe  } from "../store/data";
 import { selectAuthUsername, selectAuthPhoto } from "../store/auth";
+import { BackBtn } from "../components/BackBtn";
+import { CustomText } from "../components/CustomText";
+import { COLORS } from "../styles/color";
+import { HeaderBtn } from "../components/HeaderBtn";
+
 const mapStateToProps = (state, { route }) => ({
   photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
@@ -38,6 +42,14 @@ export const MyRecipesScreen = connect(mapStateToProps, {deleteRecipe})(
       };
 
     return (
+      <View style={styles.container}>
+      <View>
+      <View style={styles.header}>
+      <HeaderBtn onPress={() => navigation.navigate("HomeStack")} />
+
+  <CustomText style={styles.headertxt}  weight='bold' >MY RECIPES</CustomText>
+</View>
+      </View>
       <View>
         {allRecipes
           .filter((item) => item.username === username)
@@ -67,11 +79,31 @@ export const MyRecipesScreen = connect(mapStateToProps, {deleteRecipe})(
             ))}
      
       </View>
+      </View>
     );
   }
 );
 
 const styles = StyleSheet.create({
- 
-
+ container:{
+  backgroundColor:COLORS.BUTTON_TEXT,
+  flex:1,
+ },
+  header:{
+    backgroundColor: COLORS.PRIMARY,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    justifyContent:'center',
+    // paddingHorizontal:"100%",
+    paddingVertical:30,
+    alignItems:'center',
+    flexDirection:'row',
+  },
+  headertxt:{
+      color:COLORS.BUTTON_TEXT,
+      fontSize:25,
+      
+  },
 });
