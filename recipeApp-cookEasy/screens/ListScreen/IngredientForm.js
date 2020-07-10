@@ -16,9 +16,10 @@ const fieldInitialState = {
 
 export const IngredientForm = ({
   addHandler,
-//   singeProductEditState,
-//   updateProductHandler,
-//   finishSingleProductEdit,
+  singeIngredientEditState,
+  updateIngredientHandler,
+  finishSingleIngredientEdit
+
 }) => {
   // Form data handle
   const [fields, setFields] = useState(fieldInitialState);
@@ -29,12 +30,11 @@ export const IngredientForm = ({
     }));
   };
 
-  // Set single edit data
-//   useEffect(() => {
-//     if (singeProductEditState.status) {
-//       setFields(singeProductEditState.product);
-//     }
-//   }, [singeProductEditState]);
+  useEffect(() => {
+    if (singeIngredientEditState.status) {
+      setFields(singeIngredientEditState.ingredient);
+    }
+  }, [singeIngredientEditState]);
 
   const validateForm = () => {
     if (fields.title.trim() === "") {
@@ -48,18 +48,18 @@ export const IngredientForm = ({
     return true;
   };
 
-  // Buttons press handlers
-//   const onCancelPress = () => {
-//     finishSingleProductEdit();
-//     setFields(fieldInitialState);
-//   };
+  
+  const onCancelPress = () => {
+    finishSingleIngredientEdit();
+    setFields(fieldInitialState);
+  };
 
-//   const onUpdateSubmit = () => {
-//     if (validateForm()) {
-//       updateProductHandler({ product: fields });
-//       onCancelPress();
-//     }
-//   };
+  const onUpdateSubmit = () => {
+    if (validateForm()) {
+      updateIngredientHandler({ ingredient: fields });
+      onCancelPress();
+    }
+  };
 
   const onAddSubmit = () => {
     if (validateForm()) {
@@ -91,25 +91,25 @@ export const IngredientForm = ({
         options={COUNT_TYPES}
       />
 
-      {/* {singeProductEditState.status ? (
+      {singeIngredientEditState.status ? (
         <View style={styles.row}>
-          <Btn
+          <CustomBtn
             title="Cancel"
-            width={getWidthByPercents(50, 3)}
+            width={widthByPercent(50, 3)}
             style={styles.cancel}
             onPress={onCancelPress}
           />
-          <Btn
+          <CustomBtn
             title="Update"
-            width={getWidthByPercents(50, 3)}
+            width={widthByPercent(50, 3)}
             onPress={onUpdateSubmit}
           />
         </View>
-      ) : ( */}
+      ) : (
       <View style = {styles.btnWrapper}>
         <CustomBtn title="Add to ingredients" onPress={onAddSubmit} />
       </View>
-      {/* )} */}
+       )} 
     </View>
   );
 };

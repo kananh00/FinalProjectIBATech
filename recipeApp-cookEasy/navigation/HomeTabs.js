@@ -18,7 +18,7 @@ export const HomeTabs = () => (
     backgroundColor: COLORS.PRIMARY,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    // paddingTop: 15,
+    marginTop: -15,
     height: 60,
 }}
 

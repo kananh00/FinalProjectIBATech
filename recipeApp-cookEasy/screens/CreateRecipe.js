@@ -19,8 +19,6 @@ const createFormInitialFieldState = {
   recipeDuration: "",
   recipePortion: "",
   recipeDesc: "",
-  ingredients: "",
-
 };
 
 const mapStateToProps = (state) => ({
