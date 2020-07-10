@@ -8,6 +8,10 @@ import { RecipeScreen } from "../screens/RecipeScreen";
 import {UserSettings} from '../screens/SettingsScreen/UserSettings';
 import { HomeStack } from "./HomeStack";
 import {COLORS} from '../styles/color';
+
+
+
+
 const { Navigator, Screen } = createBottomTabNavigator();
 
 export const HomeTabs = () => (
@@ -18,8 +22,8 @@ export const HomeTabs = () => (
     backgroundColor: COLORS.PRIMARY,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    marginTop: -15,
     height: 60,
+    marginTop:-30,
 }}
 
 }

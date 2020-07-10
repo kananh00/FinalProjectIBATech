@@ -113,7 +113,8 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
                   <TextInput
                    style={[styles.field,]} 
                    onChangeText={(value) => fieldsChangeHandler(key, value)}
-                   />
+                   keyboardType={"email-address"}
+                 />
                 </View>
               )
           }
@@ -124,11 +125,12 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
               <CustomText weight="semi" style={styles.title}>
               {fields[key].label}
               </CustomText>
-              <TextInput
+              <TextInput      
                style={[styles.field,]}
                secureTextEntry 
                onChangeText={(value) => fieldsChangeHandler(key, value)}
-               />
+               keyboardType={"number-pad"}
+              />
             </View>
           )
           }

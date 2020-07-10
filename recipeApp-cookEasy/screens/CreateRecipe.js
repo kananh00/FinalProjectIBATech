@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, KeyboardAvoidingView,ScrollView } from "react-native";
 import { connect } from "react-redux";
 // import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 import { CustomField } from "../components/CustomField";
@@ -12,7 +12,11 @@ import { addRecipe } from "../store/data";
 import { createID } from "../utils/createID";
 import { selectAuthUsername, selectAuthPhoto } from "./../store/auth";
 import { COLORS } from "../styles/color";
+import { BackBtn } from "../components/BackBtn";
+import { CustomText } from "../components/CustomText";
+import { HeaderBtn } from "../components/HeaderBtn";
 // import {Header} from '../commons/Header';
+
 const createFormInitialFieldState = {
   recipeTitle: "",
   recipeImage: "",
@@ -81,8 +85,15 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
     };
 
     return (
+       
       
-      <View style={styles.wrapper}>
+      <View style={styles.wrapper}>  
+       <KeyboardAvoidingView behavior="padding">
+<View style={styles.header}>
+  <CustomText style={styles.headertxt}  weight='bold' >ADD YOUR RECIPE</CustomText>
+</View>
+<View style={styles.fieldswrapper}>
+       <ScrollView>
          <CustomField
           title="paste Image Url"
           value={fields.recipeImage}
@@ -97,11 +108,13 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
         <CustomField
           title="Prepare duration"
           value={fields.recipeDuration}
+          keyboardType={"number-pad"}
           onChangeText={(value) => fieldChangeHandler("recipeDuration", value)}
         />
         <CustomField
           title="Portion"
           value={fields.recipePortion}
+          keyboardType={"number-pad"}
           onChangeText={(value) => fieldChangeHandler("recipePortion", value)}
         />
         <CustomField
@@ -110,6 +123,8 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
           value={fields.recipeDesc}
           onChangeText={(value) => fieldChangeHandler("recipeDesc", value)}
         />
+        </ScrollView> 
+      
         {/* <RadioGroup
           options={Object.keys(LISTS_TYPES)}
           value={fields.listType}
@@ -123,23 +138,46 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
           onPress={submitHandler}
         />
         </View>
-        
+        </View>
+        </KeyboardAvoidingView>
       </View>
+      
     );
   }
 );
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingHorizontal: 20,
-    marginTop: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor:COLORS.BUTTON_TEXT
+    backgroundColor:COLORS.BUTTON_TEXT,
+    flex:1,
+
+
   },
  
   btnWrapper: {
     width: "50%",
     alignItems: "center",
+  },
+  header:{
+    backgroundColor: COLORS.PRIMARY,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    justifyContent:'center',
+    // paddingHorizontal:"100%",
+    paddingVertical:30,
+    alignItems:'center',
+    flexDirection:'row',
+  },
+  headertxt:{
+      color:COLORS.BUTTON_TEXT,
+      fontSize:25,
+      
+  },
+  fieldswrapper:{
+    alignItems:'center',
+  paddingVertical:20,
+  
   }
 });
