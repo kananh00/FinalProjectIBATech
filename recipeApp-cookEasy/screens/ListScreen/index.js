@@ -11,12 +11,12 @@ import {GLOBAL_STYLES} from '../../styles/globalStyles';
 import {
   selectSingleRecipeByID,
   addIngredient
-
 } from "../../store/data";
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { IngredientForm } from "./IngredientForm";
 import fbApp from "../../firebaseInit";
+import { selectAuthUserID } from "../../store/auth";
 
 const mapStateToProps = (state, { route }) => ({
   recipe: selectSingleRecipeByID(
@@ -24,6 +24,7 @@ const mapStateToProps = (state, { route }) => ({
     route.params?.recipeID,
     
   ),
+  userID: selectAuthUserID(state),
   
 });
 
@@ -32,7 +33,8 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
     route,
     recipe,
     addIngredient,
-    navigation
+    navigation,
+    userID
    
    
   }) => {
@@ -46,7 +48,7 @@ export const ListScreen = connect(mapStateToProps, {addIngredient})(
       });
 
 const movetoWisthlist =() =>{
-  fbApp.db.ref(`wishlist/${title}`).set({
+  fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
     recipe,
     title,
     image,
@@ -54,7 +56,7 @@ const movetoWisthlist =() =>{
   });
 }
 const movetoFavlist =() =>{
-    fbApp.db.ref(`favlist/${title}`).set({
+    fbApp.db.ref(`users/${userID}/favlist/${title}`).set({
       recipe,
       title,
       image,
@@ -63,7 +65,7 @@ const movetoFavlist =() =>{
   }
       const addHandler = createDispatchHandler(addIngredient);
     return (
-      <ScrollView>
+      <ScrollView style={styles.wrapper}>
         <View style = {styles.recipeText}>
       <View style = {styles.imgWrapper}>
         <Image style={styles.recipeImg} source={{ uri: image }} />
@@ -134,8 +136,12 @@ const movetoFavlist =() =>{
   }
 );
 const styles = StyleSheet.create({
-    recipeImg: {
+  wrapper:{
+backgroundColor:COLORS.BUTTON_TEXT
+  } , 
+  recipeImg: {
         ...StyleSheet.absoluteFill,
+
       },
       title: {
           color: "black",
