@@ -3,10 +3,7 @@ import { StyleSheet, View, Alert, KeyboardAvoidingView,ScrollView } from "react-
 import { connect } from "react-redux";
 // import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 import { CustomField } from "../components/CustomField";
-// import { RadioGroup } from "../components/RadioGroup";
 import { CustomBtn } from "../components/CustomBtn";
-// import { Container } from "../commons/Container";
-// import { LISTS_TYPES } from "../utils/listsTypes";
 import { GLOBAL_STYLES } from "../styles/globalStyles";
 import { addRecipe } from "../store/data";
 import { createID } from "../utils/createID";
@@ -15,7 +12,6 @@ import { COLORS } from "../styles/color";
 import { BackBtn } from "../components/BackBtn";
 import { CustomText } from "../components/CustomText";
 import { HeaderBtn } from "../components/HeaderBtn";
-// import {Header} from '../commons/Header';
 
 const createFormInitialFieldState = {
   recipeTitle: "",
@@ -90,50 +86,50 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
       <View style={styles.wrapper}>  
           <KeyboardAvoidingView behavior="padding">
 
-          <View style={styles.header}>
-            <CustomText style={styles.headertxt}  weight='bold' >ADD YOUR RECIPE</CustomText>
-          </View>
-
-          <View style={styles.fieldswrapper}>
-          <ScrollView>
-            <CustomField
-              title="paste Image Url"
-              value={fields.recipeImage}
-              onChangeText={(value) => fieldChangeHandler("recipeImage", value)}
-            />
-            <CustomField
-              title="Meal name"
-              value={fields.recipeTitle}
-              onChangeText={(value) => fieldChangeHandler("recipeTitle", value)}
-            />
-            
-            <CustomField
-              title="Prepare duration"
-              value={fields.recipeDuration}
-              keyboardType={"number-pad"}
-              onChangeText={(value) => fieldChangeHandler("recipeDuration", value)}
-            />
-            <CustomField
-              title="Portion"
-              value={fields.recipePortion}
-              keyboardType={"number-pad"}
-              onChangeText={(value) => fieldChangeHandler("recipePortion", value)}
-            />
-            <CustomField
-              style = {{height: 100}}
-              title="How to cook"
-              value={fields.recipeDesc}
-              onChangeText={(value) => fieldChangeHandler("recipeDesc", value)}
-            />
-            </ScrollView> 
-            <View style = {styles.btnWrapper}> 
-              <CustomBtn
-              title="Next"
-              style={styles.topSpacing}
-              onPress={submitHandler}
-            />
-            </View>
-            </View>
+              <View style={styles.header}>
+                <CustomText style={styles.headertxt}  weight='bold' >Add your Recipe</CustomText>
+              </View>
+              <ScrollView>
+                <View style={styles.fieldswrapper}>
+                    
+                      <CustomField
+                        title="paste Image Url"
+                        value={fields.recipeImage}
+                        onChangeText={(value) => fieldChangeHandler("recipeImage", value)}
+                      />
+                      <CustomField
+                        title="Meal name"
+                        value={fields.recipeTitle}
+                        onChangeText={(value) => fieldChangeHandler("recipeTitle", value)}
+                      />
+                      
+                      <CustomField
+                        title="Prepare duration"
+                        value={fields.recipeDuration}
+                        keyboardType={"number-pad"}
+                        onChangeText={(value) => fieldChangeHandler("recipeDuration", value)}
+                      />
+                      <CustomField
+                        title="Portion"
+                        value={fields.recipePortion}
+                        keyboardType={"number-pad"}
+                        onChangeText={(value) => fieldChangeHandler("recipePortion", value)}
+                      />
+                      <CustomField
+                        style = {{height: 100}}
+                        title="How to cook"
+                        value={fields.recipeDesc}
+                        onChangeText={(value) => fieldChangeHandler("recipeDesc", value)}
+                      />
+                      <View style = {styles.btnWrapper}> 
+                        <CustomBtn
+                        title="Next"
+                        style={styles.topSpacing}
+                        onPress={submitHandler}
+                        />
+                      </View>
+                  </View>
+                </ScrollView> 
             </KeyboardAvoidingView>
       </View>
       
@@ -146,26 +142,28 @@ const styles = StyleSheet.create({
     backgroundColor:COLORS.BUTTON_TEXT,
     flex:1,
   },
- 
   btnWrapper: {
     alignItems: "center",
+    bottom: GLOBAL_STYLES.MARGIN,
+    paddingTop: 3
   },
-  header:{
+  header: {
     backgroundColor: COLORS.PRIMARY,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    justifyContent:'center',
-    // paddingHorizontal:"100%",
-    paddingVertical:30,
-    alignItems:'center',
-    flexDirection:'row',
+    justifyContent: "center",
+    paddingVertical: 20,
+    paddingTop: 30,
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 15,
   },
-  headertxt:{
-      color:COLORS.BUTTON_TEXT,
-      fontSize:25,
-      
+  headertxt: {
+    color: COLORS.BUTTON_TEXT,
+    fontSize: 25,
+    paddingHorizontal: 20,
   },
   fieldswrapper:{
     alignItems:'center',

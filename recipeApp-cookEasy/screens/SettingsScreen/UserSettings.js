@@ -53,23 +53,24 @@ container:{
    backgroundColor:COLORS.BUTTON_TEXT
 
 },
-header:{
-    backgroundColor: COLORS.PRIMARY,
-    elevation: 0,
-    shadowOpacity: 0,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
-    justifyContent:'center',
-    // paddingHorizontal:"100%",
-    paddingVertical:30,
-    alignItems:'center',
-    flexDirection:'row',
-  },
-  headertxt:{
-      color:COLORS.BUTTON_TEXT,
-      fontSize:30,
-      
-  },
+header: {
+  backgroundColor: COLORS.PRIMARY,
+  elevation: 0,
+  shadowOpacity: 0,
+  borderBottomLeftRadius: 40,
+  borderBottomRightRadius: 40,
+  justifyContent: "center",
+  paddingVertical: 20,
+  paddingTop: 30,
+  alignItems: "center",
+  flexDirection: "row",
+  marginBottom: 15,
+},
+headertxt: {
+  color: COLORS.BUTTON_TEXT,
+  fontSize: 25,
+  paddingHorizontal: 20,
+},
 
 
 
