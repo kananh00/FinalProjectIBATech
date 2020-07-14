@@ -7,7 +7,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 
 import { CustomDrawer } from "../components/CustomDrawer";
-import { HomeScreen, Login, SignUp, CreateRecipe, MyRecipesScreen  } from "../screens";
+import { WelcomeScreen, Login, SignUp, CreateRecipe, MyRecipesScreen  } from "../screens";
 import { RecipeScreen } from "../screens/RecipeScreen";
 import { UserSettings } from "../screens/SettingsScreen/UserSettings";
 import { ICONS } from "../styles/icon";

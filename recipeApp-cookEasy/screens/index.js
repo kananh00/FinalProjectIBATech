@@ -1,4 +1,4 @@
-export {HomeScreen} from './HomeScreen'
+export {WelcomeScreen} from './WelcomeScreen'
 export {Login} from './LogInScreen'
 export {SignUp} from './SignUpScreen'
 export {CreateRecipe} from './CreateRecipe'

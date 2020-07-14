@@ -10,7 +10,7 @@ import { CustomBtn } from '../components/CustomBtn'
 import { useNavigation } from "@react-navigation/native";
 
 
- export const HomeScreen = ({navigation}) =>{
+ export const WelcomeScreen = ({navigation}) =>{
      return(
          <View style={styles.container}>
             <View style={styles.upper}>
@@ -39,7 +39,6 @@ import { useNavigation } from "@react-navigation/native";
     },
     upper:{
     justifyContent:'center',
-    // paddingTop:15,
     backgroundColor:COLORS.PRIMARY,
     borderBottomLeftRadius:200,
     borderBottomRightRadius:200,
@@ -50,7 +49,6 @@ import { useNavigation } from "@react-navigation/native";
         height:300,
     },
     cookeasytxt:{
-        // fontFamily:FONT_FAMILIES.bold,
         fontSize:48,
         color:'white',
         marginTop: 40,
@@ -58,7 +56,6 @@ import { useNavigation } from "@react-navigation/native";
     },
     slogan:{
         fontSize:30,
-            // fontFamily:FONT_FAMILIES.regular,
         textAlign:'center',
         marginVertical:15
     },

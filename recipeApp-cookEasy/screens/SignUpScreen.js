@@ -16,7 +16,6 @@ import { FONT_FAMILIES, loadFonts } from "../styles/fonts";
 import { CustomText } from "../components/CustomText";
 import { CustomBtn } from "../components/CustomBtn";
 import { ICONS } from "../styles/icon";
-// import { CustomField } from '../components/CustomField'
 import { CustomBtnYellow } from "../components/CustomBtnYellow";
 import { BackBtn } from "../components/BackBtn";
 import { connect } from "react-redux";
@@ -95,7 +94,7 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
           alignItems: "center",
         }}
       >
-        <BackBtn onPress={() => navigation.navigate("HOMEPAGE")} />
+        <BackBtn onPress={() => navigation.navigate("WelcomeScreen")} />
         <CustomText weight="semi" style={styles.signUptxt}>
           Sign Up
         </CustomText>
@@ -129,7 +128,6 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
                style={[styles.field,]}
                secureTextEntry 
                onChangeText={(value) => fieldsChangeHandler(key, value)}
-               keyboardType={"number-pad"}
               />
             </View>
           )
@@ -149,9 +147,7 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
             />
           </TouchableOpacity>
           <CustomText>agree with </CustomText>
-          <TouchableOpacity
-          //   onPress={Link}
-          >
+          <TouchableOpacity   >
             <CustomText weight="semi">Terms and Conditions</CustomText>
           </TouchableOpacity>
         </View>

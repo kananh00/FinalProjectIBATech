@@ -21,7 +21,3 @@ const fbApp = {
 
 export default fbApp;
 
-// const createChat = () => {
-//   if (title.trim() !== "") {
-//     const newChatID = fbApp.db.ref("chats").push().key;
-//     const startMsgID = fbApp.db.ref(`messages/${newChatID}`).push().key;

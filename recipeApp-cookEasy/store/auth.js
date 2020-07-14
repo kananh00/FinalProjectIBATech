@@ -29,7 +29,6 @@ export function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         status: payload,
-        // username,
       };
     case SET_AUTH_SUCCESS:
       return {
@@ -106,7 +105,7 @@ export const signUp = (email, password, username) => async (dispatch) => {
 
     dispatch(setAuthSuccess({ userID: uid, username }));
   } catch (error) {
-    // Alert.alert(error.message);
+
   }
 };
 export const updateUsername = ( newusername) => async (dispatch) => {
@@ -122,7 +121,7 @@ export const updateUsername = ( newusername) => async (dispatch) => {
 
     dispatch(setAuthSuccess({ userID: uid, username }));
   } catch (error) {
-    // Alert.alert(error.message);
+
   }
 };
 
@@ -152,7 +151,3 @@ export const uploadAuthPhoto = (uri) => async (dispatch, getState) => {
     Alert.alert(error.message);
   }
 };
-
-// fbApp.auth.onAuthStateChanged((user) => {
-//   console.log("AuthStateChanged", user);
-// });

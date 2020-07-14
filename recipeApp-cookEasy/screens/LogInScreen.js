@@ -50,10 +50,7 @@ export const Login = connect(null, { logIn, signUp })(
         Alert.alert("Password required");
         return false;
       }
-      // if (!signUp()) {
-      //   Alert.alert("Wrong password or username");
-      //   return false;
-      // }
+    
       return true;
     };
     ///////////////////////////
@@ -62,12 +59,6 @@ export const Login = connect(null, { logIn, signUp })(
         logIn(fields.email.value, fields.password.value);
       }
     };
-    /////////////
-    // const createUser = () =>{
-    //   {Object.keys(fields).map((key) => {
-    //   fbApp.db.ref("users").set(fields.email.value)
-    // })
-    // }
 
     //////////////////////
     return (
@@ -79,7 +70,7 @@ export const Login = connect(null, { logIn, signUp })(
             alignItems: "center",
           }}
         >
-          <BackBtn onPress={() => navigation.navigate("HOMEPAGE")} />
+          <BackBtn onPress={() => navigation.navigate("WelcomeScreen")} />
           <CustomText weight="semi" style={styles.logintxt}>
             Log In
           </CustomText>
@@ -114,7 +105,6 @@ export const Login = connect(null, { logIn, signUp })(
                     <TextInput
                       style={[styles.field]}
                       secureTextEntry
-                      keyboardType={"number-pad"}
                       onChangeText={(value) => fieldsChangeHandler(key, value)}
                     />
                   </View>
@@ -168,7 +158,6 @@ const styles = StyleSheet.create({
   },
   field: {
     height: 42,
-    //   textAlign: "center",
     paddingHorizontal: 15,
     fontSize: 14,
     backgroundColor: COLORS.FIELD_BG,
