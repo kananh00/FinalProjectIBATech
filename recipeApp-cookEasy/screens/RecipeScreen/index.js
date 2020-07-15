@@ -1,7 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, FlatList, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  FlatList,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { connect } from "react-redux";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 
 import { CustomText } from "../../components/CustomText";
 import { RecipesList } from "./RecipesList";
@@ -9,54 +17,55 @@ import { getRecipes } from "../../store/data";
 import { COLORS } from "../../styles/color";
 
 const mapStateToProps = (state, { route }) => ({
-  allRecipes: getRecipes(
-    state,
-  ),
+  allRecipes: getRecipes(state),
 });
 
 export const RecipeScreen = connect(mapStateToProps)(
-  ({ navigation, allRecipes, username, route}) => {
-
+  ({ navigation, allRecipes, username, route }) => {
     return (
       <View>
         <View style={styles.header}>
-          <View style = {styles.row}>
+          <View style={styles.row}>
             <CustomText weight="bold" style={styles.headertxt}>
-            Recipes
-          </CustomText>
-          <View style = {{left: "180%"}}>
-            <FontAwesome onPress = {navigation.openDrawer} name="bars" size={30} color="white" />
+              Recipes
+            </CustomText>
+            <View style={{ left: "180%" }}>
+              <FontAwesome
+                onPress={navigation.openDrawer}
+                name="bars"
+                size={30}
+                color="white"
+              />
+            </View>
           </View>
-          </View>
-          
         </View>
-        <FlatList
-          data={allRecipes}
-          renderItem={({ item }) => (
-            <RecipesList
-              name={item.name}
-              image = {item.imageUri}
-              portion = {item.portion}
-              userPhoto = {item.photo}
-              myRecipeMode = {false}
-              favAndWishMode = {false}
-              onPress={() =>
-                navigation.navigate("List", {
-                  addMode: false,
-                  recipeID: item.id,
-                  title: item.name,
-                  desc: item.description,
-                  image: item.imageUri,
-                  duration: item.duration,
-                  portion: item.portion,
-                  photo: item.photo
-                })
-
-              }
-
-            />
-          )}
-        />
+        <ScrollView>
+          <FlatList
+            data={allRecipes}
+            renderItem={({ item }) => (
+              <RecipesList
+                name={item.name}
+                image={item.imageUri}
+                portion={item.portion}
+                userPhoto={item.photo}
+                myRecipeMode={false}
+                favAndWishMode={false}
+                onPress={() =>
+                  navigation.navigate("List", {
+                    addMode: false,
+                    recipeID: item.id,
+                    title: item.name,
+                    desc: item.description,
+                    image: item.imageUri,
+                    duration: item.duration,
+                    portion: item.portion,
+                    photo: item.photo,
+                  })
+                }
+              />
+            )}
+          />
+        </ScrollView>
       </View>
     );
   }
@@ -73,8 +82,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingTop: 30,
     alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 15,
   },
   headertxt: {
     color: COLORS.BUTTON_TEXT,

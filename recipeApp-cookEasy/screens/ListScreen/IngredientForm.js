@@ -18,8 +18,7 @@ export const IngredientForm = ({
   addHandler,
   singeIngredientEditState,
   updateIngredientHandler,
-  finishSingleIngredientEdit
-
+  finishSingleIngredientEdit,
 }) => {
   // Form data handle
   const [fields, setFields] = useState(fieldInitialState);
@@ -40,15 +39,13 @@ export const IngredientForm = ({
     if (fields.title.trim() === "") {
       Alert.alert("Name is empty", "Name is required field");
       return false;
-    } 
-    else if (fields.count.trim() === "") {
+    } else if (fields.count.trim() === "") {
       Alert.alert("Count is empty", "You should write count");
       return false;
     }
     return true;
   };
 
-  
   const onCancelPress = () => {
     finishSingleIngredientEdit();
     setFields(fieldInitialState);
@@ -78,6 +75,7 @@ export const IngredientForm = ({
           contentContainerStyle={{ width: widthByPercent(75, 3) }}
         />
         <CustomField
+          keyboardType={"number-pad"}
           value={fields.count}
           onChangeText={(value) => fieldChangeHandler("count", value)}
           title="count"
@@ -106,10 +104,10 @@ export const IngredientForm = ({
           />
         </View>
       ) : (
-      <View style = {styles.btnWrapper}>
-        <CustomBtn title="Add to ingredients" onPress={onAddSubmit} />
-      </View>
-       )} 
+        <View style={styles.btnWrapper}>
+          <CustomBtn title="Add to ingredients" onPress={onAddSubmit} />
+        </View>
+      )}
     </View>
   );
 };
@@ -118,7 +116,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingBottom: 21,
-
   },
   row: {
     flexDirection: "row",
@@ -130,5 +127,4 @@ const styles = StyleSheet.create({
   cancel: {
     opacity: 0.6,
   },
- 
 });
