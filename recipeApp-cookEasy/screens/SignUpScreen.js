@@ -74,7 +74,6 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
   const submit = () => {
     if (validateForm()) {
       signUp(fields.email.value, fields.password.value, fields.username.value);
-    
     }
   };
 
@@ -104,36 +103,36 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
       <View style={styles.wrapper}>
         <KeyboardAvoidingView behavior="padding">
           {fieldsKeys.current.map((key) => {
-             if (fields[key] !==fields.password&&fields[key] !==fields.repassword) {
-              return(
-                  <View key={key}>
+            if (
+              fields[key] !== fields.password &&
+              fields[key] !== fields.repassword
+            ) {
+              return (
+                <View key={key}>
                   <CustomText weight="semi" style={styles.title}>
-                  {fields[key].label}
+                    {fields[key].label}
                   </CustomText>
                   <TextInput
-                   style={[styles.field,]} 
-                   onChangeText={(value) => fieldsChangeHandler(key, value)}
-                   keyboardType={"email-address"}
-                 />
+                    style={[styles.field]}
+                    onChangeText={(value) => fieldsChangeHandler(key, value)}
+                    keyboardType={"email-address"}
+                  />
                 </View>
-              )
-          }
-          else{
-           
-            return(
-              <View key={key}>
-              <CustomText weight="semi" style={styles.title}>
-              {fields[key].label}
-              </CustomText>
-              <TextInput      
-               style={[styles.field,]}
-               secureTextEntry 
-               onChangeText={(value) => fieldsChangeHandler(key, value)}
-               keyboardType={"number-pad"}
-              />
-            </View>
-          )
-          }
+              );
+            } else {
+              return (
+                <View key={key}>
+                  <CustomText weight="semi" style={styles.title}>
+                    {fields[key].label}
+                  </CustomText>
+                  <TextInput
+                    style={[styles.field]}
+                    secureTextEntry
+                    onChangeText={(value) => fieldsChangeHandler(key, value)}
+                  />
+                </View>
+              );
+            }
             return null;
           })}
         </KeyboardAvoidingView>
@@ -222,3 +221,4 @@ const styles = StyleSheet.create({
     minWidth: "90%",
   },
 });
+
