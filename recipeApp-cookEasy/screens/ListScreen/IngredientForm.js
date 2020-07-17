@@ -11,7 +11,7 @@ const COUNT_TYPES = ["kg", "pack", "litre", "glass"];
 const fieldInitialState = {
   title: "",
   count: 1,
-  unit: COUNT_TYPES[0],
+  unit: COUNT_TYPES[5],
 };
 
 export const IngredientForm = ({
