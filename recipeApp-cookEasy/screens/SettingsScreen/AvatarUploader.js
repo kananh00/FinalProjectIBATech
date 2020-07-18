@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   View,
   Image,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   KeyboardAvoidingView,
-  KeyboardAwareScrollView 
+  KeyboardAwareScrollView,
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
@@ -21,7 +21,6 @@ import {
   uploadAuthPhoto,
   logIn,
   updateUsername,
-  
 } from "../../store/auth";
 import { IMAGES } from "../../styles/images";
 import { ICONS } from "../../styles/icon";
@@ -38,62 +37,58 @@ const imagePickerOptions = {
   aspect: [1, 1],
 };
 
-
-
-export const AvatarUploader = connect(mapStateToProps, { uploadAuthPhoto,updateUsername })(
-  ({ photo, username, uploadAuthPhoto,updated_username }) => {
-    const selectImage = async (isCamera) => {
-      try {
-        const permission = await requestCameraPermissions();
-        if (permission) {
-          let image;
-          if (isCamera) {
-            image = await ImagePicker.launchCameraAsync(imagePickerOptions);
-          } else {
-            image = await ImagePicker.launchImageLibraryAsync(
-              imagePickerOptions
-            );
-          }
-          const { cancelled, uri } = image;
-
-          if (!cancelled) {
-            uploadAuthPhoto(uri);
-          }
+export const AvatarUploader = connect(mapStateToProps, {
+  uploadAuthPhoto,
+  updateUsername,
+})(({ photo, username, uploadAuthPhoto, updated_username }) => {
+  const selectImage = async (isCamera) => {
+    try {
+      const permission = await requestCameraPermissions();
+      if (permission) {
+        let image;
+        if (isCamera) {
+          image = await ImagePicker.launchCameraAsync(imagePickerOptions);
+        } else {
+          image = await ImagePicker.launchImageLibraryAsync(imagePickerOptions);
         }
-      } catch (error) {}
-    };
+        const { cancelled, uri } = image;
 
-//    const fieldInitialState = {
-//   username: ""
-// }; 
-// const [field, setField] = useState({
-//   username:{value:''}
-// });
-// const fieldChangeHandler = (name, value) => {
-//   setField((field) => ({
-    
-//       ...field[value],
-      
-    
-//   }));
-// };
-const [value,setValue] = React.useState('');
+        if (!cancelled) {
+          uploadAuthPhoto(uri);
+        }
+      }
+    } catch (error) {}
+  };
 
-return (
-     
-     <View style={styles.container}>
-       
-        <KeyboardAvoidingView behavior="padding">
-          <TextInput style={styles.field}
-         value={username} 
-         onChangeText={(nextValue) => setValue(nextValue)}
-        /> 
-         <View style={styles.imgWrapper}>
+  //    const fieldInitialState = {
+  //   username: ""
+  // };
+  // const [field, setField] = useState({
+  //   username:{value:''}
+  // });
+  // const fieldChangeHandler = (name, value) => {
+  //   setField((field) => ({
+
+  //       ...field[value],
+
+  //   }));
+  // };
+  const [value, setValue] = React.useState("");
+
+  return (
+    <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding">
+        <TextInput
+          style={styles.field}
+          value={username}
+          onChangeText={(nextValue) => setValue(nextValue)}
+        />
+        <View style={styles.imgWrapper}>
           <Image
             style={styles.photo}
             source={photo ? { uri: photo } : IMAGES.avatar}
           />
-     
+
           <TouchableOpacity
             style={styles.camera}
             onPress={() => selectImage(true)}
@@ -108,18 +103,15 @@ return (
           onPress={() => selectImage()}
           title={"Select Photo"}
         />
-
-       
-        </KeyboardAvoidingView>
-      </View>
-    );
-  }
-);
+      </KeyboardAvoidingView>
+    </View>
+  );
+});
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical:10
+    paddingVertical: 10,
   },
   photo: {
     borderRadius: 150,
@@ -141,7 +133,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginBottom: 10,
     minWidth: "90%",
-    paddingVertical:6
+    paddingVertical: 6,
   },
   imgWrapper: {
     flexDirection: "column",

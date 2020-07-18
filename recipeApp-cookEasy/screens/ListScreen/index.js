@@ -45,12 +45,12 @@ export const ListScreen = connect(mapStateToProps, {
     addMode,
     portion,
     duration,
+    durationType,
     image,
     photo,
     desc,
     title,
   } = route.params;
-  // const navigations = useNavigation();
 
   const [singeIngredientEditState, setSingleIngredientEditState] = useState(
     singeIngredientEditInitialState
@@ -77,10 +77,12 @@ export const ListScreen = connect(mapStateToProps, {
 
   const movetoWisthlist = () => {
     fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
+
       recipeID,
       portion,
       duration,
       desc,
+      durationType,
       title,
       image,
       photo,
@@ -93,6 +95,7 @@ export const ListScreen = connect(mapStateToProps, {
       portion,
       duration,
       desc,
+      durationType,
       title,
       image,
       photo,
@@ -131,7 +134,7 @@ export const ListScreen = connect(mapStateToProps, {
               <View style={styles.row}>
                 <View style={styles.iconWrapper}>
                   <Image style={styles.icons} source={ICONS.clock} />
-                  <CustomText>{duration}</CustomText>
+                  <CustomText>{duration} {durationType}</CustomText>
                 </View>
 
                 <View style={styles.iconWrapper}>
@@ -146,14 +149,6 @@ export const ListScreen = connect(mapStateToProps, {
                   </View>
                 </TouchableOpacity>
               </View>
-
-              {/* <View style = {styles.row}>  
-            <CustomText>{duration}</CustomText>
-            <CustomText>{portion} person</CustomText> 
-           <TouchableOpacity>
-            <CustomText>add to wishlist</CustomText> 
-          </TouchableOpacity>
-          </View>  */}
             </View>
             <CustomText weight="semi" style={styles.text}>
               How to make it
