@@ -53,6 +53,17 @@ export const WishList = connect(mapStateToProps, { getAndListenWishList })(
                 name={item.title}
                 image={item.image}
                 userPhoto={item.photo}
+                onPress={() =>
+                  navigation.navigate("List", {
+                    addMode: false,
+                    recipeID: item.recipeID,
+                    title: item.title,
+                    desc: item.desc,
+                    image: item.image,
+                    duration: item.duration,
+                    portion: item.portion,
+                    photo: item.photo,
+                  })}
               />
             )}
           />

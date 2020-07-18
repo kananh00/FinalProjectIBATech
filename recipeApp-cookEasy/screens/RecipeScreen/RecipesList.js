@@ -17,6 +17,7 @@ export const RecipesList = ({
   name,
   image,
   onDeletePress,
+  // onCrossPress,
   onEditPress,
   onPress,
   userPhoto,
@@ -45,7 +46,7 @@ export const RecipesList = ({
           {favAndWishMode && (
             <View style={styles.column}>
               <TouchableOpacity
-                onPress={onDeletePress}
+                // onPress={onCrossPress}
                 style={styles.iconWrapper}
               >
                 <Image style={styles.icon} source={ICONS.close} />

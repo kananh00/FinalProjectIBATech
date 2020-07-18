@@ -1,6 +1,6 @@
 import fbApp from "../firebaseInit";
 import { Alert } from "react-native";
-
+import {selectAuthUserID} from './auth';
 const SET_FAVORITES = "SET_FAVORITES";
 const SET_WISHLIST = "SET_WISHLIST";
 const SET_DELETE = "SET_DELETE";
@@ -44,9 +44,10 @@ export const setFavList = (payload) => ({
     payload,
   })
   
-  export const getAndListenFavsList = () => (dispatch) => {
+  export const getAndListenFavsList = () => async (dispatch, getState) => {
+    const userID = selectAuthUserID(getState());
     try {
-      const ref = fbApp.db.ref(`users/${userID}/wishlist/${title}`);
+      const ref = fbApp.db.ref(`users/${userID}/favlist`);
       ref.on(
         "value",
         (snapshot) => {
@@ -62,7 +63,7 @@ export const setFavList = (payload) => ({
           }
         },
         (err) => {
-          console.log("getAndListenChatsList err", err);
+          console.log("getAndListenFavsList err", err);
         }
       );
   
@@ -72,9 +73,10 @@ export const setFavList = (payload) => ({
     }
   };
   
-  export const getAndListenWishList = () => (dispatch) => {
+  export const getAndListenWishList = () => async (dispatch, getState) => {
+    const userID = selectAuthUserID(getState());
     try {
-      const ref = fbApp.db.ref("wishlist");
+      const ref = fbApp.db.ref(`users/${userID}/wishlist`);
       ref.on(
         "value",
         (snapshot) => {
