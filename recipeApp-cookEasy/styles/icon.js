@@ -40,7 +40,7 @@ import userColored from "../assets/icons/userColored.png";
 import mike from "../assets/icons/mike.png";
 import clock from "../assets/icons/clock.png";
 import close from "../assets/icons/close.png";
-
+import photogallery from "../assets/icons/photogallery.png"
 export const ICONS = {
     close,
     clock,
@@ -84,6 +84,7 @@ export const ICONS = {
     searchUnColored,
     search,
     recipe,
+    photogallery
 
 };
 
