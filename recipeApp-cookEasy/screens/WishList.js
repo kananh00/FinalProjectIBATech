@@ -15,21 +15,23 @@ import fbApp from "../firebaseInit";
 import { ListScreen } from "./ListScreen";
 import { ICONS } from "../styles/icon";
 import { selectWishlist, getAndListenWishList } from "../store/wishAndFav";
+import {selectAuthUserID} from '../store/auth';
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
 const mapStateToProps = (state, { route }) => ({
   wishes: selectWishlist(state),
+  userID: selectAuthUserID(state),
 });
 
 export const WishList = connect(mapStateToProps, { getAndListenWishList })(
-  ({ route, wishes, getAndListenWishList, recipe, navigation }) => {
-    //   const [isDelete, setIsDelete] = useState(false);
+  ({ route, wishes, userID, getAndListenWishList, recipe, navigation }) => {
+    const [isDelete, setIsDelete] = useState(false);
+    const deleteWished = (title) => {
+      fbApp.db.ref(`users/${userID}/wishlist/${title}`).remove();
+      setIsDelete(true);
+    };
+  
 
-    // const deleteFav = () => {
-    //   fbApp.db.ref(`favlist/${title}`).remove();
-    //   setIsDelete(true);
-
-    // };
     useEffect(() => {
       const unsubscribe = getAndListenWishList();
       return unsubscribe;
@@ -53,14 +55,17 @@ export const WishList = connect(mapStateToProps, { getAndListenWishList })(
                 name={item.title}
                 image={item.image}
                 userPhoto={item.photo}
+                onCrossPress={() => deleteWished(item.title)}
                 onPress={() =>
                   navigation.navigate("List", {
                     addMode: false,
+                    isWished: true,
                     recipeID: item.recipeID,
                     title: item.title,
                     desc: item.desc,
                     image: item.image,
                     duration: item.duration,
+                    durationType: item.durationType,
                     portion: item.portion,
                     photo: item.photo,
                   })}

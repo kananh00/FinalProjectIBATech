@@ -14,26 +14,25 @@ import { COLORS } from "../styles/color";
 import fbApp from "../firebaseInit";
 import { ListScreen } from "./ListScreen";
 import { ICONS } from "../styles/icon";
-import { selectFavorites, getAndListenFavsList } from "../store/wishAndFav";
+import { selectFavorites, getAndListenFavsList} from "../store/wishAndFav";
 import {selectAuthUserID} from '../store/auth';
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
 const mapStateToProps = (state, { route }) => ({
   favorites: selectFavorites(state),
-  userID: selectAuthUserID(state)
+  userID: selectAuthUserID(state),
 });
 
-export const FavList = connect(mapStateToProps, { getAndListenFavsList })(
+export const FavList = connect(mapStateToProps, { getAndListenFavsList})(
   ({ route, favorites, userID, getAndListenFavsList, recipe, navigation }) => {
       const [isDelete, setIsDelete] = useState(false);
 
-    // const deleteFav = () => {
-    //   fbApp.db.ref(`users/${userID}/favlist/${title}`).remove();
-    //   setIsDelete(true);
-    // };
+    const deleteFav = (title) => {
+      fbApp.db.ref(`users/${userID}/favlist/${title}`).remove();
+      setIsDelete(true);
+    };
     useEffect(() => {
-      const unsubscribe = getAndListenFavsList();
-      return unsubscribe;
+      getAndListenFavsList();
     }, []);
 
     return (
@@ -54,14 +53,17 @@ export const FavList = connect(mapStateToProps, { getAndListenFavsList })(
                 name={item.title}
                 image={item.image}
                 userPhoto={item.photo}
+                onCrossPress={() => deleteFav(item.title)}
                 onPress={() =>
                   navigation.navigate("List", {
                     addMode: false,
+                    isFavorite: true,
                     recipeID: item.recipeID,
                     title: item.title,
                     desc: item.desc,
                     image: item.image,
                     duration: item.duration,
+                    durationType: item.durationType,
                     portion: item.portion,
                     photo: item.photo,
                   })}
