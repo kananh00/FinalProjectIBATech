@@ -19,6 +19,10 @@ import {
     MODULE_NAME as favWishModuleName,
     reducer as favWishReducer,
   } from "./wishAndFav";
+  import {
+    MODULE_NAME as themeModuleName,
+    reducer as themeReducer,
+  } from "./theme";
   
 const config = {
   key: "root",
@@ -29,6 +33,7 @@ const rootReducer = combineReducers({
   data: dataReducer,
   [authModuleName]: authReducer,
   [favWishModuleName]: favWishReducer,
+  [themeModuleName]: themeReducer,
 });
 // const rootReducer = combineReducers({
 //     [recipesModuleName]: recipesReducer,

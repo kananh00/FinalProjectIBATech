@@ -20,7 +20,7 @@ import {
   selectAuthUsername,
   uploadAuthPhoto,
   logIn,
-  updateUsername,
+editUsername,
 } from "../../store/auth";
 import { IMAGES } from "../../styles/images";
 import { ICONS } from "../../styles/icon";
@@ -28,7 +28,6 @@ import { ICONS } from "../../styles/icon";
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
-  newusername: updateUsername(state),
 });
 
 const imagePickerOptions = {
@@ -37,10 +36,13 @@ const imagePickerOptions = {
   aspect: [1, 1],
 };
 
+
+
 export const AvatarUploader = connect(mapStateToProps, {
   uploadAuthPhoto,
-  updateUsername,
-})(({ photo, username, uploadAuthPhoto, updated_username }) => {
+  editUsername
+
+})(({ photo, username, uploadAuthPhoto }) => {
   const selectImage = async (isCamera) => {
     try {
       const permission = await requestCameraPermissions();
@@ -60,28 +62,34 @@ export const AvatarUploader = connect(mapStateToProps, {
     } catch (error) {}
   };
 
-  //    const fieldInitialState = {
-  //   username: ""
-  // };
-  // const [field, setField] = useState({
-  //   username:{value:''}
-  // });
-  // const fieldChangeHandler = (name, value) => {
-  //   setField((field) => ({
 
-  //       ...field[value],
 
-  //   }));
-  // };
-  const [value, setValue] = React.useState("");
+  const fieldsInitialState = {
+    username: username,
+  };
+
+  const [fields, setFields] = useState(fieldsInitialState);
+
+  const fieldsChangeHandler = (name, value) =>
+    setFields((fields) => ({
+      ...fields,
+      [name]: value,
+    }));
+
+
+  const onSubmit = () => {
+    if (fields.username.trim() === "") editUsername(username);
+    else editUsername(fields.username);
+
+  };
 
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
         <TextInput
           style={styles.field}
-          value={username}
-          onChangeText={(nextValue) => setValue(nextValue)}
+          value={fields.username}
+          onChangeText={(val) => fieldsChangeHandler("username",val)}
         />
         <View style={styles.imgWrapper}>
           <Image
@@ -100,8 +108,9 @@ export const AvatarUploader = connect(mapStateToProps, {
 
         <CustomBtn
           style={styles.editbtn}
-          onPress={() => selectImage()}
+          // onPress={() => selectImage()}
           title={"Select Photo"}
+          onPress={onSubmit}
         />
       </KeyboardAvoidingView>
     </View>
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
     height: 41,
   },
   field: {
-    // height: 42,
+   
     paddingHorizontal: 15,
     fontSize: 14,
     backgroundColor: COLORS.FIELD_BG,
