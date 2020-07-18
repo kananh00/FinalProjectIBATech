@@ -47,6 +47,7 @@ export const RecipesList = ({
             <View style={styles.column}>
               <TouchableOpacity
                 onPress={onCrossPress}
+
                 style={styles.iconWrapper}
               >
                 <Image style={styles.icon} source={ICONS.close} />

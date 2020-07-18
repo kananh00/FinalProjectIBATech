@@ -14,19 +14,9 @@ import { BackBtn } from "../../components/BackBtn";
 import { CustomBtn } from "../../components/CustomBtn";
 import { HeaderBtn } from "../../components/HeaderBtn";
 
-// const fieldInitialState = {
-//     name = "",
-//   };
-
 const { Navigator, Screen } = createStackNavigator();
 export const UserSettings = ({ username, navigation }) => {
-  // const [fields, setFields] = useState(fieldInitialState);
-  // const fieldChangeHandler = (name, value) => {
-  //   setFields((fields) => ({
-  //     ...fields,
-  //     [name]: value,
-  //   }));
-  // };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   View,
+  Switch
 } from "react-native";
 import { connect } from "react-redux";
 
@@ -16,9 +17,17 @@ import { ICONS } from "../styles/icon";
 import { IMAGES } from "../styles/images";
 import { logOut } from "../store/auth";
 import { COLORS } from "../styles/color";
+import { getTheme,setTheme } from "../store/theme";
 
-export const CustomDrawer = connect(null, { logOut })(
-  ({ navigation, username, photo, logOut }) => {
+const mapStateToProps = (state) => ({
+  theme: getTheme(state)
+});
+export const CustomDrawer = connect(mapStateToProps,{setTheme, logOut })(
+  ({ navigation, username, photo, logOut,theme,setTheme }) => {
+  
+    const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -34,6 +43,16 @@ export const CustomDrawer = connect(null, { logOut })(
               {username}
             </CustomText>
           </View>
+          <View style={styles.changetheme}>
+          <CustomText>Change Theme</CustomText>
+          <Switch
+        trackColor={{ false: "#9a1f40", true: COLORS.CREATE_ACCOUNT_COLOR }}
+        thumbColor={isEnabled ? "#0779e4" :COLORS.PRIMARY}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+      />
+</View>
           <View style={styles.lists}>
             <TouchableOpacity
               onPress={() => navigation.navigate("MyRecipes")}
@@ -64,7 +83,7 @@ export const CustomDrawer = connect(null, { logOut })(
               onPress={() => navigation.navigate("UserSettings")}
             >
               <Image style={styles.imgs} source={ICONS.settings} />
-              <CustomText style={styles.listtext}>settings</CustomText>
+              <CustomText style={styles.listtext}>user settings</CustomText>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={logOut} style={styles.logoutbtn}>
@@ -89,7 +108,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
     alignItems: "center",
     paddingVertical: 30,
-    marginBottom: "15%",
+    marginBottom: "5%",
   },
 
   drawertxt: {
@@ -143,4 +162,11 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 25,
   },
+  changetheme:{
+    justifyContent:"center",
+    alignItems:"center",
+    flexDirection:"row",
+    paddingVertical:15,
+
+  }
 });
