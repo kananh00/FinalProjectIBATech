@@ -15,14 +15,16 @@ import { addRecipe } from "../store/data";
 import { createID } from "../utils/createID";
 import { selectAuthUsername, selectAuthPhoto } from "./../store/auth";
 import { COLORS } from "../styles/color";
-import { BackBtn } from "../components/BackBtn";
+import { RadioGroup } from "../components/RadioGroup";
 import { CustomText } from "../components/CustomText";
-import { HeaderBtn } from "../components/HeaderBtn";
+
+const TIME_TYPES = ["min", "hour"];
 
 const createFormInitialFieldState = {
   recipeTitle: "",
   recipeImage: "",
   recipeDuration: "",
+  durationType: TIME_TYPES[0],
   recipePortion: "",
   recipeDesc: "",
 };
@@ -73,6 +75,7 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
         title: fields.recipeTitle,
         image: fields.recipeImage,
         duration: fields.recipeDuration,
+        durationType: fields.durationType,
         portion: fields.recipePortion,
         desc: fields.recipeDesc,
       });
@@ -109,10 +112,18 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
               <CustomField
                 title="Prepare duration"
                 value={fields.recipeDuration}
+                keyboardType={"number-pad"}
                 onChangeText={(value) =>
                   fieldChangeHandler("recipeDuration", value)
                 }
               />
+              <RadioGroup
+                value={fields.durationType}
+                onValueChange={(value) => fieldChangeHandler("durationType", value)}
+                contentContainerStyle={styles.types}
+                options={TIME_TYPES}
+              />
+
               <CustomField
                 title="Portion"
                 value={fields.recipePortion}
@@ -174,5 +185,8 @@ const styles = StyleSheet.create({
   fieldswrapper: {
     alignItems: "center",
     paddingVertical: 20,
+  },
+  types: {
+    marginVertical: 14,
   },
 });

@@ -30,7 +30,6 @@ export const UserSettings = ({ username, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <HeaderBtn onPress={() => navigation.navigate("HomeTabs")} />
         <CustomText weight="bold" style={styles.headertxt}>
           User Settings
         </CustomText>

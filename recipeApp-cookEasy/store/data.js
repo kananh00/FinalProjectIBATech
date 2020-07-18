@@ -19,7 +19,8 @@ const initialState = {
       {
         id: createID(),
         name: "Cheese Burger",
-        duration: "20min",
+        duration: "20",
+        durationType: "min",
         username: "Helen",
         photo: "https://img.favpng.com/8/17/11/chef-s-uniform-french-cuisine-woman-restaurant-png-favpng-Gb9et2NQUv9GKdAX5AyR9W8GE.jpg",
         portion: "1",
@@ -41,8 +42,9 @@ const initialState = {
         {
             id: createID(),
             name: "Tarte-Tatin",
-            duration: "40min",
+            duration: "40",
             portion: "5",
+            durationType: "min",
             username: "Mike",
             photo: "https://previews.123rf.com/images/kurhan/kurhan1702/kurhan170200709/72799627-chef-man-.jpg",
             imageUri: "https://assets.afcdn.com/recipe/20180503/79001_w1024h768c1cx2880cy1920.jpg",
@@ -75,6 +77,7 @@ export function dataReducer(state = initialState, { type, payload }) {
             name: payload.recipeTitle,
             imageUri: payload.recipeImage,
             duration: payload.recipeDuration,
+            durationType: payload.durationType,
             portion: payload.recipePortion,
             description: payload.recipeDesc,
             

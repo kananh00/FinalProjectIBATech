@@ -58,6 +58,7 @@ export const RecipeScreen = connect(mapStateToProps)(
                     desc: item.description,
                     image: item.imageUri,
                     duration: item.duration,
+                    durationType: item.durationType,
                     portion: item.portion,
                     photo: item.photo,
                   })
