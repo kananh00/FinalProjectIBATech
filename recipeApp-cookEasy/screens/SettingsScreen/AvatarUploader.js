@@ -42,7 +42,7 @@ export const AvatarUploader = connect(mapStateToProps, {
   uploadAuthPhoto,
   editUsername
 
-})(({ photo, username, uploadAuthPhoto }) => {
+})(({ photo, username, uploadAuthPhoto,editUsername }) => {
   const selectImage = async (isCamera) => {
     try {
       const permission = await requestCameraPermissions();
@@ -79,7 +79,8 @@ export const AvatarUploader = connect(mapStateToProps, {
 
   const onSubmit = () => {
     if (fields.username.trim() === "") editUsername(username);
-    else editUsername(fields.username);
+    else 
+    editUsername(fields.username);
 
   };
 
@@ -96,7 +97,7 @@ export const AvatarUploader = connect(mapStateToProps, {
             style={styles.photo}
             source={photo ? { uri: photo } : IMAGES.avatar}
           />
-
+<View style={{flexDirection:"row"}}>
           <TouchableOpacity
             style={styles.camera}
             onPress={() => selectImage(true)}
@@ -104,14 +105,21 @@ export const AvatarUploader = connect(mapStateToProps, {
             <Image style={styles.imgs} source={ICONS.camera} />
             <CustomText weight="semi">Take a Photo</CustomText>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.camera}
+            onPress={() => selectImage()}
+          >
+            <Image style={styles.imgs} source={ICONS.photogallery} />
+            <CustomText weight="semi">Selecet photo</CustomText>
+          </TouchableOpacity>
+          </View>
         </View>
 
-        <CustomBtn
-          style={styles.editbtn}
-          // onPress={() => selectImage()}
-          title={"Select Photo"}
-          onPress={onSubmit}
-        />
+<CustomBtn
+title={"save changes"}
+   onPress={onSubmit}
+/>
+
       </KeyboardAvoidingView>
     </View>
   );
@@ -158,6 +166,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: "center",
     marginBottom: 15,
+    marginHorizontal:20,
+    marginVertical:15
   },
 });
 

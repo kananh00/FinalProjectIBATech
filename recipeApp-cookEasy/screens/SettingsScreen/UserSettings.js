@@ -27,7 +27,6 @@ export const UserSettings = ({ username, navigation }) => {
 
       <View style={{ alignItems: "center" }}>
         <AvatarUploader />
-        <CustomBtn title={"Save Changes"} />
       </View>
     </View>
   );
