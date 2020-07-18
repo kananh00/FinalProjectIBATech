@@ -15,20 +15,21 @@ import fbApp from "../firebaseInit";
 import { ListScreen } from "./ListScreen";
 import { ICONS } from "../styles/icon";
 import { selectFavorites, getAndListenFavsList } from "../store/wishAndFav";
+import {selectAuthUserID} from '../store/auth';
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
 const mapStateToProps = (state, { route }) => ({
   favorites: selectFavorites(state),
+  userID: selectAuthUserID(state)
 });
 
 export const FavList = connect(mapStateToProps, { getAndListenFavsList })(
-  ({ route, favorites, getAndListenFavsList, recipe, navigation }) => {
-    //   const [isDelete, setIsDelete] = useState(false);
+  ({ route, favorites, userID, getAndListenFavsList, recipe, navigation }) => {
+      const [isDelete, setIsDelete] = useState(false);
 
     // const deleteFav = () => {
-    //   fbApp.db.ref(`favlist/${title}`).remove();
+    //   fbApp.db.ref(`users/${userID}/favlist/${title}`).remove();
     //   setIsDelete(true);
-
     // };
     useEffect(() => {
       const unsubscribe = getAndListenFavsList();
@@ -53,6 +54,17 @@ export const FavList = connect(mapStateToProps, { getAndListenFavsList })(
                 name={item.title}
                 image={item.image}
                 userPhoto={item.photo}
+                onPress={() =>
+                  navigation.navigate("List", {
+                    addMode: false,
+                    recipeID: item.recipeID,
+                    title: item.title,
+                    desc: item.desc,
+                    image: item.image,
+                    duration: item.duration,
+                    portion: item.portion,
+                    photo: item.photo,
+                  })}
               />
             )}
           />
