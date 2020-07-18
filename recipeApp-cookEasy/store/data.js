@@ -11,6 +11,7 @@ const UPDATE_INGREDIENT = "UPDATE_INGREDIENTS";
 
 const MODULE_NAME = "data";
 export const getRecipes = (state) => state[MODULE_NAME].recipes;
+
 export const selectSingleRecipeByID = (state, ID) =>
   getRecipes(state).find((recipe) => recipe.id === ID);
 

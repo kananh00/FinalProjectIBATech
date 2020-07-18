@@ -20,6 +20,7 @@ import {
   addIngredient,
   updateIngredient,
 } from "../../store/data";
+import { selectFavorites, selectWishlist, getAndListenFavsList } from "../../store/wishAndFav";
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { IngredientForm } from "./IngredientForm";
@@ -34,12 +35,13 @@ const singeIngredientEditInitialState = {
 const mapStateToProps = (state, { route }) => ({
   recipe: selectSingleRecipeByID(state, route.params?.recipeID),
   userID: selectAuthUserID(state),
+  favorite: selectFavorites(state)
 });
 
 export const ListScreen = connect(mapStateToProps, {
   addIngredient,
   updateIngredient,
-})(({ route, recipe, addIngredient, updateIngredient, navigation, userID }) => {
+})(({ route, recipe, favorite, addIngredient, updateIngredient, navigation, userID }) => {
   const {
     recipeID,
     addMode,
@@ -52,6 +54,7 @@ export const ListScreen = connect(mapStateToProps, {
     title,
   } = route.params;
 
+  // const isFavoriteRecipe = favorite.find((item) => item === title)
   const [singeIngredientEditState, setSingleIngredientEditState] = useState(
     singeIngredientEditInitialState
   );
@@ -70,14 +73,13 @@ export const ListScreen = connect(mapStateToProps, {
       ...payload,
     });
 
-  const [isFav, setIsFav] = useState(false);
-  const toggleIsFav = () => setIsFav((v) => !v);
+  // const [isFav, setIsFav] = useState(false);
+  // const toggleIsFav = () => setIsFav((v) => !v);
   // const [isWish, setIsWish] = useState(false);
   // const toggleIsWish = () => setIsWish((v) => !v);
 
   const movetoWisthlist = () => {
     fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
-
       recipeID,
       portion,
       duration,
@@ -99,9 +101,16 @@ export const ListScreen = connect(mapStateToProps, {
       title,
       image,
       photo,
-    }),
-      toggleIsFav();
+    });
+      // toggleIsFav();
   };
+  isFavorite = true;
+  if(
+    favorite.find((item) => item.recipeID === recipeID)
+  ){
+    isFavorite = false;
+  }
+  
   const addHandler = createDispatchHandler(addIngredient);
   const updateIngredientHandler = createDispatchHandler(updateIngredient);
   return (
@@ -122,7 +131,7 @@ export const ListScreen = connect(mapStateToProps, {
             <View style={styles.favorite}>
               <Image
                 style={styles.icons}
-                source={isFav ? ICONS.heart : ICONS.heartEmpty}
+                source={isFavorite ? ICONS.heart : ICONS.heartEmpty}
               />
             </View>
           </TouchableOpacity>
