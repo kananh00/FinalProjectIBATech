@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   },
   upper: {
     justifyContent: "center",
-    // paddingTop:15,
     backgroundColor: COLORS.PRIMARY,
     borderBottomLeftRadius: 200,
     borderBottomRightRadius: 200,
@@ -53,14 +52,12 @@ const styles = StyleSheet.create({
     height: 300,
   },
   cookeasytxt: {
-    // fontFamily:FONT_FAMILIES.bold,
     fontSize: 48,
     color: "white",
     marginTop: 40,
   },
   slogan: {
     fontSize: 30,
-    // fontFamily:FONT_FAMILIES.regular,
     textAlign: "center",
     marginVertical: 15,
   },

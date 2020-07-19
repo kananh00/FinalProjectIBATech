@@ -50,10 +50,7 @@ export const Login = connect(null, { logIn, signUp })(
         Alert.alert("Password required");
         return false;
       }
-      // if (!signUp()) {
-      //   Alert.alert("Wrong password or username");
-      //   return false;
-      // }
+  
       return true;
     };
     ///////////////////////////
@@ -62,13 +59,8 @@ export const Login = connect(null, { logIn, signUp })(
         logIn(fields.email.value, fields.password.value);
       }
     };
-    /////////////
-    // const createUser = () =>{
-    //   {Object.keys(fields).map((key) => {
-    //   fbApp.db.ref("users").set(fields.email.value)
-    // })
-    // }
 
+   
     //////////////////////
     return (
       <View style={styles.container}>
@@ -167,7 +159,6 @@ const styles = StyleSheet.create({
   },
   field: {
     height: 42,
-    //   textAlign: "center",
     paddingHorizontal: 15,
     fontSize: 14,
     backgroundColor: COLORS.FIELD_BG,

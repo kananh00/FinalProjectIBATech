@@ -16,7 +16,6 @@ import { FONT_FAMILIES, loadFonts } from "../styles/fonts";
 import { CustomText } from "../components/CustomText";
 import { CustomBtn } from "../components/CustomBtn";
 import { ICONS } from "../styles/icon";
-// import { CustomField } from '../components/CustomField'
 import { CustomBtnYellow } from "../components/CustomBtnYellow";
 import { BackBtn } from "../components/BackBtn";
 import { connect } from "react-redux";
