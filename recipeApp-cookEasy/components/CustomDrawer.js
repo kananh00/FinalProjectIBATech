@@ -18,15 +18,19 @@ import { IMAGES } from "../styles/images";
 import { logOut } from "../store/auth";
 import { COLORS } from "../styles/color";
 import { getTheme,setTheme } from "../store/theme";
-
+import { Toggle } from "@ui-kitten/components";
 const mapStateToProps = (state) => ({
   theme: getTheme(state)
 });
 export const CustomDrawer = connect(mapStateToProps,{setTheme, logOut })(
   ({ navigation, username, photo, logOut,theme,setTheme }) => {
   
-    const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const themeHandler = (val) => {
+    if (val) setTheme("dark");
+    else setTheme("light");
+  };
+
+
 
     return (
       <ScrollView>
@@ -44,14 +48,15 @@ export const CustomDrawer = connect(mapStateToProps,{setTheme, logOut })(
             </CustomText>
           </View>
           <View style={styles.changetheme}>
-          <CustomText>Change Theme</CustomText>
-          <Switch
-        trackColor={{ false: "#9a1f40", true: COLORS.CREATE_ACCOUNT_COLOR }}
-        thumbColor={isEnabled ? "#0779e4" :COLORS.PRIMARY}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+       
+          <CustomText>{theme === "light" ? "Yellow theme" : "Dark theme"}</CustomText>
+          <Toggle
+            checked={theme === "dark" ? true : false}
+            onChange={themeHandler}
+            style={{ marginLeft: 10 }}
+          />
+       
+      
 </View>
           <View style={styles.lists}>
             <TouchableOpacity

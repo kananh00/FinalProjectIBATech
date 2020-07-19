@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
-// import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 import { CustomField } from "../components/CustomField";
 import { CustomBtn } from "../components/CustomBtn";
 import { GLOBAL_STYLES } from "../styles/globalStyles";

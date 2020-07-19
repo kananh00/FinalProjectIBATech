@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     },
     field: {
       height: 42,
-    //   textAlign: "center",
       paddingHorizontal: 15,
       fontSize: 14,
       backgroundColor: COLORS.FIELD_BG,
