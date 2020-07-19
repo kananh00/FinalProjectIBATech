@@ -1,32 +1,31 @@
 import React from "react";
-import { StyleSheet,Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 import { COLORS } from "../../styles/color";
 import { CustomText } from "../../components/CustomText";
-import {GLOBAL_STYLES} from '../../styles/globalStyles';
+import { GLOBAL_STYLES } from "../../styles/globalStyles";
 export const RecipesItem = ({
   title,
   count,
   unit,
   isCurrentOnEdit = false,
   onEditPress,
-
 }) => {
   return (
     <TouchableOpacity
       style={styles.container}
       disabled={isCurrentOnEdit}
       onPress={onEditPress}
-
     >
-      <View style = {styles.row}>
-        <CustomText weight = "semi" style={styles.name}>{title}</CustomText>
-        <View style = {styles.countWrapper}>
-        <CustomText style={styles.count}>
-          {count} {unit}
+      <View style={styles.row}>
+        <CustomText weight="semi" style={styles.name}>
+          {title}
         </CustomText>
+        <View style={styles.countWrapper}>
+          <CustomText style={styles.count}>
+            {count} {unit}
+          </CustomText>
         </View>
-
       </View>
     </TouchableOpacity>
   );
@@ -56,7 +55,4 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     alignItems: "center",
   },
-  count: {
-    
-  }
-})
+});

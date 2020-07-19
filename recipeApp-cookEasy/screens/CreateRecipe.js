@@ -66,7 +66,6 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
       addRecipe({ ...fields, recipeID, userName, userPhoto });
 
       navigation.navigate("List", {
-        // title: fields.recipeTitle,
         recipeID,
         username,
         photo,
@@ -94,6 +93,7 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
             <View style={styles.fieldswrapper}>
               <CustomField
                 numberOfLines={1}
+                style={styles.text}
                 title="paste Image Url"
                 value={fields.recipeImage}
                 onChangeText={(value) =>
@@ -101,6 +101,8 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
                 }
               />
               <CustomField
+                numberOfLines={1}
+                style={styles.text}
                 title="Meal name"
                 value={fields.recipeTitle}
                 onChangeText={(value) =>
@@ -109,6 +111,8 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
               />
 
               <CustomField
+                numberOfLines={1}
+                style={styles.text}
                 title="Prepare duration"
                 value={fields.recipeDuration}
                 keyboardType={"number-pad"}
@@ -117,13 +121,19 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
                 }
               />
               <RadioGroup
+                numberOfLines={1}
+                style={styles.text}
                 value={fields.durationType}
-                onValueChange={(value) => fieldChangeHandler("durationType", value)}
+                onValueChange={(value) =>
+                  fieldChangeHandler("durationType", value)
+                }
                 contentContainerStyle={styles.types}
                 options={TIME_TYPES}
               />
 
               <CustomField
+                numberOfLines={1}
+                style={styles.text}
                 title="Portion"
                 value={fields.recipePortion}
                 keyboardType={"number-pad"}
@@ -132,7 +142,9 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
                 }
               />
               <CustomField
-                style={{ height: 100 }}
+                multiline={true}
+                numberOfLines={5}
+                style={styles.howtoText}
                 title="How to cook"
                 value={fields.recipeDesc}
                 onChangeText={(value) =>
@@ -187,5 +199,12 @@ const styles = StyleSheet.create({
   },
   types: {
     marginVertical: 14,
+  },
+  text: {
+    maxWidth: "80%",
+  },
+  howtoText: {
+    maxWidth: "80%",
+    height: 150,
   },
 });

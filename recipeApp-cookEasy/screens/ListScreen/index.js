@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { Comments } from "./Comments";
 import { RecipeContent } from "./RecipeContent";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ICONS } from "../../styles/icon";
@@ -19,13 +19,15 @@ import {
   selectSingleRecipeByID,
   addIngredient,
   updateIngredient,
+  addComment,
 } from "../../store/data";
-import { selectFavorites, selectWishlist, getAndListenFavsList } from "../../store/wishAndFav";
+import { selectFavorites, selectWishlist } from "../../store/wishAndFav";
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { IngredientForm } from "./IngredientForm";
+import { CommentForm } from "./CommentForm";
 import fbApp from "../../firebaseInit";
-import { selectAuthUserID } from "../../store/auth";
+import { selectAuthUserID, selectAuthPhoto } from "../../store/auth";
 
 const singeIngredientEditInitialState = {
   status: false,
@@ -35,158 +37,180 @@ const singeIngredientEditInitialState = {
 const mapStateToProps = (state, { route }) => ({
   recipe: selectSingleRecipeByID(state, route.params?.recipeID),
   userID: selectAuthUserID(state),
-  favorite: selectFavorites(state)
+  userPhoto: selectAuthPhoto(state),
+  favorite: selectFavorites(state),
+  wished: selectWishlist(state),
 });
 
 export const ListScreen = connect(mapStateToProps, {
   addIngredient,
   updateIngredient,
-})(({ route, recipe, favorite, addIngredient, updateIngredient, navigation, userID }) => {
-  const {
-    recipeID,
-    addMode,
-    portion,
-    duration,
-    durationType,
-    image,
-    photo,
-    desc,
-    title,
-  } = route.params;
-
-  // const isFavoriteRecipe = favorite.find((item) => item === title)
-  const [singeIngredientEditState, setSingleIngredientEditState] = useState(
-    singeIngredientEditInitialState
-  );
-
-  const finishSingleIngredientEdit = () =>
-    setSingleIngredientEditState(singeIngredientEditInitialState);
-  const initSingleIngredientEdit = (ingredient) =>
-    setSingleIngredientEditState({
-      status: true,
-      ingredient,
-    });
-
-  const createDispatchHandler = (methodToDispatch) => (payload = {}) =>
-    methodToDispatch({
+  addComment,
+})(
+  ({
+    route,
+    recipe,
+    favorite,
+    wished,
+    addIngredient,
+    updateIngredient,
+    addComment,
+    navigation,
+    userID,
+    userPhoto,
+  }) => {
+    const {
       recipeID,
-      ...payload,
-    });
-
-  // const [isFav, setIsFav] = useState(false);
-  // const toggleIsFav = () => setIsFav((v) => !v);
-  // const [isWish, setIsWish] = useState(false);
-  // const toggleIsWish = () => setIsWish((v) => !v);
-
-  const movetoWisthlist = () => {
-    fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
-      recipeID,
+      addMode,
       portion,
       duration,
-      desc,
       durationType,
-      title,
       image,
       photo,
-    });
-    // toggleIsWish()
-  };
-  const movetoFavlist = () => {
-    fbApp.db.ref(`users/${userID}/favlist/${title}`).set({
-      recipeID,
-      portion,
-      duration,
       desc,
-      durationType,
       title,
-      image,
-      photo,
-    });
-      // toggleIsFav();
-  };
-  isFavorite = true;
-  if(
-    favorite.find((item) => item.recipeID === recipeID)
-  ){
+    } = route.params;
+
+    const [singeIngredientEditState, setSingleIngredientEditState] = useState(
+      singeIngredientEditInitialState
+    );
+
+    const finishSingleIngredientEdit = () =>
+      setSingleIngredientEditState(singeIngredientEditInitialState);
+    const initSingleIngredientEdit = (ingredient) =>
+      setSingleIngredientEditState({
+        status: true,
+        ingredient,
+      });
+
+    const createDispatchHandler = (methodToDispatch) => (payload = {}) =>
+      methodToDispatch({
+        recipeID,
+        ...payload,
+      });
+
+    const movetoWisthlist = () => {
+      fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
+        recipeID,
+        portion,
+        duration,
+        desc,
+        durationType,
+        title,
+        image,
+        photo,
+      });
+    };
+    const movetoFavlist = () => {
+      fbApp.db.ref(`users/${userID}/favlist/${title}`).set({
+        recipeID,
+        portion,
+        duration,
+        desc,
+        durationType,
+        title,
+        image,
+        photo,
+      });
+    };
     isFavorite = false;
-  }
-  
-  const addHandler = createDispatchHandler(addIngredient);
-  const updateIngredientHandler = createDispatchHandler(updateIngredient);
-  return (
-    <ScrollView style={styles.wrapper}>
-      <View style={styles.recipeText}>
-        <View style={styles.imgWrapper}>
-          <Image style={styles.recipeImg} source={{ uri: image }} />
-          <MaterialIcons
-            style={styles.backArrow}
-            onPress={() => navigation.navigate("HomeTabs")}
-            name="arrow-back"
-            size={35}
-            color="white"
-          />
-        </View>
-        <View style={styles.content}>
-          <TouchableOpacity onPress={movetoFavlist}>
-            <View style={styles.favorite}>
-              <Image
-                style={styles.icons}
-                source={isFavorite ? ICONS.heart : ICONS.heartEmpty}
-              />
-            </View>
-          </TouchableOpacity>
-          <View style={styles.contentWrapper}>
-            <CustomText weight="semi" style={styles.title}>
-              {title}
-            </CustomText>
-            <View style={styles.cover}>
-              <View style={styles.row}>
-                <View style={styles.iconWrapper}>
-                  <Image style={styles.icons} source={ICONS.clock} />
-                  <CustomText>{duration} {durationType}</CustomText>
-                </View>
+    if (favorite.find((item) => item.recipeID === recipeID)) {
+      isFavorite = true;
+    }
+    isWished = false;
+    if (wished.find((item) => item.recipeID === recipeID)) {
+      isWished = true;
+    }
 
-                <View style={styles.iconWrapper}>
-                  <Image style={styles.icons} source={ICONS.dinner} />
-                  <CustomText>{portion} person</CustomText>
-                </View>
-
-                <TouchableOpacity onPress={movetoWisthlist}>
-                  <View style={styles.iconWrapper}>
-                    <Image style={styles.icons} source={ICONS.eventColored} />
-                    <CustomText>add to wishlist</CustomText>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <CustomText weight="semi" style={styles.text}>
-              How to make it
-            </CustomText>
-            <CustomText style={styles.description}>{desc}</CustomText>
-            <CustomText weight="semi" style={styles.text}>
-              Ingredients
-            </CustomText>
-          </View>
-
-          {addMode && (
-            <IngredientForm
-              singeIngredientEditState={singeIngredientEditState}
-              addHandler={addHandler}
-              updateIngredientHandler={updateIngredientHandler}
-              finishSingleIngredientEdit={finishSingleIngredientEdit}
+    const addHandler = createDispatchHandler(addIngredient);
+    const updateIngredientHandler = createDispatchHandler(updateIngredient);
+    const addCommentHandler = createDispatchHandler(addComment);
+    return (
+      <ScrollView style={styles.wrapper}>
+        <View style={styles.recipeText}>
+          <View style={styles.imgWrapper}>
+            <Image style={styles.recipeImg} source={{ uri: image }} />
+            <MaterialIcons
+              style={styles.backArrow}
+              onPress={() => navigation.navigate("HomeTabs")}
+              name="arrow-back"
+              size={35}
+              color="white"
             />
-          )}
+          </View>
+          <View style={styles.content}>
+            <TouchableOpacity onPress={movetoFavlist}>
+              <View style={styles.favorite}>
+                <Image
+                  style={styles.icons}
+                  source={isFavorite ? ICONS.heart : ICONS.heartEmpty}
+                />
+              </View>
+            </TouchableOpacity>
+            <View style={styles.contentWrapper}>
+              <CustomText weight="semi" style={styles.title}>
+                {title}
+              </CustomText>
+              <View style={styles.cover}>
+                <View style={styles.row}>
+                  <View style={styles.iconWrapper}>
+                    <Image style={styles.icons} source={ICONS.clock} />
+                    <CustomText>
+                      {duration} {durationType}
+                    </CustomText>
+                  </View>
 
-          <RecipeContent
-            ingredients={recipe.ingredients}
-            currentEditIngredientID={singeIngredientEditState.ingredient?.id}
-            onEditPress={initSingleIngredientEdit}
-          />
+                  <View style={styles.iconWrapper}>
+                    <Image style={styles.icons} source={ICONS.dinner} />
+                    <CustomText>{portion} person</CustomText>
+                  </View>
+
+                  <TouchableOpacity onPress={movetoWisthlist}>
+                    <View style={styles.iconWrapper}>
+                      <Image style={styles.icons} source={ICONS.eventColored} />
+                      {!isWished && <CustomText>add to wishlist</CustomText>}
+                      {isWished && <CustomText>in wishlist</CustomText>}
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <CustomText weight="semi" style={styles.text}>
+                How to make it
+              </CustomText>
+              <CustomText style={styles.description}>{desc}</CustomText>
+              <CustomText weight="semi" style={styles.text}>
+                Ingredients
+              </CustomText>
+            </View>
+
+            {addMode && (
+              <IngredientForm
+                singeIngredientEditState={singeIngredientEditState}
+                addHandler={addHandler}
+                updateIngredientHandler={updateIngredientHandler}
+                finishSingleIngredientEdit={finishSingleIngredientEdit}
+              />
+            )}
+
+            <RecipeContent
+              ingredients={recipe.ingredients}
+              currentEditIngredientID={singeIngredientEditState.ingredient?.id}
+              onEditPress={initSingleIngredientEdit}
+            />
+            <CustomText weight="semi" style={styles.text}>
+              Comments
+            </CustomText>
+            <CommentForm
+              addCommentHandler={addCommentHandler}
+              userPhoto={userPhoto}
+            />
+            <Comments comments={recipe.comments} />
+          </View>
         </View>
-      </View>
-    </ScrollView>
-  );
-});
+      </ScrollView>
+    );
+  }
+);
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: COLORS.BUTTON_TEXT,
@@ -247,6 +271,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 22,
     margin: GLOBAL_STYLES.MARGIN,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
   description: {
     paddingRight: 15,

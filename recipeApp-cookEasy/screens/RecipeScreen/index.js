@@ -39,7 +39,7 @@ export const RecipeScreen = connect(mapStateToProps)(
             </View>
           </View>
         </View>
-        <ScrollView>
+        <ScrollView style={{ marginBottom: 100 }}>
           <FlatList
             data={allRecipes}
             renderItem={({ item }) => (
