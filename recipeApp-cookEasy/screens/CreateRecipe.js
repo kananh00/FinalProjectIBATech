@@ -16,6 +16,7 @@ import { selectAuthUsername, selectAuthPhoto } from "./../store/auth";
 import { COLORS } from "../styles/color";
 import { RadioGroup } from "../components/RadioGroup";
 import { CustomText } from "../components/CustomText";
+import { getTheme } from "../store/theme";
 
 const TIME_TYPES = ["min", "hour"];
 
@@ -31,10 +32,11 @@ const createFormInitialFieldState = {
 const mapStateToProps = (state) => ({
   username: selectAuthUsername(state),
   photo: selectAuthPhoto(state),
+  theme: getTheme(state),
 });
 
 export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
-  ({ navigation, addRecipe, username, photo }) => {
+  ({ navigation, addRecipe, username, photo, theme }) => {
     const [fields, setFields] = useState(createFormInitialFieldState);
 
     const fieldChangeHandler = (name, value) =>
@@ -42,6 +44,14 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
         ...fields,
         [name]: value,
       }));
+
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
 
     const submitHandler = () => {
       if (fields.recipeTitle.trim() === "") {
@@ -84,7 +94,16 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
     return (
       <View style={styles.wrapper}>
         <KeyboardAvoidingView behavior="padding">
-          <View style={styles.header}>
+          <View
+            style={[
+              styles.header,
+              {
+                backgroundColor: checkTheme()
+                  ? COLORS.BG_SIGN_UP
+                  : COLORS.PRIMARY,
+              },
+            ]}
+          >
             <CustomText style={styles.headertxt} weight="bold">
               Add your Recipe
             </CustomText>

@@ -13,74 +13,144 @@ import { COLORS } from "../../styles/color";
 import { IMAGES } from "../../styles/images";
 import { CustomText } from "../../components/CustomText";
 import { GLOBAL_STYLES } from "../../styles/globalStyles";
-export const RecipesList = ({
-  name,
-  image,
-  onDeletePress,
-  onCrossPress,
-  onEditPress,
-  onPress,
-  userPhoto,
-  myRecipeMode,
-  favAndWishMode,
-}) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <View style={styles.cover}>
-        <View style={styles.row}>
-          <View style={styles.img}>
-            <Image style={styles.recipeImg} source={{ uri: image }} />
-          </View>
-          <CustomText weight="medium" style={styles.title}>
-            {name}
-          </CustomText>
-          {!myRecipeMode && !favAndWishMode && (
-            <View style={styles.imgWrapper}>
+import { connect } from "react-redux";
+import { getTheme } from "../../store/theme";
+
+const mapStateToProps = (state) => ({
+  theme: getTheme(state),
+});
+
+export const RecipesList = connect(mapStateToProps)(
+  ({
+    name,
+    image,
+    onDeletePress,
+    onCrossPress,
+    onEditPress,
+    onPress,
+    userPhoto,
+    myRecipeMode,
+    favAndWishMode,
+    theme,
+  }) => {
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
+
+    return (
+      <TouchableOpacity onPress={onPress} style={styles.container}>
+        <View
+          style={[
+            styles.cover,
+            {
+              borderColor: checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
+            },
+          ]}
+        >
+          <View style={styles.row}>
+            <View style={styles.img}>
               <Image
-                style={styles.userImg}
-                source={userPhoto ? { uri: userPhoto } : IMAGES.avatar}
+                style={[
+                  styles.recipeImg,
+                  {
+                    borderColor: checkTheme()
+                      ? COLORS.BG_SIGN_UP
+                      : COLORS.PRIMARY,
+                  },
+                ]}
+                source={{ uri: image }}
               />
             </View>
-          )}
-
-          {favAndWishMode && (
-            <View style={styles.column}>
-              <TouchableOpacity
-                onPress={onCrossPress}
-                style={styles.iconWrapper}
-              >
-                <Image style={styles.icon} source={ICONS.close} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.favimgWrapper}>
+            <CustomText weight="medium" style={styles.title}>
+              {name}
+            </CustomText>
+            {!myRecipeMode && !favAndWishMode && (
+              <View style={styles.imgWrapper}>
                 <Image
-                  style={styles.userFavImg}
+                  style={[
+                    styles.userImg,
+                    {
+                      borderColor: checkTheme()
+                        ? COLORS.BG_SIGN_UP
+                        : COLORS.PRIMARY,
+                    },
+                  ]}
                   source={userPhoto ? { uri: userPhoto } : IMAGES.avatar}
                 />
-              </TouchableOpacity>
-            </View>
-          )}
+              </View>
+            )}
 
-          {myRecipeMode && (
-            <View style={styles.column}>
-              <TouchableOpacity
-                onPress={onEditPress}
-                style={styles.iconWrapper}
-              >
-                <Image style={styles.icon} source={ICONS.edit} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={onDeletePress}
-                style={styles.iconWrapper}
-              >
-                <Image style={styles.icon} source={ICONS.deleteIcon} />
-              </TouchableOpacity>
-            </View>
-          )}
+            {favAndWishMode && (
+              <View style={styles.column}>
+                <TouchableOpacity
+                  onPress={onCrossPress}
+                  style={[
+                    styles.iconWrapper,
+                    {
+                      backgroundColor: checkTheme()
+                        ? COLORS.BG_SIGN_UP
+                        : COLORS.PRIMARY,
+                    },
+                  ]}
+                >
+                  <Image style={styles.icon} source={ICONS.close} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.favimgWrapper}>
+                  <Image
+                    style={[
+                      styles.userFavImg,
+                      {
+                        borderColor: checkTheme()
+                          ? COLORS.BG_SIGN_UP
+                          : COLORS.PRIMARY,
+                      },
+                    ]}
+                    source={userPhoto ? { uri: userPhoto } : IMAGES.avatar}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+
+            {myRecipeMode && (
+              <View style={styles.column}>
+                <TouchableOpacity
+                  onPress={onEditPress}
+                  style={[
+                    styles.iconWrapper,
+                    {
+                      backgroundColor: checkTheme()
+                        ? COLORS.BG_SIGN_UP
+                        : COLORS.PRIMARY,
+                    },
+                  ]}
+                >
+                  <Image style={styles.icon} source={ICONS.edit} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={onDeletePress}
+                  style={[
+                    styles.iconWrapper,
+                    {
+                      backgroundColor: checkTheme()
+                        ? COLORS.BG_SIGN_UP
+                        : COLORS.PRIMARY,
+                    },
+                  ]}
+                >
+                  <Image style={styles.icon} source={ICONS.deleteIcon} />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -15,46 +15,57 @@ import fbApp from "../firebaseInit";
 import { ListScreen } from "./ListScreen";
 import { ICONS } from "../styles/icon";
 import { selectWishlist, getAndListenWishList } from "../store/wishAndFav";
-import {selectAuthUserID} from '../store/auth';
+import { selectAuthUserID } from "../store/auth";
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
 import { getTheme } from "../store/theme";
 const mapStateToProps = (state, { route }) => ({
   wishes: selectWishlist(state),
   userID: selectAuthUserID(state),
-  theme: getTheme(state)
-
+  theme: getTheme(state),
 });
 
 export const WishList = connect(mapStateToProps, { getAndListenWishList })(
-  ({ route, wishes, userID, getAndListenWishList, recipe, navigation,theme }) => {
+  ({
+    route,
+    wishes,
+    userID,
+    getAndListenWishList,
+    recipe,
+    navigation,
+    theme,
+  }) => {
     const [isDelete, setIsDelete] = useState(false);
     const deleteWished = (title) => {
       fbApp.db.ref(`users/${userID}/wishlist/${title}`).remove();
       setIsDelete(true);
     };
-  
 
     useEffect(() => {
       const unsubscribe = getAndListenWishList();
       return unsubscribe;
     }, []);
 
-    const checkTheme = () =>{
-      if(theme === "dark"){
+    const checkTheme = () => {
+      if (theme === "dark") {
         return true;
-      }
-      else  if(theme === "light"){
+      } else if (theme === "light") {
         return false;
       }
-    }
+    };
 
     return (
       <View style={styles.container}>
-        <View style={[styles.header,{
-           backgroundColor : 
-           checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
-        }]}>
+        <View
+          style={[
+            styles.header,
+            {
+              backgroundColor: checkTheme()
+                ? COLORS.BG_SIGN_UP
+                : COLORS.PRIMARY,
+            },
+          ]}
+        >
           <HeaderBtn onPress={() => navigation.navigate("HomeTabs")} />
           <CustomText weight="bold" style={styles.headertxt}>
             My Wishlist
@@ -83,7 +94,8 @@ export const WishList = connect(mapStateToProps, { getAndListenWishList })(
                     durationType: item.durationType,
                     portion: item.portion,
                     photo: item.photo,
-                  })}
+                  })
+                }
               />
             )}
           />

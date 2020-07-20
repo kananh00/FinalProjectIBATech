@@ -15,16 +15,34 @@ import { CustomText } from "../../components/CustomText";
 import { RecipesList } from "./RecipesList";
 import { getRecipes } from "../../store/data";
 import { COLORS } from "../../styles/color";
+import { getTheme } from "../../store/theme";
 
 const mapStateToProps = (state, { route }) => ({
   allRecipes: getRecipes(state),
+  theme: getTheme(state),
 });
 
 export const RecipeScreen = connect(mapStateToProps)(
-  ({ navigation, allRecipes, username, route }) => {
+  ({ navigation, allRecipes, username, route, theme }) => {
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
     return (
       <View>
-        <View style={styles.header}>
+        <View
+          style={[
+            styles.header,
+            {
+              backgroundColor: checkTheme()
+                ? COLORS.BG_SIGN_UP
+                : COLORS.PRIMARY,
+            },
+          ]}
+        >
           <View style={styles.row}>
             <CustomText weight="bold" style={styles.headertxt}>
               Recipes
