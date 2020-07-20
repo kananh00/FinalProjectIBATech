@@ -11,19 +11,21 @@ import {
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
-import { CustomBtn } from "../../components/CustomBtn";
-import { CustomText } from "../../components/CustomText";
-import { COLORS } from "../../styles/color";
+
 import { connect } from "react-redux";
 import {
   selectAuthPhoto,
   selectAuthUsername,
   uploadAuthPhoto,
   logIn,
-editUsername,
+  editUsername,
 } from "../../store/auth";
 import { IMAGES } from "../../styles/images";
 import { ICONS } from "../../styles/icon";
+import { CustomBtn } from "../../components/CustomBtn";
+import { CustomText } from "../../components/CustomText";
+import { COLORS } from "../../styles/color";
+import { FONT_FAMILIES } from "../../styles/fonts";
 
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
@@ -36,13 +38,10 @@ const imagePickerOptions = {
   aspect: [1, 1],
 };
 
-
-
 export const AvatarUploader = connect(mapStateToProps, {
   uploadAuthPhoto,
-  editUsername
-
-})(({ photo, username, uploadAuthPhoto,editUsername }) => {
+  editUsername,
+})(({ photo, username, uploadAuthPhoto, editUsername }) => {
   const selectImage = async (isCamera) => {
     try {
       const permission = await requestCameraPermissions();
@@ -62,8 +61,6 @@ export const AvatarUploader = connect(mapStateToProps, {
     } catch (error) {}
   };
 
-
-
   const fieldsInitialState = {
     username: username,
   };
@@ -76,50 +73,46 @@ export const AvatarUploader = connect(mapStateToProps, {
       [name]: value,
     }));
 
-
   const onSubmit = () => {
     if (fields.username.trim() === "") editUsername(username);
-    else 
-    editUsername(fields.username);
-
+    else editUsername(fields.username);
   };
 
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
+        <CustomText weight="semi" style={styles.text}>
+          username
+        </CustomText>
         <TextInput
           style={styles.field}
           value={fields.username}
-          onChangeText={(val) => fieldsChangeHandler("username",val)}
+          onChangeText={(val) => fieldsChangeHandler("username", val)}
         />
         <View style={styles.imgWrapper}>
           <Image
             style={styles.photo}
             source={photo ? { uri: photo } : IMAGES.avatar}
           />
-<View style={{flexDirection:"row"}}>
-          <TouchableOpacity
-            style={styles.camera}
-            onPress={() => selectImage(true)}
-          >
-            <Image style={styles.imgs} source={ICONS.camera} />
-            <CustomText weight="semi">Take a Photo</CustomText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.camera}
-            onPress={() => selectImage()}
-          >
-            <Image style={styles.imgs} source={ICONS.photogallery} />
-            <CustomText weight="semi">Selecet photo</CustomText>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              style={styles.camera}
+              onPress={() => selectImage(true)}
+            >
+              <Image style={styles.imgs} source={ICONS.camera} />
+              <CustomText weight="semi">Take a Photo</CustomText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.camera}
+              onPress={() => selectImage()}
+            >
+              <Image style={styles.imgs} source={ICONS.photogallery} />
+              <CustomText weight="semi">Selecet photo</CustomText>
+            </TouchableOpacity>
           </View>
         </View>
 
-<CustomBtn
-title={"save changes"}
-   onPress={onSubmit}
-/>
-
+        <CustomBtn title={"save changes"} onPress={onSubmit} />
       </KeyboardAvoidingView>
     </View>
   );
@@ -142,15 +135,15 @@ const styles = StyleSheet.create({
     height: 41,
   },
   field: {
-   
+    height: 42,
     paddingHorizontal: 15,
     fontSize: 14,
     backgroundColor: COLORS.FIELD_BG,
     borderRadius: 10,
     marginTop: 7,
     marginBottom: 10,
+    fontFamily: FONT_FAMILIES.bold,
     minWidth: "90%",
-    paddingVertical: 6,
   },
   imgWrapper: {
     flexDirection: "column",
@@ -166,8 +159,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: "center",
     marginBottom: 15,
-    marginHorizontal:20,
-    marginVertical:15
+    marginHorizontal: 20,
+    marginVertical: 15,
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 20,
   },
 });
 

@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { Comments } from "./Comments";
 import { RecipeContent } from "./RecipeContent";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ICONS } from "../../styles/icon";
@@ -19,17 +19,15 @@ import {
   selectSingleRecipeByID,
   addIngredient,
   updateIngredient,
+  addComment,
 } from "../../store/data";
-import {
-  selectFavorites,
-  selectWishlist,
-  getAndListenFavsList,
-} from "../../store/wishAndFav";
+import { selectFavorites, selectWishlist } from "../../store/wishAndFav";
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { IngredientForm } from "./IngredientForm";
+import { CommentForm } from "./CommentForm";
 import fbApp from "../../firebaseInit";
-import { selectAuthUserID } from "../../store/auth";
+import { selectAuthUserID, selectAuthPhoto } from "../../store/auth";
 
 const singeIngredientEditInitialState = {
   status: false,
@@ -39,21 +37,27 @@ const singeIngredientEditInitialState = {
 const mapStateToProps = (state, { route }) => ({
   recipe: selectSingleRecipeByID(state, route.params?.recipeID),
   userID: selectAuthUserID(state),
+  userPhoto: selectAuthPhoto(state),
   favorite: selectFavorites(state),
+  wished: selectWishlist(state),
 });
 
 export const ListScreen = connect(mapStateToProps, {
   addIngredient,
   updateIngredient,
+  addComment,
 })(
   ({
     route,
     recipe,
     favorite,
+    wished,
     addIngredient,
     updateIngredient,
+    addComment,
     navigation,
     userID,
+    userPhoto,
   }) => {
     const {
       recipeID,
@@ -67,7 +71,6 @@ export const ListScreen = connect(mapStateToProps, {
       title,
     } = route.params;
 
-    // const isFavoriteRecipe = favorite.find((item) => item === title)
     const [singeIngredientEditState, setSingleIngredientEditState] = useState(
       singeIngredientEditInitialState
     );
@@ -86,11 +89,6 @@ export const ListScreen = connect(mapStateToProps, {
         ...payload,
       });
 
-    // const [isFav, setIsFav] = useState(false);
-    // const toggleIsFav = () => setIsFav((v) => !v);
-    // const [isWish, setIsWish] = useState(false);
-    // const toggleIsWish = () => setIsWish((v) => !v);
-
     const movetoWisthlist = () => {
       fbApp.db.ref(`users/${userID}/wishlist/${title}`).set({
         recipeID,
@@ -102,7 +100,6 @@ export const ListScreen = connect(mapStateToProps, {
         image,
         photo,
       });
-      // toggleIsWish()
     };
     const movetoFavlist = () => {
       fbApp.db.ref(`users/${userID}/favlist/${title}`).set({
@@ -115,15 +112,19 @@ export const ListScreen = connect(mapStateToProps, {
         image,
         photo,
       });
-      // toggleIsFav();
     };
     isFavorite = false;
     if (favorite.find((item) => item.recipeID === recipeID)) {
       isFavorite = true;
     }
+    isWished = false;
+    if (wished.find((item) => item.recipeID === recipeID)) {
+      isWished = true;
+    }
 
     const addHandler = createDispatchHandler(addIngredient);
     const updateIngredientHandler = createDispatchHandler(updateIngredient);
+    const addCommentHandler = createDispatchHandler(addComment);
     return (
       <ScrollView style={styles.wrapper}>
         <View style={styles.recipeText}>
@@ -167,7 +168,8 @@ export const ListScreen = connect(mapStateToProps, {
                   <TouchableOpacity onPress={movetoWisthlist}>
                     <View style={styles.iconWrapper}>
                       <Image style={styles.icons} source={ICONS.eventColored} />
-                      <CustomText>add to wishlist</CustomText>
+                      {!isWished && <CustomText>add to wishlist</CustomText>}
+                      {isWished && <CustomText>in wishlist</CustomText>}
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -195,6 +197,14 @@ export const ListScreen = connect(mapStateToProps, {
               currentEditIngredientID={singeIngredientEditState.ingredient?.id}
               onEditPress={initSingleIngredientEdit}
             />
+            <CustomText weight="semi" style={styles.text}>
+              Comments
+            </CustomText>
+            <CommentForm
+              addCommentHandler={addCommentHandler}
+              userPhoto={userPhoto}
+            />
+            <Comments comments={recipe.comments} />
           </View>
         </View>
       </ScrollView>
@@ -261,6 +271,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 22,
     margin: GLOBAL_STYLES.MARGIN,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
   description: {
     paddingRight: 15,

@@ -29,7 +29,7 @@ export const RecipesList = ({
       <View style={styles.cover}>
         <View style={styles.row}>
           <View style={styles.img}>
-            <Image style={styles.projectCardImg} source={{ uri: image }} />
+            <Image style={styles.recipeImg} source={{ uri: image }} />
           </View>
           <CustomText weight="medium" style={styles.title}>
             {name}
@@ -47,7 +47,6 @@ export const RecipesList = ({
             <View style={styles.column}>
               <TouchableOpacity
                 onPress={onCrossPress}
-
                 style={styles.iconWrapper}
               >
                 <Image style={styles.icon} source={ICONS.close} />
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   btnWrapper: {
     flexDirection: "row",
   },
-  projectCardImg: {
+  recipeImg: {
     ...StyleSheet.absoluteFill,
     borderWidth: 2,
     borderColor: COLORS.PRIMARY,

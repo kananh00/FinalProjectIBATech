@@ -19,7 +19,7 @@ export const HomeTabs = () => (
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         height: 60,
-        marginTop: -30,
+        marginTop: -20,
       },
     }}
     screenOptions={

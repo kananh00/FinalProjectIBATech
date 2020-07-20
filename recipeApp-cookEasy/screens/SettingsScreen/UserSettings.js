@@ -16,7 +16,6 @@ import { HeaderBtn } from "../../components/HeaderBtn";
 
 const { Navigator, Screen } = createStackNavigator();
 export const UserSettings = ({ username, navigation }) => {
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
