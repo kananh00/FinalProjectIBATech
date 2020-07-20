@@ -7,7 +7,14 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 
 import { CustomDrawer } from "../components/CustomDrawer";
-import { HomeScreen, Login, SignUp, CreateRecipe, MyRecipesScreen  } from "../screens";
+import {
+  HomeScreen,
+  Login,
+  SignUp,
+  CreateRecipe,
+  MyRecipesScreen,
+  SearchScreen,
+} from "../screens";
 import { RecipeScreen } from "../screens/RecipeScreen";
 import { UserSettings } from "../screens/SettingsScreen/UserSettings";
 import { ICONS } from "../styles/icon";
@@ -53,13 +60,15 @@ export const RootDrawer = connect(mapStateToProps)(
               <Screen name="WishList" component={WishList} />
               <Screen name="FavList" component={FavList} />
               <Screen name="HomeStack" component={RecipeScreen} />
-
+              <Screen name="Search" component={SearchScreen} />
             </>
           ) : (
-              <Screen
+            <Screen
               options={{ swipeEnabled: false }}
-              name="AuthStack" component={AuthStack} />
-            )}
+              name="AuthStack"
+              component={AuthStack}
+            />
+          )}
         </Navigator>
       </NavigationContainer>
     );

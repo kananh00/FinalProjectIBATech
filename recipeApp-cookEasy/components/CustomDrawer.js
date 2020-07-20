@@ -1,12 +1,10 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
-  Text,
   ScrollView,
   TouchableOpacity,
   Image,
   View,
-  Switch
 } from "react-native";
 import { connect } from "react-redux";
 
@@ -17,38 +15,32 @@ import { ICONS } from "../styles/icon";
 import { IMAGES } from "../styles/images";
 import { logOut } from "../store/auth";
 import { COLORS } from "../styles/color";
-import { getTheme,setTheme } from "../store/theme";
+import { getTheme, setTheme } from "../store/theme";
 import { Toggle } from "@ui-kitten/components";
 
 const mapStateToProps = (state) => ({
-  theme: getTheme(state)
+  theme: getTheme(state),
 });
-export const CustomDrawer = connect(mapStateToProps,{setTheme, logOut })(
-  ({ navigation, username, photo, logOut,theme,setTheme }) => {
-  
-
-
+export const CustomDrawer = connect(mapStateToProps, { setTheme, logOut })(
+  ({ navigation, username, photo, logOut, theme, setTheme }) => {
     const themeHandler = (val) => {
-    if (val) setTheme("dark");
-    else setTheme("light");
+      if (val) setTheme("dark");
+      else setTheme("light");
 
-    console.log(theme);
-  };
+      console.log(theme);
+    };
 
-
-const checkTheme = () =>{
-  if(theme === "dark"){
-    return true;
-  }
-  else  if(theme === "light"){
-    return false;
-  }
-}
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
     return (
       <ScrollView>
         <View style={styles.container}>
-          <View style={[styles.upperpart,]}>
-
+          <View style={[styles.upperpart]}>
             <CustomText weight="bold" style={styles.drawertxt}>
               cookEasy
             </CustomText>
@@ -60,18 +52,19 @@ const checkTheme = () =>{
               {username}
             </CustomText>
           </View>
-          <CustomText weight="bold" style={{textAlign:"center"}}>Change Theme</CustomText>
+          <CustomText weight="bold" style={{ textAlign: "center" }}>
+            Change Theme
+          </CustomText>
           <View style={styles.changetheme}>
-       
-          <CustomText>{theme === "light" ? "Yellow theme" : "Blue theme"}</CustomText>
-          <Toggle
-            checked={theme === "dark" ? true : false}
-            onChange={themeHandler}
-            style={{ marginLeft: 10 }}
-          />
-       
-      
-</View>
+            <CustomText>
+              {theme === "light" ? "Yellow theme" : "Blue theme"}
+            </CustomText>
+            <Toggle
+              checked={theme === "dark" ? true : false}
+              onChange={themeHandler}
+              style={{ marginLeft: 10 }}
+            />
+          </View>
           <View style={styles.lists}>
             <TouchableOpacity
               onPress={() => navigation.navigate("MyRecipes")}
@@ -96,13 +89,21 @@ const checkTheme = () =>{
               <Image style={styles.imgs} source={ICONS.heart} />
               <CustomText style={styles.listtext}>favorites</CustomText>
             </TouchableOpacity>
-
+            {/* 
             <TouchableOpacity
               style={styles.drawerlist}
               onPress={() => navigation.navigate("UserSettings")}
             >
               <Image style={styles.imgs} source={ICONS.settings} />
               <CustomText style={styles.listtext}>user settings</CustomText>
+            </TouchableOpacity> */}
+
+            <TouchableOpacity
+              style={styles.drawerlist}
+              onPress={() => navigation.navigate("Search")}
+            >
+              <Image style={styles.imgs} source={ICONS.search} />
+              <CustomText style={styles.listtext}>search</CustomText>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={logOut} style={styles.logoutbtn}>
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   upperpart: {
-  backgroundColor:  COLORS.DRAWER_MENU,
+    backgroundColor: COLORS.DRAWER_MENU,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     alignItems: "center",
@@ -181,11 +182,10 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 25,
   },
-  changetheme:{
-    justifyContent:"center",
-    alignItems:"center",
-    flexDirection:"row",
-    paddingVertical:15,
-
-  }
+  changetheme: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingVertical: 15,
+  },
 });

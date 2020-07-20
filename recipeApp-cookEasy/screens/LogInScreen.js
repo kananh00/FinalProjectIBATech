@@ -50,7 +50,7 @@ export const Login = connect(null, { logIn, signUp })(
         Alert.alert("Password required");
         return false;
       }
-  
+
       return true;
     };
     ///////////////////////////
@@ -60,7 +60,6 @@ export const Login = connect(null, { logIn, signUp })(
       }
     };
 
-   
     //////////////////////
     return (
       <View style={styles.container}>
@@ -71,7 +70,7 @@ export const Login = connect(null, { logIn, signUp })(
             alignItems: "center",
           }}
         >
-          <BackBtn onPress={() => navigation.navigate("HOMEPAGE")} />
+          <BackBtn onPress={() => navigation.navigate("WelcomeScreen")} />
           <CustomText weight="semi" style={styles.logintxt}>
             Log In
           </CustomText>

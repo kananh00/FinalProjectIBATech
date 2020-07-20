@@ -93,7 +93,7 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
           alignItems: "center",
         }}
       >
-        <BackBtn onPress={() => navigation.navigate("HOMEPAGE")} />
+        <BackBtn onPress={() => navigation.navigate("WelcomeScreen")} />
         <CustomText weight="semi" style={styles.signUptxt}>
           Sign Up
         </CustomText>
