@@ -13,12 +13,35 @@ import { AvatarUploader } from "./AvatarUploader";
 import { BackBtn } from "../../components/BackBtn";
 import { CustomBtn } from "../../components/CustomBtn";
 import { HeaderBtn } from "../../components/HeaderBtn";
+import { getTheme } from "../../store/theme";
+import { connect } from "react-redux";
+
+
+const mapStateToProps = (state) => ({
+  theme: getTheme(state)
+});
 
 const { Navigator, Screen } = createStackNavigator();
-export const UserSettings = ({ username, navigation }) => {
+
+
+export const UserSettings = connect(mapStateToProps)(({ username, navigation,theme }) => {
+ 
+ 
+const checkTheme = () =>{
+  if(theme === "dark"){
+    return true;
+  }
+  else  if(theme === "light"){
+    return false;
+  }
+}
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header,{
+         backgroundColor : 
+         checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
+      }]}>
         <CustomText weight="bold" style={styles.headertxt}>
           User Settings
         </CustomText>
@@ -28,15 +51,16 @@ export const UserSettings = ({ username, navigation }) => {
         <AvatarUploader />
       </View>
     </View>
-  );
-};
+  )
+})
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.BUTTON_TEXT,
   },
   header: {
-    backgroundColor: COLORS.PRIMARY,
+    // backgroundColor: COLORS.PRIMARY,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomLeftRadius: 40,

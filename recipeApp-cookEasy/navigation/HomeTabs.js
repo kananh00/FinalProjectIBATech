@@ -7,14 +7,23 @@ import { CreateRecipe } from "../screens";
 import { RecipeScreen } from "../screens/RecipeScreen";
 import { UserSettings } from "../screens/SettingsScreen/UserSettings";
 import { COLORS } from "../styles/color";
+import { connect } from "react-redux";
+import { getTheme } from "../store/theme";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-export const HomeTabs = () => (
+const mapStateToProps = (state) => ({
+  theme: getTheme(state)
+});
+
+export const HomeTabs = connect(mapStateToProps)((theme,getTheme) => (
+
   <Navigator
     tabBarOptions={{
       showLabel: false,
       style: {
+        // backgroundColor : 
+        // checkTheme() ? COLORS.BG_LOGIN : COLORS.PRIMARY,
         backgroundColor: COLORS.PRIMARY,
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
@@ -35,6 +44,7 @@ export const HomeTabs = () => (
           } else if (route.name === "UserSettings") {
             iconName = "user-alt";
           }
+          
           return (
             <FontAwesome5
               name={iconName}
@@ -68,4 +78,12 @@ export const HomeTabs = () => (
       })}
     />
   </Navigator>
-);
+))
+const checkTheme = () =>{
+  if(theme === "dark"){
+    return true;
+  }
+  else  if(theme === "light"){
+    return false;
+  }
+};
