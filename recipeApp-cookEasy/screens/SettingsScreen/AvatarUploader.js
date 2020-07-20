@@ -26,10 +26,13 @@ import { CustomBtn } from "../../components/CustomBtn";
 import { CustomText } from "../../components/CustomText";
 import { COLORS } from "../../styles/color";
 import { FONT_FAMILIES } from "../../styles/fonts";
+import { getTheme } from "../../store/theme";
 
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
+  theme: getTheme(state)
+
 });
 
 const imagePickerOptions = {
@@ -41,7 +44,7 @@ const imagePickerOptions = {
 export const AvatarUploader = connect(mapStateToProps, {
   uploadAuthPhoto,
   editUsername,
-})(({ photo, username, uploadAuthPhoto, editUsername }) => {
+})(({ photo, username, uploadAuthPhoto, editUsername,theme }) => {
   const selectImage = async (isCamera) => {
     try {
       const permission = await requestCameraPermissions();
@@ -61,6 +64,14 @@ export const AvatarUploader = connect(mapStateToProps, {
     } catch (error) {}
   };
 
+  const checkTheme = () =>{
+    if(theme === "dark"){
+      return true;
+    }
+    else  if(theme === "light"){
+      return false;
+    }
+  }
   const fieldsInitialState = {
     username: username,
   };
@@ -91,7 +102,11 @@ export const AvatarUploader = connect(mapStateToProps, {
         />
         <View style={styles.imgWrapper}>
           <Image
-            style={styles.photo}
+            style={[styles.photo,{
+              borderColor: checkTheme()
+              ? COLORS.BG_SIGN_UP
+              : COLORS.PRIMARY,
+            }]}
             source={photo ? { uri: photo } : IMAGES.avatar}
           />
           <View style={{ flexDirection: "row" }}>

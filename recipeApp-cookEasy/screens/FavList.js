@@ -14,21 +14,28 @@ import { COLORS } from "../styles/color";
 import fbApp from "../firebaseInit";
 import { ListScreen } from "./ListScreen";
 import { ICONS } from "../styles/icon";
-import { selectFavorites, getAndListenFavsList} from "../store/wishAndFav";
-import {selectAuthUserID} from '../store/auth';
+import { selectFavorites, getAndListenFavsList } from "../store/wishAndFav";
+import { selectAuthUserID } from "../store/auth";
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
 import { getTheme } from "../store/theme";
 const mapStateToProps = (state, { route }) => ({
   favorites: selectFavorites(state),
   userID: selectAuthUserID(state),
-  theme: getTheme(state)
-
+  theme: getTheme(state),
 });
 
-export const FavList = connect(mapStateToProps, { getAndListenFavsList})(
-  ({ route, favorites, userID, getAndListenFavsList, recipe, navigation,theme }) => {
-      const [isDelete, setIsDelete] = useState(false);
+export const FavList = connect(mapStateToProps, { getAndListenFavsList })(
+  ({
+    route,
+    favorites,
+    userID,
+    getAndListenFavsList,
+    recipe,
+    navigation,
+    theme,
+  }) => {
+    const [isDelete, setIsDelete] = useState(false);
 
     const deleteFav = (title) => {
       fbApp.db.ref(`users/${userID}/favlist/${title}`).remove();
@@ -38,18 +45,26 @@ export const FavList = connect(mapStateToProps, { getAndListenFavsList})(
       getAndListenFavsList();
     }, []);
 
-    const checkTheme = () =>{
-      if(theme === "dark"){
+    const checkTheme = () => {
+      if (theme === "dark") {
         return true;
-      }
-      else  if(theme === "light"){
+      } else if (theme === "light") {
         return false;
       }
-    }
+    };
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View
+          style={[
+            styles.header,
+            {
+              backgroundColor: checkTheme()
+                ? COLORS.BG_SIGN_UP
+                : COLORS.PRIMARY,
+            },
+          ]}
+        >
           <HeaderBtn onPress={() => navigation.navigate("HomeTabs")} />
           <CustomText weight="bold" style={styles.headertxt}>
             Favourites
@@ -78,7 +93,8 @@ export const FavList = connect(mapStateToProps, { getAndListenFavsList})(
                     durationType: item.durationType,
                     portion: item.portion,
                     photo: item.photo,
-                  })}
+                  })
+                }
               />
             )}
           />

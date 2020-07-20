@@ -4,32 +4,51 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { COLORS } from "../../styles/color";
 import { CustomText } from "../../components/CustomText";
 import { GLOBAL_STYLES } from "../../styles/globalStyles";
-export const RecipesItem = ({
-  title,
-  count,
-  unit,
-  isCurrentOnEdit = false,
-  onEditPress,
-}) => {
-  return (
-    <TouchableOpacity
-      style={styles.container}
-      disabled={isCurrentOnEdit}
-      onPress={onEditPress}
-    >
-      <View style={styles.row}>
-        <CustomText weight="semi" style={styles.name}>
-          {title}
-        </CustomText>
-        <View style={styles.countWrapper}>
-          <CustomText style={styles.count}>
-            {count} {unit}
+import { connect } from "react-redux";
+import { getTheme } from "../../store/theme";
+
+const mapStateToProps = (state) => ({
+  theme: getTheme(state),
+});
+
+export const RecipesItem = connect(mapStateToProps)(
+  ({ title, count, unit, isCurrentOnEdit = false, onEditPress, theme }) => {
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
+    return (
+      <TouchableOpacity
+        style={styles.container}
+        disabled={isCurrentOnEdit}
+        onPress={onEditPress}
+      >
+        <View
+          style={[
+            styles.row,
+            {
+              backgroundColor: checkTheme()
+                ? COLORS.BG_SIGN_UP
+                : COLORS.PRIMARY,
+            },
+          ]}
+        >
+          <CustomText weight="semi" style={styles.name}>
+            {title}
           </CustomText>
+          <View style={styles.countWrapper}>
+            <CustomText style={styles.count}>
+              {count} {unit}
+            </CustomText>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   row: {
