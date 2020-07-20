@@ -16,14 +16,23 @@ const mapStateToProps = (state) => ({
   theme: getTheme(state)
 });
 
-export const HomeTabs = connect(mapStateToProps)((theme,getTheme) => (
+// const checkTheme = () =>{
+//   if(theme === "dark"){
+//     return true;
+//   }
+//   else  if(theme === "light"){
+//     return false;
+//   }
+// };
+
+export const HomeTabs = connect(mapStateToProps)(({theme}) => (
 
   <Navigator
     tabBarOptions={{
       showLabel: false,
       style: {
         // backgroundColor : 
-        // checkTheme() ? COLORS.BG_LOGIN : COLORS.PRIMARY,
+        // checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
         backgroundColor: COLORS.PRIMARY,
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
@@ -79,11 +88,3 @@ export const HomeTabs = connect(mapStateToProps)((theme,getTheme) => (
     />
   </Navigator>
 ))
-const checkTheme = () =>{
-  if(theme === "dark"){
-    return true;
-  }
-  else  if(theme === "light"){
-    return false;
-  }
-};

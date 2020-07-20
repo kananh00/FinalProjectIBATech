@@ -5,23 +5,49 @@ import { COLORS } from "../../styles/color";
 import { CustomText } from "../../components/CustomText";
 import { GLOBAL_STYLES } from "../../styles/globalStyles";
 import { IMAGES } from "../../styles/images";
-export const SingleComment = ({uPhoto, text }) => {
-  return (
-    <TouchableOpacity style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.imgWrapper}>
-          <Image
-            style={styles.userImg}
-            source={uPhoto ? { uri: uPhoto } : IMAGES.avatar}
-          />
+import { connect } from "react-redux";
+import { getTheme } from "../../store/theme";
+
+const mapStateToProps = (state) => ({
+  theme: getTheme(state),
+});
+
+export const SingleComment = connect(mapStateToProps)(
+  ({ uPhoto, text, theme }) => {
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
+
+    return (
+      <TouchableOpacity style={styles.container}>
+        <View
+          style={[
+            styles.row,
+            {
+              backgroundColor: checkTheme()
+                ? COLORS.BG_SIGN_UP
+                : COLORS.PRIMARY,
+            },
+          ]}
+        >
+          <View style={styles.imgWrapper}>
+            <Image
+              style={styles.userImg}
+              source={uPhoto ? { uri: uPhoto } : IMAGES.avatar}
+            />
+          </View>
+          <CustomText numberOfLines={1} weight="semi" style={styles.text}>
+            {text}
+          </CustomText>
         </View>
-        <CustomText numberOfLines = {1} weight="semi" style={styles.text}>
-          {text}
-        </CustomText>
-      </View>
-    </TouchableOpacity>
-  );
-};
+      </TouchableOpacity>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   row: {
@@ -42,7 +68,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     borderWidth: 2,
     borderColor: "white",
-    
+
     borderRadius: 100,
     width: 50,
     height: 50,
@@ -52,7 +78,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   text: {
-      marginLeft: 10,
-      maxWidth: "80%",
-  }
+    marginLeft: 10,
+    maxWidth: "80%",
+  },
 });
