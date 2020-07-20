@@ -18,13 +18,16 @@ import { selectWishlist, getAndListenWishList } from "../store/wishAndFav";
 import {selectAuthUserID} from '../store/auth';
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
+import { getTheme } from "../store/theme";
 const mapStateToProps = (state, { route }) => ({
   wishes: selectWishlist(state),
   userID: selectAuthUserID(state),
+  theme: getTheme(state)
+
 });
 
 export const WishList = connect(mapStateToProps, { getAndListenWishList })(
-  ({ route, wishes, userID, getAndListenWishList, recipe, navigation }) => {
+  ({ route, wishes, userID, getAndListenWishList, recipe, navigation,theme }) => {
     const [isDelete, setIsDelete] = useState(false);
     const deleteWished = (title) => {
       fbApp.db.ref(`users/${userID}/wishlist/${title}`).remove();
@@ -37,9 +40,21 @@ export const WishList = connect(mapStateToProps, { getAndListenWishList })(
       return unsubscribe;
     }, []);
 
+    const checkTheme = () =>{
+      if(theme === "dark"){
+        return true;
+      }
+      else  if(theme === "light"){
+        return false;
+      }
+    }
+
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header,{
+           backgroundColor : 
+           checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
+        }]}>
           <HeaderBtn onPress={() => navigation.navigate("HomeTabs")} />
           <CustomText weight="bold" style={styles.headertxt}>
             My Wishlist

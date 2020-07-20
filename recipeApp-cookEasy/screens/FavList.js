@@ -18,13 +18,16 @@ import { selectFavorites, getAndListenFavsList} from "../store/wishAndFav";
 import {selectAuthUserID} from '../store/auth';
 import { connect } from "react-redux";
 import { RecipesList } from "./RecipeScreen/RecipesList";
+import { getTheme } from "../store/theme";
 const mapStateToProps = (state, { route }) => ({
   favorites: selectFavorites(state),
   userID: selectAuthUserID(state),
+  theme: getTheme(state)
+
 });
 
 export const FavList = connect(mapStateToProps, { getAndListenFavsList})(
-  ({ route, favorites, userID, getAndListenFavsList, recipe, navigation }) => {
+  ({ route, favorites, userID, getAndListenFavsList, recipe, navigation,theme }) => {
       const [isDelete, setIsDelete] = useState(false);
 
     const deleteFav = (title) => {
@@ -34,6 +37,15 @@ export const FavList = connect(mapStateToProps, { getAndListenFavsList})(
     useEffect(() => {
       getAndListenFavsList();
     }, []);
+
+    const checkTheme = () =>{
+      if(theme === "dark"){
+        return true;
+      }
+      else  if(theme === "light"){
+        return false;
+      }
+    }
 
     return (
       <View style={styles.container}>

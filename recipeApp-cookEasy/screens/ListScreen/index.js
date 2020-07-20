@@ -28,6 +28,7 @@ import { IngredientForm } from "./IngredientForm";
 import { CommentForm } from "./CommentForm";
 import fbApp from "../../firebaseInit";
 import { selectAuthUserID, selectAuthPhoto } from "../../store/auth";
+import { getTheme, setTheme } from "../../store/theme";
 
 const singeIngredientEditInitialState = {
   status: false,
@@ -40,6 +41,8 @@ const mapStateToProps = (state, { route }) => ({
   userPhoto: selectAuthPhoto(state),
   favorite: selectFavorites(state),
   wished: selectWishlist(state),
+  theme: getTheme(state)
+
 });
 
 export const ListScreen = connect(mapStateToProps, {
@@ -52,6 +55,7 @@ export const ListScreen = connect(mapStateToProps, {
     recipe,
     favorite,
     wished,
+    theme,
     addIngredient,
     updateIngredient,
     addComment,
@@ -125,6 +129,16 @@ export const ListScreen = connect(mapStateToProps, {
     const addHandler = createDispatchHandler(addIngredient);
     const updateIngredientHandler = createDispatchHandler(updateIngredient);
     const addCommentHandler = createDispatchHandler(addComment);
+    
+    const checkTheme = () =>{
+      if(theme === "dark"){
+        return true;
+      }
+      else  if(theme === "light"){
+        return false;
+      }
+    }
+    
     return (
       <ScrollView style={styles.wrapper}>
         <View style={styles.recipeText}>

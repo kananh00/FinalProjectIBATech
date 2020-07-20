@@ -8,15 +8,17 @@ import { selectAuthUsername, selectAuthPhoto } from "../store/auth";
 import { CustomText } from "../components/CustomText";
 import { COLORS } from "../styles/color";
 import { HeaderBtn } from "../components/HeaderBtn";
+import { getTheme } from "../store/theme";
 
 const mapStateToProps = (state, { route }) => ({
   photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
   allRecipes: getRecipes(state),
+  theme: getTheme(state)
 });
 
 export const MyRecipesScreen = connect(mapStateToProps, { deleteRecipe })(
-  ({ navigation, allRecipes, deleteRecipe, photo, username, route }) => {
+  ({ navigation, allRecipes, deleteRecipe, photo, username, route,theme }) => {
     const deleteHandler = (recipeID, recipeTitle) => {
       Alert.alert(
         "Delete Recipe",
@@ -37,10 +39,18 @@ export const MyRecipesScreen = connect(mapStateToProps, { deleteRecipe })(
         ]
       );
     };
-
+    const checkTheme = () =>{
+      if(theme === "dark"){
+        return true;
+      }
+      else  if(theme === "light"){
+        return false;
+      }
+    }
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={[styles.header,{ backgroundColor : 
+         checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,}]}>
           <HeaderBtn onPress={() => navigation.navigate("HomeTabs")} />
 
           <CustomText style={styles.headertxt} weight="bold">
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: COLORS.PRIMARY,
+    // backgroundColor: COLORS.PRIMARY,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomLeftRadius: 40,

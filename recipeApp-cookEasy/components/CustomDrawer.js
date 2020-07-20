@@ -19,23 +19,36 @@ import { logOut } from "../store/auth";
 import { COLORS } from "../styles/color";
 import { getTheme,setTheme } from "../store/theme";
 import { Toggle } from "@ui-kitten/components";
+
 const mapStateToProps = (state) => ({
   theme: getTheme(state)
 });
 export const CustomDrawer = connect(mapStateToProps,{setTheme, logOut })(
   ({ navigation, username, photo, logOut,theme,setTheme }) => {
   
+
+
     const themeHandler = (val) => {
     if (val) setTheme("dark");
     else setTheme("light");
+
+    console.log(theme);
   };
 
 
-
+const checkTheme = () =>{
+  if(theme === "dark"){
+    return true;
+  }
+  else  if(theme === "light"){
+    return false;
+  }
+}
     return (
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.upperpart}>
+          <View style={[styles.upperpart,]}>
+
             <CustomText weight="bold" style={styles.drawertxt}>
               cookEasy
             </CustomText>
@@ -47,9 +60,10 @@ export const CustomDrawer = connect(mapStateToProps,{setTheme, logOut })(
               {username}
             </CustomText>
           </View>
+          <CustomText weight="bold" style={{textAlign:"center"}}>Change Theme</CustomText>
           <View style={styles.changetheme}>
        
-          <CustomText>{theme === "light" ? "Yellow theme" : "Dark theme"}</CustomText>
+          <CustomText>{theme === "light" ? "Yellow theme" : "Blue theme"}</CustomText>
           <Toggle
             checked={theme === "dark" ? true : false}
             onChange={themeHandler}
@@ -108,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   upperpart: {
-    backgroundColor: COLORS.DRAWER_MENU,
+  backgroundColor:  COLORS.DRAWER_MENU,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     alignItems: "center",
