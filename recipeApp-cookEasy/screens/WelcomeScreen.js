@@ -7,7 +7,7 @@ import { CustomText } from "../components/CustomText";
 import { CustomBtn } from "../components/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 
-export const HomeScreen = ({ navigation }) => {
+export const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.upper}>
