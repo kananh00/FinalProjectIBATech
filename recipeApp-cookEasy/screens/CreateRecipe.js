@@ -93,7 +93,9 @@ export const CreateRecipe = connect(mapStateToProps, { addRecipe })(
 
     return (
       <View style={styles.wrapper}>
-        <KeyboardAvoidingView behavior="padding">
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
           <View
             style={[
               styles.header,

@@ -81,7 +81,7 @@ export const Login = connect(null, { logIn, signUp })(
             cookEasy
           </CustomText>
 
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
             {fieldsKeys.current.map((key) => {
               if (fields[key] !== fields.password) {
                 return (

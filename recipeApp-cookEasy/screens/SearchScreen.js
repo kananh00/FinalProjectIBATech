@@ -91,7 +91,7 @@ export const SearchScreen = connect(mapStateToProps, { deleteRecipe })(
               <RecipesList
                 name={item.name}
                 image={item.imageUri}
-                portion={item.portion}
+                userPhoto={item.photo}
                 onPress={() =>
                   navigation.navigate("List", {
                     addMode: false,
