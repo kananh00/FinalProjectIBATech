@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   Text,
+  KeyboardAvoidingView,
   View,
   TouchableOpacity,
 } from "react-native";
@@ -138,97 +139,106 @@ export const ListScreen = connect(mapStateToProps, {
     };
 
     return (
-      <ScrollView style={styles.wrapper}>
-        <View style={styles.recipeText}>
-          <View style={styles.imgWrapper}>
-            <Image style={styles.recipeImg} source={{ uri: image }} />
-            <MaterialIcons
-              style={styles.backArrow}
-              onPress={() => navigation.navigate("HomeTabs")}
-              name="arrow-back"
-              size={35}
-              color="white"
-            />
-          </View>
-          <View style={styles.content}>
-            <TouchableOpacity onPress={movetoFavlist}>
-              <View
-                style={[
-                  styles.favorite,
-                  {
-                    backgroundColor: checkTheme()
-                      ? COLORS.BG_SIGN_UP
-                      : COLORS.PRIMARY,
-                  },
-                ]}
-              >
-                <Image
-                  style={styles.icons}
-                  source={isFavorite ? ICONS.heart : ICONS.heartEmpty}
-                />
-              </View>
-            </TouchableOpacity>
-            <View style={styles.contentWrapper}>
-              <CustomText weight="semi" style={styles.title}>
-                {title}
-              </CustomText>
-              <View style={styles.cover}>
-                <View style={styles.row}>
-                  <View style={styles.iconWrapper}>
-                    <Image style={styles.icons} source={ICONS.clock} />
-                    <CustomText>
-                      {duration} {durationType}
-                    </CustomText>
-                  </View>
-
-                  <View style={styles.iconWrapper}>
-                    <Image style={styles.icons} source={ICONS.dinner} />
-                    <CustomText>{portion} person</CustomText>
-                  </View>
-
-                  <TouchableOpacity onPress={movetoWisthlist}>
-                    <View style={styles.iconWrapper}>
-                      <Image style={styles.icons} source={ICONS.eventColored} />
-                      {!isWished && <CustomText>add to wishlist</CustomText>}
-                      {isWished && <CustomText>in wishlist</CustomText>}
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <CustomText weight="semi" style={styles.text}>
-                How to make it
-              </CustomText>
-              <CustomText style={styles.description}>{desc}</CustomText>
-              <CustomText weight="semi" style={styles.text}>
-                Ingredients
-              </CustomText>
-            </View>
-
-            {addMode && (
-              <IngredientForm
-                singeIngredientEditState={singeIngredientEditState}
-                addHandler={addHandler}
-                updateIngredientHandler={updateIngredientHandler}
-                finishSingleIngredientEdit={finishSingleIngredientEdit}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.recipeText}>
+            <View style={styles.imgWrapper}>
+              <Image style={styles.recipeImg} source={{ uri: image }} />
+              <MaterialIcons
+                style={styles.backArrow}
+                onPress={() => navigation.navigate("HomeTabs")}
+                name="arrow-back"
+                size={35}
+                color="white"
               />
-            )}
+            </View>
+            <View style={styles.content}>
+              <TouchableOpacity onPress={movetoFavlist}>
+                <View
+                  style={[
+                    styles.favorite,
+                    {
+                      backgroundColor: checkTheme()
+                        ? COLORS.BG_SIGN_UP
+                        : COLORS.PRIMARY,
+                    },
+                  ]}
+                >
+                  <Image
+                    style={styles.icons}
+                    source={isFavorite ? ICONS.heart : ICONS.heartEmpty}
+                  />
+                </View>
+              </TouchableOpacity>
+              <View style={styles.contentWrapper}>
+                <CustomText weight="semi" style={styles.title}>
+                  {title}
+                </CustomText>
+                <View style={styles.cover}>
+                  <View style={styles.row}>
+                    <View style={styles.iconWrapper}>
+                      <Image style={styles.icons} source={ICONS.clock} />
+                      <CustomText>
+                        {duration} {durationType}
+                      </CustomText>
+                    </View>
 
-            <RecipeContent
-              ingredients={recipe.ingredients}
-              currentEditIngredientID={singeIngredientEditState.ingredient?.id}
-              onEditPress={initSingleIngredientEdit}
-            />
-            <CustomText weight="semi" style={styles.text}>
-              Comments
-            </CustomText>
-            <CommentForm
-              addCommentHandler={addCommentHandler}
-              userPhoto={userPhoto}
-            />
-            <Comments comments={recipe.comments} />
+                    <View style={styles.iconWrapper}>
+                      <Image style={styles.icons} source={ICONS.dinner} />
+                      <CustomText>{portion} person</CustomText>
+                    </View>
+
+                    <TouchableOpacity onPress={movetoWisthlist}>
+                      <View style={styles.iconWrapper}>
+                        <Image
+                          style={styles.icons}
+                          source={ICONS.eventColored}
+                        />
+                        {!isWished && <CustomText>add to wishlist</CustomText>}
+                        {isWished && <CustomText>in wishlist</CustomText>}
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <CustomText weight="semi" style={styles.text}>
+                  How to make it
+                </CustomText>
+                <CustomText style={styles.description}>{desc}</CustomText>
+                <CustomText weight="semi" style={styles.text}>
+                  Ingredients
+                </CustomText>
+              </View>
+
+              {addMode && (
+                <IngredientForm
+                  singeIngredientEditState={singeIngredientEditState}
+                  addHandler={addHandler}
+                  updateIngredientHandler={updateIngredientHandler}
+                  finishSingleIngredientEdit={finishSingleIngredientEdit}
+                />
+              )}
+
+              <RecipeContent
+                ingredients={recipe.ingredients}
+                currentEditIngredientID={
+                  singeIngredientEditState.ingredient?.id
+                }
+                onEditPress={initSingleIngredientEdit}
+              />
+              <CustomText weight="semi" style={styles.text}>
+                Comments
+              </CustomText>
+              <CommentForm
+                addCommentHandler={addCommentHandler}
+                userPhoto={userPhoto}
+              />
+              <Comments comments={recipe.comments} />
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 );

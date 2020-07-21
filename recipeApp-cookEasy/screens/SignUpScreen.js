@@ -100,7 +100,9 @@ export const SignUp = connect(null, { signUp })(({ navigation, signUp }) => {
       </View>
 
       <View style={styles.wrapper}>
-        <KeyboardAvoidingView behavior="padding">
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
           {fieldsKeys.current.map((key) => {
             if (
               fields[key] !== fields.password &&

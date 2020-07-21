@@ -121,7 +121,7 @@ export const AvatarUploader = connect(mapStateToProps, {
               onPress={() => selectImage()}
             >
               <Image style={styles.imgs} source={ICONS.photogallery} />
-              <CustomText weight="semi">Selecet photo</CustomText>
+              <CustomText weight="semi">Select photo</CustomText>
             </TouchableOpacity>
           </View>
         </View>
