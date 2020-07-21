@@ -13,78 +13,82 @@ import { getTheme } from "../store/theme";
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const mapStateToProps = (state) => ({
-  theme: getTheme(state)
+  theme: getTheme(state),
 });
 
-// const checkTheme = () =>{
-//   if(theme === "dark"){
-//     return true;
-//   }
-//   else  if(theme === "light"){
-//     return false;
-//   }
-// };
-
-export const HomeTabs = connect(mapStateToProps)(({theme}) => (
-
-  <Navigator
-    tabBarOptions={{
-      showLabel: false,
-      style: {
-        // backgroundColor : 
-        // checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
-        backgroundColor: COLORS.PRIMARY,
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40,
-        height: 60,
-        // marginTop: -20,
-      },
-    }}
-    screenOptions={
-      (headerDefaultStyle,
-      ({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName = null;
-          if (route.name === "HomeStack") {
-            iconName = "home";
-          } else if (route.name === "Create") {
-            iconName = "plus-circle";
-            size = 40;
-          } else if (route.name === "UserSettings") {
-            iconName = "user-alt";
-          }
-          
-          return (
-            <FontAwesome5
-              name={iconName}
-              color={focused ? COLORS.CREATE_ACCOUNT_COLOR : "white"}
-              size={size}
-            />
-          );
-        },
-      }))
+export const HomeTabs = connect(mapStateToProps)(({ theme }) => {
+  const checkTheme = () => {
+    if (theme === "dark") {
+      return true;
+    } else if (theme === "light") {
+      return false;
     }
-  >
-    <Screen
-      name="HomeStack"
-      component={RecipeScreen}
-      options={({ navigation }) => ({
-        title: "",
-      })}
-    />
-    <Screen
-      name="Create"
-      component={CreateRecipe}
-      options={({ navigation }) => ({
-        title: "",
-      })}
-    />
-    <Screen
-      name="UserSettings"
-      component={UserSettings}
-      options={({ navigation }) => ({
-        title: "",
-      })}
-    />
-  </Navigator>
-))
+  };
+
+  return (
+    <Navigator
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          backgroundColor: checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          height: 60,
+          // marginTop: -20,
+        },
+      }}
+      screenOptions={
+        (headerDefaultStyle,
+        ({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName = null;
+            if (route.name === "HomeStack") {
+              iconName = "home";
+            } else if (route.name === "Create") {
+              iconName = "plus-circle";
+              size = 40;
+            } else if (route.name === "UserSettings") {
+              iconName = "user-alt";
+            }
+
+            return (
+              <FontAwesome5
+                name={iconName}
+                color={
+                  focused
+                    ? checkTheme()
+                      ? COLORS.PURPLE_BTN
+                      : COLORS.CREATE_ACCOUNT_COLOR
+                    : "white"
+                }
+                size={size}
+              />
+            );
+          },
+        }))
+      }
+    >
+      <Screen
+        name="HomeStack"
+        component={RecipeScreen}
+        options={({ navigation }) => ({
+          title: "",
+        })}
+      />
+      <Screen
+        name="Create"
+        component={CreateRecipe}
+        options={({ navigation }) => ({
+          title: "",
+        })}
+      />
+      <Screen
+        name="UserSettings"
+        component={UserSettings}
+        options={({ navigation }) => ({
+          title: "",
+        })}
+      />
+    </Navigator>
+  );
+});

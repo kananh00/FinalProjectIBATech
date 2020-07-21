@@ -4,10 +4,7 @@ import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { ICONS } from "../styles/icon";
 
 export const HeaderBtn = ({ iconName, onPress, side }) => (
-  <TouchableOpacity
-    style={styles.wrapper}
-    onPress={onPress}
-  >
+  <TouchableOpacity style={styles.wrapper} onPress={onPress}>
     <Image style={styles.icon} source={ICONS.back || ""} />
   </TouchableOpacity>
 );

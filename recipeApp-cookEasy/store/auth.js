@@ -10,7 +10,7 @@ const CHANGE_USERNAME = "CHANGE_USERNAME";
 
 // // SELECTORS
 export const MODULE_NAME = "auth";
-export const selectAuthStatus = state => state[MODULE_NAME].status;
+export const selectAuthStatus = (state) => state[MODULE_NAME].status;
 export const selectAuthUserID = (state) => state[MODULE_NAME].userID;
 export const selectAuthUsername = (state) => state[MODULE_NAME].username;
 export const selectAuthPhoto = (state) => state[MODULE_NAME].photo;
@@ -20,16 +20,14 @@ const initialState = {
   userID: null,
   username: null,
   photo: null,
-
 };
 
 export function reducer(state = initialState, { type, payload }) {
-  switch (type ) {
+  switch (type) {
     case SET_AUTH_STATUS:
       return {
         ...state,
         status: payload,
-   
       };
     case SET_AUTH_SUCCESS:
       return {
@@ -44,11 +42,11 @@ export function reducer(state = initialState, { type, payload }) {
         ...state,
         photo: payload,
       };
-      case CHANGE_USERNAME:
-        return {
-          ...state,
-          username: payload,
-        };
+    case CHANGE_USERNAME:
+      return {
+        ...state,
+        username: payload,
+      };
     case SET_AUTH_LOGOUT:
       return {
         ...state,
@@ -90,18 +88,16 @@ export const logIn = (email, password) => async (dispatch) => {
   try {
     const {
       user: { uid },
-    } = await  fbApp.auth.signInWithEmailAndPassword(email, password);
-    
+    } = await fbApp.auth.signInWithEmailAndPassword(email, password);
+
     const userDataSnapshot = await fbApp.db.ref(`users/${uid}`).once("value");
     const { username, photo } = userDataSnapshot.val();
 
     dispatch(setAuthSuccess({ userID: uid, username, photo }));
-  }
-  catch (error){
+  } catch (error) {
     Alert.alert(error.message);
   }
 };
-    
 
 export const signUp = (email, password, username) => async (dispatch) => {
   try {
@@ -115,8 +111,7 @@ export const signUp = (email, password, username) => async (dispatch) => {
     });
 
     dispatch(setAuthSuccess({ userID: uid, username }));
-  } catch (error) {
-  }
+  } catch (error) {}
 };
 export const editUsername = (username) => async (dispatch, getState) => {
   try {
@@ -139,8 +134,7 @@ export const logOut = () => async (dispatch) => {
 
 export const uploadAuthPhoto = (uri) => async (dispatch, getState) => {
   try {
-    
-    const response = await fetch(uri); 
+    const response = await fetch(uri);
     const blob = await response.blob();
     const key = (await fbApp.db.ref("keys").push()).key;
     const snap = await fbApp.storage.ref(key).put(blob);
@@ -153,4 +147,3 @@ export const uploadAuthPhoto = (uri) => async (dispatch, getState) => {
     Alert.alert(error.message);
   }
 };
-

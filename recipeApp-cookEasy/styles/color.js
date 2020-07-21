@@ -8,4 +8,6 @@ export const COLORS = Object.freeze({
     ADD_COMMENT: "#DDA0DD",
     BUTTON_TEXT: "white",
     FIELD_BG: "#D9D9D9",
+    PURPLE_BTN:"#900c3f",
+    GREEN:"#96bb7c"
 });

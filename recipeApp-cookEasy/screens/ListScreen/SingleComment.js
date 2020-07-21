@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: GLOBAL_STYLES.BORDER_RADIUS,
     borderColor: "transparent",
-    backgroundColor: COLORS.PRIMARY,
     marginBottom: 10,
     paddingVertical: 7,
     alignItems: "center",

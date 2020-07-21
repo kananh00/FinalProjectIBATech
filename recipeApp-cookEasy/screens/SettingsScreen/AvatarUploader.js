@@ -31,8 +31,7 @@ import { getTheme } from "../../store/theme";
 const mapStateToProps = (state) => ({
   photo: selectAuthPhoto(state),
   username: selectAuthUsername(state),
-  theme: getTheme(state)
-
+  theme: getTheme(state),
 });
 
 const imagePickerOptions = {
@@ -44,7 +43,7 @@ const imagePickerOptions = {
 export const AvatarUploader = connect(mapStateToProps, {
   uploadAuthPhoto,
   editUsername,
-})(({ photo, username, uploadAuthPhoto, editUsername,theme }) => {
+})(({ photo, username, uploadAuthPhoto, editUsername, theme }) => {
   const selectImage = async (isCamera) => {
     try {
       const permission = await requestCameraPermissions();
@@ -64,14 +63,13 @@ export const AvatarUploader = connect(mapStateToProps, {
     } catch (error) {}
   };
 
-  const checkTheme = () =>{
-    if(theme === "dark"){
+  const checkTheme = () => {
+    if (theme === "dark") {
       return true;
-    }
-    else  if(theme === "light"){
+    } else if (theme === "light") {
       return false;
     }
-  }
+  };
   const fieldsInitialState = {
     username: username,
   };
@@ -102,11 +100,12 @@ export const AvatarUploader = connect(mapStateToProps, {
         />
         <View style={styles.imgWrapper}>
           <Image
-            style={[styles.photo,{
-              borderColor: checkTheme()
-              ? COLORS.BG_SIGN_UP
-              : COLORS.PRIMARY,
-            }]}
+            style={[
+              styles.photo,
+              {
+                borderColor: checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
+              },
+            ]}
             source={photo ? { uri: photo } : IMAGES.avatar}
           />
           <View style={{ flexDirection: "row" }}>
@@ -127,7 +126,13 @@ export const AvatarUploader = connect(mapStateToProps, {
           </View>
         </View>
 
-        <CustomBtn title={"save changes"} onPress={onSubmit} />
+        <CustomBtn
+          style={{
+            backgroundColor: checkTheme() ? COLORS.PURPLE_BTN : COLORS.PRIMARY,
+          }}
+          title={"save changes"}
+          onPress={onSubmit}
+        />
       </KeyboardAvoidingView>
     </View>
   );
@@ -143,7 +148,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: 150,
     height: 150,
-    borderColor: COLORS.PRIMARY,
     marginVertical: 25,
   },
   editbtn: {
