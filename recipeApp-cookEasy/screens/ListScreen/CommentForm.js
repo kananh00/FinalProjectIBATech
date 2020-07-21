@@ -17,11 +17,13 @@ import { COLORS } from "../../styles/color";
 import { ICONS } from "../../styles/icon";
 import { IMAGES } from "../../styles/images";
 import { FONT_FAMILIES } from "../../styles/fonts";
-const fieldInitialState = {
-  text: "",
-};
 
 export const CommentForm = ({ addCommentHandler, userPhoto }) => {
+  const fieldInitialState = {
+  text: "",
+  uPhoto: userPhoto
+};
+
   const [fields, setFields] = useState(fieldInitialState);
   const fieldChangeHandler = (name, value) => {
     setFields((fields) => ({
@@ -39,8 +41,7 @@ export const CommentForm = ({ addCommentHandler, userPhoto }) => {
 
   const onAddComment = () => {
     if (validateForm()) {
-      const uPhoto = userPhoto;
-      addCommentHandler({ comment: fields, uPhoto });
+      addCommentHandler({ comment: fields});
       setFields(fieldInitialState);
     }
   };

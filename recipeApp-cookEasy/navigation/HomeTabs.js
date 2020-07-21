@@ -37,7 +37,7 @@ export const HomeTabs = connect(mapStateToProps)(({theme}) => (
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         height: 60,
-        marginTop: -20,
+        // marginTop: -20,
       },
     }}
     screenOptions={
