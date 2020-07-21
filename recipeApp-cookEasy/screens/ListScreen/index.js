@@ -28,7 +28,7 @@ import { IngredientForm } from "./IngredientForm";
 import { CommentForm } from "./CommentForm";
 import fbApp from "../../firebaseInit";
 import { selectAuthUserID, selectAuthPhoto } from "../../store/auth";
-import { getTheme, setTheme } from "../../store/theme";
+import { getTheme } from "../../store/theme";
 
 const singeIngredientEditInitialState = {
   status: false,
@@ -41,8 +41,7 @@ const mapStateToProps = (state, { route }) => ({
   userPhoto: selectAuthPhoto(state),
   favorite: selectFavorites(state),
   wished: selectWishlist(state),
-  theme: getTheme(state)
-
+  theme: getTheme(state),
 });
 
 export const ListScreen = connect(mapStateToProps, {
@@ -129,16 +128,15 @@ export const ListScreen = connect(mapStateToProps, {
     const addHandler = createDispatchHandler(addIngredient);
     const updateIngredientHandler = createDispatchHandler(updateIngredient);
     const addCommentHandler = createDispatchHandler(addComment);
-    
-    const checkTheme = () =>{
-      if(theme === "dark"){
+
+    const checkTheme = () => {
+      if (theme === "dark") {
         return true;
-      }
-      else  if(theme === "light"){
+      } else if (theme === "light") {
         return false;
       }
-    }
-    
+    };
+
     return (
       <ScrollView style={styles.wrapper}>
         <View style={styles.recipeText}>
@@ -154,7 +152,16 @@ export const ListScreen = connect(mapStateToProps, {
           </View>
           <View style={styles.content}>
             <TouchableOpacity onPress={movetoFavlist}>
-              <View style={styles.favorite}>
+              <View
+                style={[
+                  styles.favorite,
+                  {
+                    backgroundColor: checkTheme()
+                      ? COLORS.BG_SIGN_UP
+                      : COLORS.PRIMARY,
+                  },
+                ]}
+              >
                 <Image
                   style={styles.icons}
                   source={isFavorite ? ICONS.heart : ICONS.heartEmpty}
@@ -240,7 +247,6 @@ const styles = StyleSheet.create({
   favorite: {
     borderWidth: 4,
     borderColor: "white",
-    backgroundColor: COLORS.PRIMARY,
     borderRadius: 100,
     width: 60,
     height: 60,

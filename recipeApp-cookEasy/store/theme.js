@@ -4,8 +4,7 @@ export const MODULE_NAME = "theme";
 
 export const getTheme = (state) => state[MODULE_NAME].theme;
 
-
-const initialState = {  theme: "light" };
+const initialState = { theme: "light" };
 
 export function reducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -23,4 +22,3 @@ export const setTheme = (payload) => ({
   type: SET_THEME,
   payload,
 });
-

@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BUTTON_TEXT,
   },
   header: {
-    backgroundColor: COLORS.PRIMARY,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomLeftRadius: 40,

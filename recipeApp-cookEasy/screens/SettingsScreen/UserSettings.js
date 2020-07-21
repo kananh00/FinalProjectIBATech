@@ -16,43 +16,46 @@ import { HeaderBtn } from "../../components/HeaderBtn";
 import { getTheme } from "../../store/theme";
 import { connect } from "react-redux";
 
-
 const mapStateToProps = (state) => ({
-  theme: getTheme(state)
+  theme: getTheme(state),
 });
 
 const { Navigator, Screen } = createStackNavigator();
 
+export const UserSettings = connect(mapStateToProps)(
+  ({ username, navigation, theme }) => {
+    const checkTheme = () => {
+      if (theme === "dark") {
+        return true;
+      } else if (theme === "light") {
+        return false;
+      }
+    };
 
-export const UserSettings = connect(mapStateToProps)(({ username, navigation,theme }) => {
- 
- 
-const checkTheme = () =>{
-  if(theme === "dark"){
-    return true;
-  }
-  else  if(theme === "light"){
-    return false;
-  }
-}
+    return (
+      <View style={styles.container}>
+        <View
+          style={[
+            styles.header,
+            {
+              backgroundColor: checkTheme()
+                ? COLORS.BG_SIGN_UP
+                : COLORS.PRIMARY,
+            },
+          ]}
+        >
+          <CustomText weight="bold" style={styles.headertxt}>
+            User Settings
+          </CustomText>
+        </View>
 
-  return (
-    <View style={styles.container}>
-      <View style={[styles.header,{
-         backgroundColor : 
-         checkTheme() ? COLORS.BG_SIGN_UP : COLORS.PRIMARY,
-      }]}>
-        <CustomText weight="bold" style={styles.headertxt}>
-          User Settings
-        </CustomText>
+        <View style={{ alignItems: "center" }}>
+          <AvatarUploader />
+        </View>
       </View>
-
-      <View style={{ alignItems: "center" }}>
-        <AvatarUploader />
-      </View>
-    </View>
-  )
-})
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -60,7 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BUTTON_TEXT,
   },
   header: {
-    // backgroundColor: COLORS.PRIMARY,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomLeftRadius: 40,

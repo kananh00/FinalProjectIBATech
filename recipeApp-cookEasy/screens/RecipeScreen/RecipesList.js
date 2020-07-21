@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
   cover: {
     width: "90%",
     borderWidth: 2,
-    borderColor: COLORS.PRIMARY,
     borderRadius: 20,
     padding: 8,
     marginTop: GLOBAL_STYLES.MARGIN,
@@ -205,7 +204,6 @@ const styles = StyleSheet.create({
   userFavImg: {
     width: 43,
     height: 43,
-    borderColor: COLORS.PRIMARY,
     borderRadius: 100,
     borderWidth: 2,
   },
@@ -215,13 +213,11 @@ const styles = StyleSheet.create({
   recipeImg: {
     ...StyleSheet.absoluteFill,
     borderWidth: 2,
-    borderColor: COLORS.PRIMARY,
     borderRadius: 20,
   },
   userImg: {
     ...StyleSheet.absoluteFill,
     borderWidth: 2,
-    borderColor: COLORS.PRIMARY,
     borderRadius: 100,
     width: 50,
     height: 50,
@@ -239,6 +235,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 5,
-    backgroundColor: COLORS.PRIMARY,
   },
 });

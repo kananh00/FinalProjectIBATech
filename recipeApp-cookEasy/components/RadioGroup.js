@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   radioBtn: {
     height: 42,
     borderRadius: 25,
-    backgroundColor: COLORS.PRIMARY,
     justifyContent: "center",
     alignItems: "center",
   },

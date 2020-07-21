@@ -40,7 +40,16 @@ export const CustomDrawer = connect(mapStateToProps, { setTheme, logOut })(
     return (
       <ScrollView>
         <View style={styles.container}>
-          <View style={[styles.upperpart]}>
+          <View
+            style={[
+              styles.upperpart,
+              {
+                backgroundColor: checkTheme()
+                  ? COLORS.GREEN
+                  : COLORS.DRAWER_MENU,
+              },
+            ]}
+          >
             <CustomText weight="bold" style={styles.drawertxt}>
               cookEasy
             </CustomText>
@@ -68,7 +77,14 @@ export const CustomDrawer = connect(mapStateToProps, { setTheme, logOut })(
           <View style={styles.lists}>
             <TouchableOpacity
               onPress={() => navigation.navigate("MyRecipes")}
-              style={[styles.drawerlist, styles.addlistbtn]}
+              style={[
+                styles.drawerlist,
+                {
+                  backgroundColor: checkTheme()
+                    ? COLORS.GREEN
+                    : COLORS.DRAWER_MENU,
+                },
+              ]}
             >
               <Image style={styles.imgs} source={ICONS.cookbook} />
               <CustomText style={styles.listtext}>my recipes</CustomText>
@@ -76,7 +92,14 @@ export const CustomDrawer = connect(mapStateToProps, { setTheme, logOut })(
 
             <TouchableOpacity
               onPress={() => navigation.navigate("WishList")}
-              style={styles.drawerlist}
+              style={[
+                styles.drawerlist,
+                {
+                  backgroundColor: checkTheme()
+                    ? COLORS.GREEN
+                    : COLORS.DRAWER_MENU,
+                },
+              ]}
             >
               <Image style={styles.imgs} source={ICONS.list} />
               <CustomText style={styles.listtext}>wishlist</CustomText>
@@ -84,29 +107,45 @@ export const CustomDrawer = connect(mapStateToProps, { setTheme, logOut })(
 
             <TouchableOpacity
               onPress={() => navigation.navigate("FavList")}
-              style={styles.drawerlist}
+              style={[
+                styles.drawerlist,
+                {
+                  backgroundColor: checkTheme()
+                    ? COLORS.GREEN
+                    : COLORS.DRAWER_MENU,
+                },
+              ]}
             >
               <Image style={styles.imgs} source={ICONS.heart} />
               <CustomText style={styles.listtext}>favorites</CustomText>
             </TouchableOpacity>
-            {/* 
-            <TouchableOpacity
-              style={styles.drawerlist}
-              onPress={() => navigation.navigate("UserSettings")}
-            >
-              <Image style={styles.imgs} source={ICONS.settings} />
-              <CustomText style={styles.listtext}>user settings</CustomText>
-            </TouchableOpacity> */}
 
             <TouchableOpacity
-              style={styles.drawerlist}
+              style={[
+                styles.drawerlist,
+                {
+                  backgroundColor: checkTheme()
+                    ? COLORS.GREEN
+                    : COLORS.DRAWER_MENU,
+                },
+              ]}
               onPress={() => navigation.navigate("Search")}
             >
               <Image style={styles.imgs} source={ICONS.search} />
               <CustomText style={styles.listtext}>search</CustomText>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={logOut} style={styles.logoutbtn}>
+            <TouchableOpacity
+              onPress={logOut}
+              style={[
+                styles.logoutbtn,
+                {
+                  backgroundColor: checkTheme()
+                    ? COLORS.PURPLE_BTN
+                    : COLORS.CREATE_ACCOUNT_COLOR,
+                },
+              ]}
+            >
               <CustomText weight="semi" style={styles.listtext}>
                 LOG OUT
               </CustomText>
@@ -151,7 +190,6 @@ const styles = StyleSheet.create({
   drawerlist: {
     marginBottom: 16,
     height: 44,
-    backgroundColor: COLORS.DRAWER_MENU,
     alignItems: "center",
     marginHorizontal: 20,
     borderRadius: 15,
@@ -164,7 +202,6 @@ const styles = StyleSheet.create({
     marginRight: 30,
   },
   logoutbtn: {
-    backgroundColor: COLORS.CREATE_ACCOUNT_COLOR,
     flexDirection: "row",
     marginHorizontal: 20,
     height: 44,

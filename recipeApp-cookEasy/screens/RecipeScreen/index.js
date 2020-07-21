@@ -92,7 +92,6 @@ export const RecipeScreen = connect(mapStateToProps)(
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: COLORS.PRIMARY,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomLeftRadius: 40,
